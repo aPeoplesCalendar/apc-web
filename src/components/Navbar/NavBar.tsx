@@ -39,6 +39,10 @@ export const NavBar = () => {
       navText: "About",
       route: ROUTES.ABOUT,
     },
+    {
+      navText: "Contact",
+      route: ROUTES.CONTACT,
+    }
   ];
 
   return (
