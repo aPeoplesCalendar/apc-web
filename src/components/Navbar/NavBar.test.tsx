@@ -38,6 +38,10 @@ describe("NavBar", () => {
       navText: "Calendar",
       route: ROUTES.CALENDAR,
     },
+    {
+      navText: "Contact",
+      route: ROUTES.CONTACT,
+    }
   ];
   it.each(navTextAndRoutes)(
     "clicking full nav bar links navigates as expected",
