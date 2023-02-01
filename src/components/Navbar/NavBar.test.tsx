@@ -32,15 +32,15 @@ describe("NavBar", () => {
   const navTextAndRoutes = [
     {
       navText: "About",
-      route: ROUTES.ABOUT,
+      route: { pathname: ROUTES.ABOUT, search: "" },
     },
     {
       navText: "Calendar",
-      route: ROUTES.CALENDAR_DAY,
+      route: { pathname: ROUTES.CALENDAR_DAY, search: "?day=2-1" },
     },
     {
       navText: "Contact",
-      route: ROUTES.CONTACT,
+      route: { pathname: ROUTES.CONTACT, search: "" },
     },
   ];
   it.each(navTextAndRoutes)(
