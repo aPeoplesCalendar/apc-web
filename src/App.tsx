@@ -13,13 +13,17 @@ function App() {
     <div className="App">
       <Router>
         <NavBar />
-        <Routes>
-          <Route path={ROUTES.HOME} element={<Homepage />} />
-          <Route path={ROUTES.ABOUT} element={<About />} />
-          <Route path={ROUTES.CALENDAR} element={<Calendar />} />
-          <Route path={ROUTES.CONTACT} element={<Contact />} />
-          <Route path={ROUTES.SPECIFIC_EVENT} element={<SpecificEvent />} />
-        </Routes>
+        {/* TO DO: proper layout component goes here */}
+        <div style={{ width: "80%", margin: "auto" }}>
+          <Routes>
+            <Route path={ROUTES.HOME} element={<Homepage />} />
+            <Route path={ROUTES.ABOUT} element={<About />} />
+            {/* how to standardize this route? */}
+            <Route path={"calendar/*"} element={<Calendar />} />
+            <Route path={ROUTES.CONTACT} element={<Contact />} />
+            <Route path={ROUTES.SPECIFIC_EVENT} element={<SpecificEvent />} />
+          </Routes>
+        </div>
       </Router>
     </div>
   );
