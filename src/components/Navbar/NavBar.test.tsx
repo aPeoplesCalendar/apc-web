@@ -36,7 +36,7 @@ describe("NavBar", () => {
     },
     {
       navText: "Calendar",
-      route: ROUTES.CALENDAR_GENERIC,
+      route: ROUTES.CALENDAR_DAY,
     },
     {
       navText: "Contact",

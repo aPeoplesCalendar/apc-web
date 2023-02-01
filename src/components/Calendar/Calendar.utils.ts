@@ -20,3 +20,27 @@ export const formatDateQueryParam = (dateQueryParam: string | undefined) => {
   }
   return `${year}-${month}-${queryDay}`;
 };
+
+/**
+ * to be used in converting raw date picker string to format appropriate for query param and querying db
+ * @param datePickerValue date string in the format of YYYY-MM-DD
+ * @returns date string in the format of DD-YY (no zero pads)
+ */
+export const formatRawDatePickerValue = (
+  datePickerValue: string | undefined
+) => {
+  if (!datePickerValue) {
+    return "";
+  }
+  const monthAndDay = datePickerValue.split("-");
+  // remove any zero padding from day and month
+  if (monthAndDay[1][0] === "0") {
+    monthAndDay[1] = monthAndDay[1].slice(1);
+  }
+  if (monthAndDay[2][0] === "0") {
+    monthAndDay[2] = monthAndDay[2].slice(1);
+  }
+  // create the lookup key to use with eventLibrary
+  const newDateString = [monthAndDay[1], monthAndDay[2]].join("-");
+  return newDateString;
+};

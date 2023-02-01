@@ -18,8 +18,7 @@ function App() {
           <Routes>
             <Route path={ROUTES.HOME} element={<Homepage />} />
             <Route path={ROUTES.ABOUT} element={<About />} />
-            {/* how to standardize this route? */}
-            <Route path={"calendar/*"} element={<Calendar />} />
+            <Route path={ROUTES.CALENDAR_GENERIC} element={<Calendar />} />
             <Route path={ROUTES.CONTACT} element={<Contact />} />
             <Route path={ROUTES.SPECIFIC_EVENT} element={<SpecificEvent />} />
           </Routes>

@@ -29,15 +29,14 @@ export const NavBar = () => {
     handleCloseNavMenu();
     // format of MM-DD no zero pads
     const todayString = `${new Date().getMonth() + 1}-${new Date().getDate()}`;
-    const search =
-      route === ROUTES.CALENDAR_GENERIC ? `?day=${todayString}` : "";
+    const search = route === ROUTES.CALENDAR_DAY ? `?day=${todayString}` : "";
     navigate({ pathname: route, search });
   };
 
   const pages = [
     {
       navText: "Calendar",
-      route: ROUTES.CALENDAR_GENERIC,
+      route: ROUTES.CALENDAR_DAY,
     },
     {
       navText: "About",
