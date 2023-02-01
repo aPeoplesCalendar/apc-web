@@ -27,13 +27,16 @@ export const NavBar = () => {
 
   const handleNavItemClick = (route: string) => {
     handleCloseNavMenu();
-    navigate(route);
+    // format of MM-DD no zero pads
+    const todayString = `${new Date().getMonth() + 1}-${new Date().getDate()}`;
+    const search = route === ROUTES.CALENDAR_DAY ? `?day=${todayString}` : "";
+    navigate({ pathname: route, search });
   };
 
   const pages = [
     {
       navText: "Calendar",
-      route: ROUTES.CALENDAR,
+      route: ROUTES.CALENDAR_DAY,
     },
     {
       navText: "About",
@@ -42,7 +45,7 @@ export const NavBar = () => {
     {
       navText: "Contact",
       route: ROUTES.CONTACT,
-    }
+    },
   ];
 
   return (

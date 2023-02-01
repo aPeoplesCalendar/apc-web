@@ -12,10 +12,12 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
+    "@types/material-ui": "^0.21.12",
     "@types/node": "^16.18.11",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
     "@types/react-router-dom": "^5.3.3",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.7.0",
@@ -48,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.191",
     "jest-environment-jsdom": "^29.3.1",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1"

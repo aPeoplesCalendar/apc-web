@@ -1,9 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import { render } from "../../utils/testing.utils";
 import { Calendar } from "./Calendar";
 
 describe("Calendar", () => {
-  it("renders dummy text", () => {
+  it("renders text input", () => {
     render(<Calendar />);
-    expect(screen.getByText("Calendar")).toBeInTheDocument();
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
   });
 });
