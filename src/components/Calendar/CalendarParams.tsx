@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { ChangeEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
@@ -6,10 +6,6 @@ import {
   formatDateQueryParam,
   formatRawDatePickerValue,
 } from "./Calendar.utils";
-import { SearchUI } from "./SearchUI";
-
-// make this a component with simple and complex search modes (complex is currently called SearchUI)
-// hide year from date picker?
 
 export const CalendarParams = () => {
   const { search } = useLocation();
@@ -29,14 +25,20 @@ export const CalendarParams = () => {
     });
   };
 
+  const navigateToSearch = () => {
+    navigate({
+      pathname: ROUTES.CALENDAR_SEARCH,
+    });
+  };
+
   return (
     <div>
-      <SearchUI />
       <TextField
         type="date"
         defaultValue={formatDateQueryParam(day)}
         onChange={handleNewDate}
       />
+      <Button onClick={navigateToSearch}>Advanced Search</Button>
     </div>
   );
 };
