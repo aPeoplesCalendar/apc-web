@@ -12,12 +12,12 @@ export const getTodayFormatted = () => {
 };
 
 export const getAndFormatQueryParams = (search: string) => {
-  const queryInclude = (
-    new URLSearchParams(search).get("queryInclude") ?? ""
-  ).split(" ");
-  const queryExclude = (
-    new URLSearchParams(search).get("queryExclude") ?? ""
-  ).split(" ");
+  const queryInclude = new URLSearchParams(search).get("queryInclude")
+    ? new URLSearchParams(search).get("queryInclude")?.split(" ")
+    : undefined;
+  const queryExclude = new URLSearchParams(search).get("queryExclude")
+    ? new URLSearchParams(search).get("queryExclude")?.split(" ")
+    : undefined;
   const startDate = new URLSearchParams(search).get("startDate");
   const endDate = new URLSearchParams(search).get("endDate");
   const caseSensitive = Boolean(
@@ -37,26 +37,49 @@ export const getAndFormatQueryParams = (search: string) => {
 };
 
 export interface IFormatQueryStringProps {
-  includedKeywords: string[];
-  excludedKeywords: string[];
+  includedKeywords: string[] | undefined;
+  excludedKeywords: string[] | undefined;
   newStartDate: string | null;
   newEndDate: string | null;
-  newCaseSensitive: boolean;
   newSortBy: PossibleSortByModes;
 }
 
 export const formatQueryString = ({
-  includedKeywords,
-  excludedKeywords,
+  includedKeywords = [],
+  excludedKeywords = [],
   newStartDate,
   newEndDate,
-  newCaseSensitive,
   newSortBy,
 }: IFormatQueryStringProps) => {
   const queryString = `?queryInclude=${includedKeywords.join(
     "+"
   )}&queryExclude=${excludedKeywords.join(
     "+"
-  )}&startDate=${newStartDate}&endDate=${newEndDate}&caseSensitive=${newCaseSensitive}&sortBy=${newSortBy}`;
+  )}&startDate=${newStartDate}&endDate=${newEndDate}&sortBy=${newSortBy}`;
   return queryString;
+};
+
+export const generateTextSearchQueryString = ({
+  included,
+  excluded,
+}: {
+  included: string[] | undefined;
+  excluded: string[] | undefined;
+}) => {
+  const includedKeywordsQueryString = `${
+    included ? included.map((term) => `'${term}'`).join(" & ") : ""
+  }`;
+  const excludedKeywordsQueryString = `${
+    excluded ? excluded.map((term) => `!'${term}'`).join(" & ") : ""
+  }`;
+  if (!included && !excluded) {
+    return "";
+  }
+  if (!excluded && includedKeywordsQueryString) {
+    return includedKeywordsQueryString;
+  }
+  if (!included && excludedKeywordsQueryString) {
+    return excludedKeywordsQueryString;
+  }
+  return `${includedKeywordsQueryString} & ${excludedKeywordsQueryString}`;
 };

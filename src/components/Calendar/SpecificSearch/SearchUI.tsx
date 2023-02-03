@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   FormControl,
   InputLabel,
   MenuItem,
@@ -7,7 +6,6 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import { ChangeEvent, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
@@ -18,26 +16,18 @@ import {
   getAndFormatQueryParams,
 } from "./SpecificSearch.utils";
 
-// handle pagination
-// tests?
-
 export const SearchUI = () => {
   const { search } = useLocation();
   // get query params from url
-  const {
-    queryInclude,
-    queryExclude,
-    caseSensitive,
-    startDate,
-    endDate,
-    sortBy,
-  } = getAndFormatQueryParams(search);
+  const { queryInclude, queryExclude, startDate, endDate, sortBy } =
+    getAndFormatQueryParams(search);
 
-  const [includedKeywords, setIncludedKeywords] =
-    useState<string[]>(queryInclude);
-  const [excludedKeywords, setExcludedKeywords] =
-    useState<string[]>(queryExclude);
-  const [newCaseSensitive, setNewCaseSensitive] = useState(caseSensitive);
+  const [includedKeywords, setIncludedKeywords] = useState<
+    string[] | undefined
+  >(queryInclude);
+  const [excludedKeywords, setExcludedKeywords] = useState<
+    string[] | undefined
+  >(queryExclude);
   const [newStartDate, setNewStartDate] = useState<string | null>(startDate);
   const [newEndDate, setNewEndDate] = useState<string | null>(endDate);
 
@@ -67,7 +57,6 @@ export const SearchUI = () => {
       excludedKeywords,
       newStartDate,
       newEndDate,
-      newCaseSensitive,
       newSortBy: sortBy,
     });
     navigate({ pathname: ROUTES.CALENDAR_SEARCH, search: queryString });
@@ -80,7 +69,6 @@ export const SearchUI = () => {
       excludedKeywords,
       newStartDate,
       newEndDate,
-      newCaseSensitive,
       newSortBy,
     });
     navigate({ pathname: ROUTES.CALENDAR_SEARCH, search: queryString });
@@ -92,17 +80,12 @@ export const SearchUI = () => {
         <TextField
           placeholder="Include keywords"
           onChange={handleIncludeSearchTermChange}
-          defaultValue={includedKeywords.join(", ")}
+          defaultValue={includedKeywords?.join(", ")}
         />
         <TextField
           placeholder="Exclude keywords"
           onChange={handleExcludeSearchTermChange}
-          defaultValue={excludedKeywords.join(", ")}
-        />
-        <FormControlLabel
-          control={<Checkbox checked={caseSensitive} />}
-          label="Case Sensitive"
-          onChange={() => setNewCaseSensitive(!newCaseSensitive)}
+          defaultValue={excludedKeywords?.join(", ")}
         />
         <TextField
           type="date"

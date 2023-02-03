@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { supabase } from "../../../supabaseClient";
@@ -6,21 +7,24 @@ import { QueryResultEventDisplay } from "../QueryResultEventDisplay";
 import { SortByMetaData } from "./constants";
 import { SearchUI } from "./SearchUI";
 import {
+  generateTextSearchQueryString,
   getAndFormatQueryParams,
   getTodayFormatted,
 } from "./SpecificSearch.utils";
 
 // query work to do:
-// excluded queries
+// wildcard match on text if no text search provided (or write a different query?)
 // don't return empty list if first page threshold crossed (issue with .textSearch)
-// handle case insensitivity
 // handle pagination (needs custom page tracking, fetch more)
+// push business logic functions to utils as much as possible (and test)
 
 export const SpecificSearch = () => {
   const { search } = useLocation();
   // get query params from url
-  const { queryInclude, startDate, endDate, sortBy } =
-    getAndFormatQueryParams(search);
+  const { queryInclude, queryExclude, startDate, endDate, sortBy } = useMemo(
+    () => getAndFormatQueryParams(search),
+    [search]
+  );
 
   const tableName = "events_test_duplicate";
 
@@ -28,7 +32,10 @@ export const SpecificSearch = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const includedKeywordsQueryString = queryInclude.join(" & ");
+    const fullTextQuery = generateTextSearchQueryString({
+      included: queryInclude,
+      excluded: queryExclude,
+    });
     // default start and end dates
     const queryStartDate = startDate === "null" ? "0001-01-01" : startDate;
     const queryEndDate = endDate === "null" ? getTodayFormatted() : endDate;
@@ -44,18 +51,18 @@ export const SpecificSearch = () => {
         .select<"*", DatabaseEvent>()
         .lt("date", queryEndDate)
         .gt("date", queryStartDate)
-        .textSearch("description", includedKeywordsQueryString)
+        .textSearch("description", fullTextQuery)
         .order(column, { ascending })
         .range(0, 50);
       setEvents(events as DatabaseEvent[]);
       setLoading(false);
     };
     fetchEvents();
-  }, [endDate, queryInclude, startDate, sortBy]);
+  }, [endDate, queryInclude, startDate, sortBy, queryExclude]);
 
   return (
     <div>
-      <p>Specific Day</p>
+      <p>Specific Search</p>
       <SearchUI />
       <p>{loading ? "loading" : "not loading"}</p>
       {!!events?.length &&
