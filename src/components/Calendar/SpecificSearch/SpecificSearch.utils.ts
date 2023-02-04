@@ -1,4 +1,6 @@
-import { PossibleSortByModes } from "./constants";
+import { supabase } from "../../../supabaseClient";
+import { DatabaseEvent } from "../../../types/types";
+import { PossibleSortByModes, SortByMetaData } from "./constants";
 
 export const getTodayFormatted = () => {
   const date = new Date();
@@ -82,4 +84,47 @@ export const generateTextSearchQueryString = ({
     return excludedKeywordsQueryString;
   }
   return `${includedKeywordsQueryString} & ${excludedKeywordsQueryString}`;
+};
+
+export const fetchEvents = async ({ search }: { search: string }) => {
+  const tableName = "events_test_duplicate";
+  // get raw query param values
+  const { queryInclude, queryExclude, startDate, endDate, sortBy } =
+    getAndFormatQueryParams(search);
+  // generate text search query string
+  const fullTextQuery = generateTextSearchQueryString({
+    included: queryInclude,
+    excluded: queryExclude,
+  });
+  // default start and end dates
+  const queryStartDate = startDate === "null" ? "0001-01-01" : startDate;
+  const queryEndDate = endDate === "null" ? getTodayFormatted() : endDate;
+  // get sort by query args
+  const { column, ascending } = SortByMetaData.get(sortBy) as {
+    column: string;
+    ascending: boolean;
+  };
+  // finally do the query
+  if (fullTextQuery) {
+    const { data: events = [], ...rest } = await supabase
+      .from(tableName)
+      .select<"*", DatabaseEvent>()
+      .lt("date", queryEndDate)
+      .gt("date", queryStartDate)
+      .textSearch("description", fullTextQuery)
+      .order(column, { ascending })
+      .range(0, 20);
+    return { events, ...rest };
+  } else {
+    // unforutunately, could not figure out a way to dynamically method chain
+    // and .textSearch will bork if it's an empty string - so we exclude it from the query chain in this case
+    const { data: events = [], ...rest } = await supabase
+      .from(tableName)
+      .select<"*", DatabaseEvent>()
+      .lt("date", queryEndDate)
+      .gt("date", queryStartDate)
+      .order(column, { ascending })
+      .range(0, 20);
+    return { events, ...rest };
+  }
 };
