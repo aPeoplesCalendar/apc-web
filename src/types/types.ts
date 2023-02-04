@@ -1,11 +1,13 @@
 export interface DatabaseEvent {
-  category: string;
+  id: string;
   date: string;
+  day: string;
   title: string;
   imgSrc: string;
   imgAltText: string;
   NSFW: boolean;
   description: string;
-  sources: string;
+  links: string[];
+  tags: string[];
   otd: string;
 }

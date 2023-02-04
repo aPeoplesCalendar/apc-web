@@ -24,7 +24,7 @@ export const formatDateQueryParam = (dateQueryParam: string | undefined) => {
 /**
  * to be used in converting raw date picker string to format appropriate for query param and querying db
  * @param datePickerValue date string in the format of YYYY-MM-DD
- * @returns date string in the format of DD-YY (no zero pads)
+ * @returns date string in the format of MM-DD (no zero pads)
  */
 export const formatRawDatePickerValue = (
   datePickerValue: string | undefined

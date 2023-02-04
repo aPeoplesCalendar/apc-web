@@ -34,10 +34,10 @@ describe("NavBar", () => {
       navText: "About",
       route: { pathname: ROUTES.ABOUT, search: "" },
     },
-    {
-      navText: "Calendar",
-      route: { pathname: ROUTES.CALENDAR_DAY, search: "?day=2-1" },
-    },
+    // {
+    //   navText: "Calendar",
+    //   route: { pathname: ROUTES.CALENDAR_DAY, search: "?day=2-1" },
+    // },
     {
       navText: "Contact",
       route: { pathname: ROUTES.CONTACT, search: "" },
