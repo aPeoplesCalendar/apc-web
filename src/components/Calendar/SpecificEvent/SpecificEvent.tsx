@@ -6,23 +6,17 @@ import { EventMetaTags } from "./EventMetaTags";
 import { CardContent, Typography, Card } from "@mui/material";
 import { Link } from "react-router-dom";
 import { generateSpecificDayRoute } from "../Calendar.utils";
+import { SpecificEventImage } from "./SpecificEventImage";
 
 export const SpecificEvent = () => {
   const [event, setEvent] = useState<DatabaseEvent | null>(null);
   const [publicImgURL, setPublicImgURL] = useState<string>("");
-  const [imgLoading, setImgLoading] = useState<boolean>();
   const [loading, setLoading] = useState<boolean>(true);
   const { eventName } = useParams<{ eventName: string }>();
 
   useEffect(() => {
     queryDatabaseByTitle(eventName);
   }, [eventName]);
-
-  useEffect(() => {
-    if (publicImgURL) {
-      setImgLoading(true);
-    }
-  }, [publicImgURL]);
 
   const queryDatabaseByTitle = async (slugTitle: string | undefined) => {
     setLoading(true);
@@ -38,11 +32,6 @@ export const SpecificEvent = () => {
     setEvent(data?.[0] as DatabaseEvent | null);
     setPublicImgURL(imageData?.publicUrl ?? "");
     setLoading(false);
-  };
-
-  const handleImgLoad = () => {
-    console.log("handleImgLoad running...");
-    setImgLoading(false);
   };
 
   if (loading) {
@@ -70,11 +59,10 @@ export const SpecificEvent = () => {
             <Typography variant="h6">
               <Link to={generateSpecificDayRoute(day)}>{date}</Link>
             </Typography>
-            <div>
-              {imgLoading && <div>image loading</div>}
-              <img src={publicImgURL} alt={imgAltText} onLoad={handleImgLoad} />
-              {imgAltText && <Typography>{imgAltText}</Typography>}
-            </div>
+            <SpecificEventImage
+              publicImgURL={publicImgURL}
+              imgAltText={imgAltText}
+            />
             {paragraphs?.map((paragraph) => (
               <Typography key={paragraph}>{paragraph}</Typography>
             ))}

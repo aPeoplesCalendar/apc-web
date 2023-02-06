@@ -32,8 +32,6 @@ export const Homepage = () => {
     fetchEventOfTheDay();
   }, []);
 
-  console.log("eventOTD:", eventOTD);
-
   return (
     <div>
       <Typography variant="h3">A People's Calendar</Typography>
