@@ -5,7 +5,7 @@ import { ROUTES } from "../../constants/routes";
 import { supabase } from "../../supabaseClient";
 import { DatabaseEvent } from "../../types/types";
 import { stringToSlug } from "../../utils/stringToSlug";
-import { formatRawDatePickerValue } from "./Calendar.utils";
+import { generateSpecificDayRoute } from "./Calendar.utils";
 
 // make expandable
 // allow for the addition of tags from the UI (means making list of tags and displaying them to the user somehow)
@@ -13,6 +13,7 @@ import { formatRawDatePickerValue } from "./Calendar.utils";
 export const QueryResultEventDisplay = ({
   title,
   date,
+  day,
   otd,
   imgSrc,
   imgAltText,
@@ -47,11 +48,7 @@ export const QueryResultEventDisplay = ({
         {title}
       </Link>
       <Typography variant="h6">
-        <Link
-          to={`${ROUTES.CALENDAR_DAY}?day=${formatRawDatePickerValue(date)}`}
-        >
-          {date}
-        </Link>
+        <Link to={generateSpecificDayRoute(day)}>{date}</Link>
       </Typography>
       {imgSrc && (
         <div>

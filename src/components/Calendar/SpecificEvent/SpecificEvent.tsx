@@ -5,8 +5,7 @@ import { supabase } from "../../../supabaseClient";
 import { EventMetaTags } from "./EventMetaTags";
 import { CardContent, Typography, Card } from "@mui/material";
 import { Link } from "react-router-dom";
-import { formatRawDatePickerValue } from "../Calendar.utils";
-import { ROUTES } from "../../../constants/routes";
+import { generateSpecificDayRoute } from "../Calendar.utils";
 
 export const SpecificEvent = () => {
   const [event, setEvent] = useState<DatabaseEvent | null>(null);
@@ -56,7 +55,7 @@ export const SpecificEvent = () => {
     );
   }
 
-  const { title, description, date, links, imgAltText } =
+  const { title, description, date, day, links, imgAltText } =
     event as DatabaseEvent;
   // split out description into paragraphs
   const paragraphs = description.split("\n\n");
@@ -69,13 +68,7 @@ export const SpecificEvent = () => {
           <CardContent>
             <Typography variant="h5">{title}</Typography>
             <Typography variant="h6">
-              <Link
-                to={`${ROUTES.CALENDAR_DAY}?day=${formatRawDatePickerValue(
-                  date
-                )}`}
-              >
-                {date}
-              </Link>
+              <Link to={generateSpecificDayRoute(day)}>{date}</Link>
             </Typography>
             <div>
               {imgLoading && <div>image loading</div>}
