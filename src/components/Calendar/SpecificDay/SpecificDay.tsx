@@ -11,6 +11,11 @@ import {
 } from "../Calendar.utils";
 import { QueryResultEventDisplay } from "../QueryResultEventDisplay";
 
+// make a container called simple search
+// have a really basic picker - day, week, and month (default is day, initialized to today)
+// render a daily, weekly, or monthly date picker for each mode
+// render a different UI for each mode - what does a week's worth of events look like? a month?
+
 export const SpecificDay = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
