@@ -12,11 +12,11 @@ export const Homepage = () => {
   const fetchEventOfTheDay = async () => {
     setLoading(true);
     // format of MM/DD/ no zero pads
-    const todayString = `${new Date().getMonth() + 1}/${new Date().getDate()}/`;
+    const todayString = `${new Date().getMonth() + 1}-${new Date().getDate()}`;
     const { data: todayEvents } = await supabase
-      .from("eventLibrary")
+      .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
       .select()
-      .like("date", `${todayString}%`);
+      .like("day", `${todayString}%`);
     setEventOTD(
       todayEvents?.reduce(
         (maxEvent: DatabaseEvent, currentEvent: DatabaseEvent) =>
@@ -31,6 +31,8 @@ export const Homepage = () => {
   useEffect(() => {
     fetchEventOfTheDay();
   }, []);
+
+  console.log("eventOTD:", eventOTD);
 
   return (
     <div>
@@ -53,6 +55,7 @@ export const Homepage = () => {
         <HomepageEvent
           title={eventOTD.title}
           date={eventOTD.date}
+          day={eventOTD.day}
           otd={eventOTD.otd}
           imgSrc={eventOTD.imgSrc}
           imgAltText={eventOTD.imgAltText}

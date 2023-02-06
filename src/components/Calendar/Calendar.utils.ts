@@ -1,3 +1,5 @@
+import { ROUTES } from "../../constants/routes";
+
 /**
  * @param dateQueryParam date in the form MM-DD (no zero pads)
  * @returns YYYY-MM-DD (zero pads)
@@ -44,3 +46,6 @@ export const formatRawDatePickerValue = (
   const newDateString = [monthAndDay[1], monthAndDay[2]].join("-");
   return newDateString;
 };
+
+export const generateSpecificDayRoute = (day: string) =>
+  `${ROUTES.CALENDAR_DAY}?day=${day}`;

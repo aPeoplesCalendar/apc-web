@@ -4,11 +4,12 @@ import { supabase } from "../../supabaseClient";
 import { generatePath, Link } from "react-router-dom";
 import { stringToSlug } from "../../utils/stringToSlug";
 import { ROUTES } from "../../constants/routes";
-import { formatRawDatePickerValue } from "../Calendar/Calendar.utils";
+import { generateSpecificDayRoute } from "../Calendar/Calendar.utils";
 
 export interface IHomepageEventProps {
   title: string;
   date: string;
+  day: string;
   otd: string;
   imgSrc: string;
   imgAltText: string;
@@ -17,6 +18,7 @@ export interface IHomepageEventProps {
 export const HomepageEvent = ({
   title,
   date,
+  day,
   otd,
   imgSrc,
   imgAltText,
@@ -46,11 +48,7 @@ export const HomepageEvent = ({
         {title}
       </Link>
       <Typography variant="h6">
-        <Link
-          to={`${ROUTES.CALENDAR_DAY}?day=${formatRawDatePickerValue(date)}`}
-        >
-          {date}
-        </Link>
+        <Link to={generateSpecificDayRoute(day)}>{date}</Link>
       </Typography>
       <div>
         <img src={fetchedImgSrc} alt={imgAltText} />
