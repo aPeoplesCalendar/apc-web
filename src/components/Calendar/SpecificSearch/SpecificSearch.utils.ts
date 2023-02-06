@@ -1,3 +1,4 @@
+import { PostgrestError } from "@supabase/supabase-js";
 import { supabase } from "../../../supabaseClient";
 import { DatabaseEvent } from "../../../types/types";
 import { PossibleSortByModes, SortByMetaData } from "./constants";
@@ -86,11 +87,33 @@ export const generateTextSearchQueryString = ({
   return `${includedKeywordsQueryString} & ${excludedKeywordsQueryString}`;
 };
 
-export const fetchEvents = async ({ search }: { search: string }) => {
-  const tableName = "events_test_duplicate";
+type FetchEventsReturnType = (
+  | {
+      error: PostgrestError;
+      count: null;
+      status: number;
+      statusText: string;
+    }
+  | {
+      error: null;
+      count: number | null;
+      status: number;
+      statusText: string;
+    }
+) & { hasNextPage: boolean; events: DatabaseEvent[] };
+
+export const fetchEvents = async ({
+  currentCursor,
+  pageSize,
+  queryParams,
+}: {
+  currentCursor: number;
+  pageSize: number;
+  queryParams: string;
+}): Promise<FetchEventsReturnType> => {
   // get raw query param values
   const { queryInclude, queryExclude, startDate, endDate, sortBy } =
-    getAndFormatQueryParams(search);
+    getAndFormatQueryParams(queryParams);
   // generate text search query string
   const fullTextQuery = generateTextSearchQueryString({
     included: queryInclude,
@@ -106,25 +129,27 @@ export const fetchEvents = async ({ search }: { search: string }) => {
   };
   // finally do the query
   if (fullTextQuery) {
-    const { data: events = [], ...rest } = await supabase
-      .from(tableName)
+    const { data: events, ...rest } = await supabase
+      .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
       .select<"*", DatabaseEvent>()
       .lt("date", queryEndDate)
       .gt("date", queryStartDate)
       .textSearch("description", fullTextQuery)
       .order(column, { ascending })
-      .range(0, 20);
-    return { events, ...rest };
+      .range(currentCursor, currentCursor + pageSize - 1);
+    const hasNextPage = events?.length === pageSize;
+    return { events: events ?? [], hasNextPage, ...rest };
   } else {
     // unforutunately, could not figure out a way to dynamically method chain
     // and .textSearch will bork if it's an empty string - so we exclude it from the query chain in this case
-    const { data: events = [], ...rest } = await supabase
-      .from(tableName)
+    const { data: events, ...rest } = await supabase
+      .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
       .select<"*", DatabaseEvent>()
       .lt("date", queryEndDate)
       .gt("date", queryStartDate)
       .order(column, { ascending })
-      .range(0, 20);
-    return { events, ...rest };
+      .range(currentCursor, currentCursor + pageSize - 1);
+    const hasNextPage = events?.length === pageSize;
+    return { events: events ?? [], hasNextPage, ...rest };
   }
 };

@@ -2,10 +2,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { About } from "./components/About/About";
 import { Calendar } from "./components/Calendar/Calendar";
+import { SpecificEvent } from "./components/Calendar/SpecificEvent/SpecificEvent";
 import { Contact } from "./components/Contact/Contact";
 import { Homepage } from "./components/Homepage/Homepage";
 import { NavBar } from "./components/Navbar/NavBar";
-import { SpecificEvent } from "./components/SpecificEvent/SpecificEvent";
 import { ROUTES } from "./constants/routes";
 
 function App() {

@@ -1,3 +1,4 @@
+import { Skeleton } from "@mui/material";
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient";
@@ -16,7 +17,6 @@ export const Homepage = () => {
       .from("eventLibrary")
       .select()
       .like("date", `${todayString}%`);
-    // set event of the day to today event with longest description
     setEventOTD(
       todayEvents?.reduce(
         (maxEvent: DatabaseEvent, currentEvent: DatabaseEvent) =>
@@ -48,14 +48,16 @@ export const Homepage = () => {
         Lorem Ipsum passages, and more recently with desktop publishing software
         like Aldus PageMaker including versions of Lorem Ipsum.
       </Typography>
-      <HomepageEvent
-        loading={loading}
-        title={eventOTD?.title}
-        date={eventOTD?.date}
-        otd={eventOTD?.otd}
-        imgSrc={eventOTD?.imgSrc}
-        imgAltText={eventOTD?.imgAltText}
-      />
+      {loading && <Skeleton />}
+      {!loading && eventOTD && (
+        <HomepageEvent
+          title={eventOTD.title}
+          date={eventOTD.date}
+          otd={eventOTD.otd}
+          imgSrc={eventOTD.imgSrc}
+          imgAltText={eventOTD.imgAltText}
+        />
+      )}
     </div>
   );
 };

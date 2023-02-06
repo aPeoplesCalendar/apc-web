@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import { Paper, Skeleton, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import { supabase } from "../../supabaseClient";
+import { generatePath, Link } from "react-router-dom";
+import { stringToSlug } from "../../utils/stringToSlug";
+import { ROUTES } from "../../constants/routes";
+import { formatRawDatePickerValue } from "../Calendar/Calendar.utils";
 
 export interface IHomepageEventProps {
-  loading: boolean;
-  title: string | undefined;
-  date: string | undefined;
-  otd: string | undefined;
-  imgSrc: string | undefined;
-  imgAltText: string | undefined;
+  title: string;
+  date: string;
+  otd: string;
+  imgSrc: string;
+  imgAltText: string;
 }
 
 export const HomepageEvent = ({
-  loading,
   title,
   date,
   otd,
@@ -34,14 +36,22 @@ export const HomepageEvent = ({
     }
   }, [imgSrc]);
 
-  if (loading) {
-    return <Skeleton />;
-  }
-
   return (
     <Paper>
-      <Typography>{title}</Typography>
-      <Typography>{date}</Typography>
+      <Link
+        to={generatePath(ROUTES.SPECIFIC_EVENT, {
+          eventName: stringToSlug(title),
+        })}
+      >
+        {title}
+      </Link>
+      <Typography variant="h6">
+        <Link
+          to={`${ROUTES.CALENDAR_DAY}?day=${formatRawDatePickerValue(date)}`}
+        >
+          {date}
+        </Link>
+      </Typography>
       <div>
         <img src={fetchedImgSrc} alt={imgAltText} />
       </div>

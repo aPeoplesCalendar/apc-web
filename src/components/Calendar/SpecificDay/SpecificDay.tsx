@@ -16,8 +16,6 @@ export const SpecificDay = () => {
   const { search } = useLocation();
   const day = new URLSearchParams(search).get("day") ?? "1-1";
 
-  const tableName = "events_test_duplicate";
-
   const [events, setEvents] = useState<DatabaseEvent[] | null>();
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +23,7 @@ export const SpecificDay = () => {
     const fetchEvents = async () => {
       setLoading(true);
       const { data: dayEvents = [] } = await supabase
-        .from(tableName)
+        .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
         .select<"*", DatabaseEvent>()
         .eq("day", day);
       setEvents(dayEvents);
