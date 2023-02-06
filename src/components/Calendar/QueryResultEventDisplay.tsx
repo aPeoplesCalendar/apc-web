@@ -1,6 +1,11 @@
+import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { generatePath, Link } from "react-router-dom";
+import { ROUTES } from "../../constants/routes";
 import { supabase } from "../../supabaseClient";
 import { DatabaseEvent } from "../../types/types";
+import { stringToSlug } from "../../utils/stringToSlug";
+import { formatRawDatePickerValue } from "./Calendar.utils";
 
 // make expandable
 // allow for the addition of tags from the UI (means making list of tags and displaying them to the user somehow)
@@ -34,8 +39,20 @@ export const QueryResultEventDisplay = ({
 
   return (
     <div>
-      <p>{title}</p>
-      <p>{date}</p>
+      <Link
+        to={generatePath(ROUTES.SPECIFIC_EVENT, {
+          eventName: stringToSlug(title),
+        })}
+      >
+        {title}
+      </Link>
+      <Typography variant="h6">
+        <Link
+          to={`${ROUTES.CALENDAR_DAY}?day=${formatRawDatePickerValue(date)}`}
+        >
+          {date}
+        </Link>
+      </Typography>
       {imgSrc && (
         <div>
           <img src={fetchedImgSrc} alt={imgAltText} />
@@ -53,7 +70,6 @@ export const QueryResultEventDisplay = ({
           </a>
         ))}
       </div>
-
       {tags.map((tag) => (
         <p key={tag}>{tag}</p>
       ))}

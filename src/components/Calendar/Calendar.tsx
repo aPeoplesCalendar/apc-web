@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
-import { SpecificEvent } from "../SpecificEvent/SpecificEvent";
 import { SpecificDay } from "./SpecificDay/SpecificDay";
+import { SpecificEvent } from "./SpecificEvent/SpecificEvent";
 import { SpecificSearch } from "./SpecificSearch/SpecificSearch";
 
 export const Calendar = () => {
