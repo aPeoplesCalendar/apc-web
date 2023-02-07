@@ -1,3 +1,5 @@
+import { secondaryTextColor } from "../../constants/globalStyles";
+
 export const mediumLogoStyle = {
   mr: 2,
   display: { xs: "none", md: "flex" },
@@ -13,7 +15,11 @@ export const mediumPagesStyle = {
   display: { xs: "none", md: "flex" },
 };
 
-export const mediumPageStyle = { my: 2, color: "white", display: "block" };
+export const mediumPageStyle = {
+  my: 2,
+  color: secondaryTextColor,
+  display: "block",
+};
 
 export const smallNavContentStyle = {
   flexGrow: 1,

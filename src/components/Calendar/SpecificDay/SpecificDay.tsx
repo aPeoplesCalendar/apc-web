@@ -64,7 +64,9 @@ export const SpecificDay = () => {
           defaultValue={formatDateQueryParam(day)}
           onChange={handleNewDate}
         />
-        <Button onClick={navigateToSearch}>Advanced Search</Button>
+        <Button onClick={navigateToSearch} variant="contained">
+          Advanced Search
+        </Button>
       </div>
       <p>{loading ? "loading" : "not loading"}</p>
       {events?.map(({ id, ...rest }) => (

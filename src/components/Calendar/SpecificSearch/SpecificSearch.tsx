@@ -61,7 +61,11 @@ export const SpecificSearch = () => {
           <QueryResultEventDisplay {...rest} key={id} />
         ))}
       <p>{loading ? "loading" : "not loading"}</p>
-      {hasNextPage && <Button onClick={handleFetchMore}>Load More</Button>}
+      {hasNextPage && (
+        <Button onClick={handleFetchMore} variant="contained">
+          Load More
+        </Button>
+      )}
     </div>
   );
 };

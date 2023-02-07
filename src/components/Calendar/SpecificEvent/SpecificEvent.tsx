@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import { supabase } from "../../../supabaseClient";
 import { EventMetaTags } from "./EventMetaTags";
 import { CardContent, Typography, Card } from "@mui/material";
-import { Link } from "react-router-dom";
 import { generateSpecificDayRoute } from "../Calendar.utils";
 import { SpecificEventImage } from "./SpecificEventImage";
+import { linkStyle } from "../Calendar.styles";
 
 export const SpecificEvent = () => {
   const [event, setEvent] = useState<DatabaseEvent | null>(null);
@@ -52,33 +52,33 @@ export const SpecificEvent = () => {
   return (
     <>
       <EventMetaTags previewEvent={event} />
-      <div>
-        <Card>
-          <CardContent>
-            <Typography variant="h5">{title}</Typography>
-            <Typography variant="h6">
-              <Link to={generateSpecificDayRoute(day)}>{date}</Link>
-            </Typography>
-            <SpecificEventImage
-              publicImgURL={publicImgURL}
-              imgAltText={imgAltText}
-            />
-            {paragraphs?.map((paragraph) => (
-              <Typography key={paragraph}>{paragraph}</Typography>
+      <Card>
+        <CardContent>
+          <Typography variant="h5">{title}</Typography>
+          <Typography
+            component="a"
+            sx={linkStyle}
+            href={generateSpecificDayRoute(day)}
+          >
+            {date}
+          </Typography>
+          <SpecificEventImage
+            publicImgURL={publicImgURL}
+            imgAltText={imgAltText}
+          />
+          {paragraphs?.map((paragraph) => (
+            <Typography key={paragraph}>{paragraph}</Typography>
+          ))}
+          <div style={{ display: "flex", flexDirection: "column", gap: "7px" }}>
+            <Typography>Read more:</Typography>
+            {links?.map((link) => (
+              <Typography key={link} href={link} component="a" sx={linkStyle}>
+                {link}
+              </Typography>
             ))}
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "7px" }}
-            >
-              <Typography>Read more:</Typography>
-              {links?.map((link) => (
-                <Link to={link} target="_blank" key={link}>
-                  {link}
-                </Link>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+        </CardContent>
+      </Card>
     </>
   );
 };
