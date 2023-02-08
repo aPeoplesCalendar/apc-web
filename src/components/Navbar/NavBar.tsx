@@ -64,7 +64,6 @@ export const NavBar = () => {
           <Box sx={styles.smallNavContentStyle}>
             <IconButton
               size="large"
-              aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -114,6 +113,7 @@ export const NavBar = () => {
                 key={navText}
                 onClick={() => handleNavItemClick(route)}
                 sx={styles.mediumPageStyle}
+                variant="contained"
               >
                 {navText}
               </Button>

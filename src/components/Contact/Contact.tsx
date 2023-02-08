@@ -59,6 +59,7 @@ export const Contact = () => {
           value="Submit"
           onClick={() => alert("submitted")}
           disabled={disableSubmit}
+          variant="contained"
         >
           Submit
         </Button>

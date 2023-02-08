@@ -1,10 +1,11 @@
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { generatePath, Link } from "react-router-dom";
+import { generatePath } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import { supabase } from "../../supabaseClient";
 import { DatabaseEvent } from "../../types/types";
 import { stringToSlug } from "../../utils/stringToSlug";
+import { linkStyle } from "./Calendar.styles";
 import { generateSpecificDayRoute } from "./Calendar.utils";
 
 // make expandable
@@ -40,35 +41,50 @@ export const QueryResultEventDisplay = ({
 
   return (
     <div>
-      <Link
-        to={generatePath(ROUTES.SPECIFIC_EVENT, {
-          eventName: stringToSlug(title),
-        })}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          marginBottom: "10px",
+        }}
       >
-        {title}
-      </Link>
-      <Typography variant="h6">
-        <Link to={generateSpecificDayRoute(day)}>{date}</Link>
-      </Typography>
+        <Typography
+          component="a"
+          sx={linkStyle}
+          href={generatePath(ROUTES.SPECIFIC_EVENT, {
+            eventName: stringToSlug(title),
+          })}
+        >
+          {title}
+        </Typography>
+        <Typography
+          component="a"
+          sx={linkStyle}
+          href={generateSpecificDayRoute(day)}
+        >
+          {date}
+        </Typography>
+      </div>
       {imgSrc && (
         <div>
           <img src={fetchedImgSrc} alt={imgAltText} />
-          {imgAltText && <p>{imgAltText}</p>}
+          {imgAltText && <Typography>{imgAltText}</Typography>}
         </div>
       )}
-      <p>{otd}</p>
+      <Typography>{otd}</Typography>
       {paragraphs.map((paragraph) => (
-        <p key={paragraph}>{paragraph}</p>
+        <Typography key={paragraph}>{paragraph}</Typography>
       ))}
       <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
         {links.map((link) => (
-          <a key={link} href={link}>
+          <Typography key={link} href={link} component="a" sx={linkStyle}>
             {link}
-          </a>
+          </Typography>
         ))}
       </div>
       {tags.map((tag) => (
-        <p key={tag}>{tag}</p>
+        <Typography key={tag}>{tag}</Typography>
       ))}
     </div>
   );

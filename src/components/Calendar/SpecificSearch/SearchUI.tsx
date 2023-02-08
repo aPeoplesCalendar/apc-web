@@ -98,7 +98,9 @@ export const SearchUI = () => {
           value={newEndDate}
         />
       </div>
-      <Button onClick={handleSearch}>Search</Button>
+      <Button onClick={handleSearch} variant="contained">
+        Search
+      </Button>
       <FormControl fullWidth>
         <InputLabel id="sort-by-label">Sort By</InputLabel>
         <Select
