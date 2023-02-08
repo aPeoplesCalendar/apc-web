@@ -1,7 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
 import { About } from "./components/About/About";
 import { Calendar } from "./components/Calendar/Calendar";
 import { SpecificEvent } from "./components/Calendar/SpecificEvent/SpecificEvent";

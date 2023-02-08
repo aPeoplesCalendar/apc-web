@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Typography } from "@mui/material";
+import { Box, Skeleton, Typography } from "@mui/material";
+import * as styles from "./SpecificEvent.styles";
 
 export const SpecificEventImage = ({
   publicImgURL,
@@ -19,10 +20,15 @@ export const SpecificEventImage = ({
   }
 
   return (
-    <div>
-      {loading && <div>image loading</div>}
-      <img src={publicImgURL} alt={imgAltText} onLoad={handleImgLoad} />
+    <Box style={styles.imageContainer}>
+      {loading && <Skeleton sx={styles.imgLoadingSkeleton} />}
+      <img
+        src={publicImgURL}
+        alt={imgAltText}
+        onLoad={handleImgLoad}
+        style={styles.imageSize}
+      />
       {imgAltText && <Typography>{imgAltText}</Typography>}
-    </div>
+    </Box>
   );
 };
