@@ -10,6 +10,7 @@ import {
   formatRawDatePickerValue,
 } from "../Calendar.utils";
 import { QueryResultEventDisplay } from "../QueryResultEventDisplay";
+import { StyledTextField } from "../StyledTextField/StyledTextField";
 
 // make a container called simple search
 // have a really basic picker - day, week, and month (default is day, initialized to today)
@@ -59,7 +60,7 @@ export const SpecificDay = () => {
     <div>
       <p>Specific Day</p>
       <div>
-        <TextField
+        <StyledTextField
           type="date"
           defaultValue={formatDateQueryParam(day)}
           onChange={handleNewDate}
