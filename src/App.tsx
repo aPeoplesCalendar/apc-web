@@ -9,6 +9,7 @@ import { Homepage } from "./components/Homepage/Homepage";
 import { NavBar } from "./components/Navbar/NavBar";
 import { ROUTES } from "./constants/routes";
 import { backgroundColor, theme } from "./constants/globalStyles";
+import { ResponsiveAppContainer } from "./components/ResponsiveAppContainer/ResponsiveAppContainer";
 
 function App() {
   return (
@@ -17,8 +18,7 @@ function App() {
         <CssBaseline enableColorScheme />
         <Router>
           <NavBar />
-          {/* TO DO: proper layout component goes here */}
-          <div style={{ width: "80%", margin: "auto" }}>
+          <ResponsiveAppContainer>
             <Routes>
               <Route path={ROUTES.HOME} element={<Homepage />} />
               <Route path={ROUTES.ABOUT} element={<About />} />
@@ -26,7 +26,7 @@ function App() {
               <Route path={ROUTES.CONTACT} element={<Contact />} />
               <Route path={ROUTES.SPECIFIC_EVENT} element={<SpecificEvent />} />
             </Routes>
-          </div>
+          </ResponsiveAppContainer>
         </Router>
       </ThemeProvider>
     </div>
