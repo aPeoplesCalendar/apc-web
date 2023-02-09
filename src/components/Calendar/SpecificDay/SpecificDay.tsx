@@ -1,5 +1,4 @@
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import { Box, Button, Typography } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
@@ -11,6 +10,7 @@ import {
 } from "../Calendar.utils";
 import { QueryResultEventDisplay } from "../QueryResultEventDisplay";
 import { StyledTextField } from "../StyledTextField/StyledTextField";
+import * as styles from "./SpecificDay.styles";
 
 // make a container called simple search
 // have a really basic picker - day, week, and month (default is day, initialized to today)
@@ -31,7 +31,8 @@ export const SpecificDay = () => {
       const { data: dayEvents = [] } = await supabase
         .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
         .select<"*", DatabaseEvent>()
-        .eq("day", day);
+        .eq("day", day)
+        .order("title", { ascending: true });
       setEvents(dayEvents);
       setLoading(false);
     };
@@ -58,7 +59,7 @@ export const SpecificDay = () => {
 
   return (
     <div>
-      <p>Specific Day</p>
+      <Typography>Specific Day</Typography>
       <div>
         <StyledTextField
           type="date"
@@ -70,9 +71,11 @@ export const SpecificDay = () => {
         </Button>
       </div>
       <p>{loading ? "loading" : "not loading"}</p>
-      {events?.map(({ id, ...rest }) => (
-        <QueryResultEventDisplay {...rest} key={id} />
-      ))}
+      <Box sx={styles.dayEventsContainer}>
+        {events?.map(({ id, ...rest }) => (
+          <QueryResultEventDisplay {...rest} key={id} />
+        ))}
+      </Box>
     </div>
   );
 };

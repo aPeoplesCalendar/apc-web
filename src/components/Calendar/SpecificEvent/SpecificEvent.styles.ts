@@ -32,5 +32,4 @@ export const imgLoadingSkeleton = {
   margin: "auto",
   marginTop: "-65px",
   marginBottom: "-45px",
-  border: "1px solid red",
 };
