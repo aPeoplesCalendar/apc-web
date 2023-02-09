@@ -17,6 +17,15 @@ export const theme = createTheme({
         },
       },
     },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          backgroundColor,
+          color: defaultTextColor,
+          fontSize: "15px",
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {
