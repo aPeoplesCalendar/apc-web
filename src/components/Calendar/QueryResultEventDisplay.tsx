@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { generatePath } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
@@ -7,9 +7,17 @@ import { DatabaseEvent } from "../../types/types";
 import { stringToSlug } from "../../utils/stringToSlug";
 import { linkStyle } from "./Calendar.styles";
 import { generateSpecificDayRoute } from "./Calendar.utils";
+import * as styles from "./QueryResultEventDisplay.styles";
 
-// make expandable
-// allow for the addition of tags from the UI (means making list of tags and displaying them to the user somehow)
+// schema updates:
+// create day, week, and month column for queries (all numbers) - remove day string query
+// write code that will create tags for each event (if "communism" in event description, add tag)
+
+// figure out how to make image size shrink to content of description column
+// map tags, link to query by tags
+// map social media shares
+// css tweaks like gap between events
+// remove unnecessary event props (make sure to update query to slim it down and only fetch what's needed)
 
 export const QueryResultEventDisplay = ({
   title,
@@ -18,9 +26,6 @@ export const QueryResultEventDisplay = ({
   otd,
   imgSrc,
   imgAltText,
-  description,
-  links,
-  tags,
 }: Omit<DatabaseEvent, "id">) => {
   const [fetchedImgSrc, setFetchedImgSrc] = useState<string>("");
 
@@ -37,18 +42,14 @@ export const QueryResultEventDisplay = ({
     }
   }, [imgSrc]);
 
-  const paragraphs = description.split("\n\n");
-
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          marginBottom: "10px",
-        }}
-      >
+    <Card sx={styles.queryEventContainer}>
+      <Box sx={styles.imgContainer}>
+        {imgSrc && (
+          <img src={fetchedImgSrc} alt={imgAltText} style={styles.img} />
+        )}
+      </Box>
+      <Box sx={styles.descriptionColumn}>
         <Typography
           component="a"
           sx={linkStyle}
@@ -65,27 +66,9 @@ export const QueryResultEventDisplay = ({
         >
           {date}
         </Typography>
-      </div>
-      {imgSrc && (
-        <div>
-          <img src={fetchedImgSrc} alt={imgAltText} />
-          {imgAltText && <Typography>{imgAltText}</Typography>}
-        </div>
-      )}
-      <Typography>{otd}</Typography>
-      {paragraphs.map((paragraph) => (
-        <Typography key={paragraph}>{paragraph}</Typography>
-      ))}
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        {links.map((link) => (
-          <Typography key={link} href={link} component="a" sx={linkStyle}>
-            {link}
-          </Typography>
-        ))}
-      </div>
-      {tags.map((tag) => (
-        <Typography key={tag}>{tag}</Typography>
-      ))}
-    </div>
+        <Typography>{otd}</Typography>
+        {imgAltText && <Typography>{`Image: ${imgAltText}`}</Typography>}
+      </Box>
+    </Card>
   );
 };

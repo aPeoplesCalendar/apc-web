@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "../../../supabaseClient";
 import { EventMetaTags } from "./EventMetaTags";
-import { CardContent, Typography, Card } from "@mui/material";
+import { CardContent, Typography, Card, Box } from "@mui/material";
 import { generateSpecificDayRoute } from "../Calendar.utils";
 import { SpecificEventImage } from "./SpecificEventImage";
 import { linkStyle } from "../Calendar.styles";
+import * as styles from "./SpecificEvent.styles";
 
 export const SpecificEvent = () => {
   const [event, setEvent] = useState<DatabaseEvent | null>(null);
@@ -54,29 +55,33 @@ export const SpecificEvent = () => {
       <EventMetaTags previewEvent={event} />
       <Card>
         <CardContent>
-          <Typography variant="h5">{title}</Typography>
-          <Typography
-            component="a"
-            sx={linkStyle}
-            href={generateSpecificDayRoute(day)}
-          >
-            {date}
-          </Typography>
-          <SpecificEventImage
-            publicImgURL={publicImgURL}
-            imgAltText={imgAltText}
-          />
-          {paragraphs?.map((paragraph) => (
-            <Typography key={paragraph}>{paragraph}</Typography>
-          ))}
-          <div style={{ display: "flex", flexDirection: "column", gap: "7px" }}>
-            <Typography>Read more:</Typography>
+          <Box sx={styles.headerInfo}>
+            <Typography variant="h5">{title}</Typography>
+            <Typography
+              component="a"
+              sx={linkStyle}
+              href={generateSpecificDayRoute(day)}
+            >
+              {date}
+            </Typography>
+            <SpecificEventImage
+              publicImgURL={publicImgURL}
+              imgAltText={imgAltText}
+            />
+          </Box>
+          <Box sx={styles.paragraphsContainer}>
+            {paragraphs?.map((paragraph) => (
+              <Typography key={paragraph}>{paragraph}</Typography>
+            ))}
+          </Box>
+          <Box sx={styles.readMoreContainer}>
+            <Typography variant="h6">Read more:</Typography>
             {links?.map((link) => (
               <Typography key={link} href={link} component="a" sx={linkStyle}>
                 {link}
               </Typography>
             ))}
-          </div>
+          </Box>
         </CardContent>
       </Card>
     </>
