@@ -2,6 +2,7 @@ export interface DatabaseEvent {
   id: string;
   date: string;
   day: string;
+  month: string;
   title: string;
   imgSrc: string;
   imgAltText: string;

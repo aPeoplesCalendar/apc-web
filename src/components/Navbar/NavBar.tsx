@@ -25,12 +25,13 @@ export const NavBar = () => {
     setAnchorElNav(null);
   };
 
-  const handleNavItemClick = (route: string) => {
+  const handleNavItemClick = (pathname: string) => {
     handleCloseNavMenu();
-    // format of MM-DD no zero pads
-    const todayString = `${new Date().getMonth() + 1}-${new Date().getDate()}`;
-    const search = route === ROUTES.CALENDAR_DAY ? `?day=${todayString}` : "";
-    navigate({ pathname: route, search });
+    const month = `${new Date().getMonth() + 1}`;
+    const day = `${new Date().getDate()}`;
+    const search =
+      pathname === ROUTES.CALENDAR_DAY ? `?day=${day}&month=${month}` : "";
+    navigate({ pathname, search });
   };
 
   const pages = [
