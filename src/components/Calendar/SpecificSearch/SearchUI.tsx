@@ -1,4 +1,5 @@
 import {
+  Box,
   FormControl,
   InputLabel,
   MenuItem,
@@ -15,31 +16,32 @@ import {
   formatQueryString,
   getAndFormatQueryParams,
 } from "./SpecificSearch.utils";
+import { TagsSelect } from "./TagsSelect";
+import * as styles from "./SearchUI.styles";
 
 export const SearchUI = () => {
   const { search } = useLocation();
   // get query params from url
-  const { queryInclude, queryExclude, startDate, endDate, sortBy } =
+  const { queryInclude, queryExclude, startDate, endDate, sortBy, tags } =
     getAndFormatQueryParams(search);
 
-  const [includedKeywords, setIncludedKeywords] = useState<
-    string[] | undefined
-  >(queryInclude);
-  const [excludedKeywords, setExcludedKeywords] = useState<
-    string[] | undefined
-  >(queryExclude);
-  const [newStartDate, setNewStartDate] = useState<string | null>(startDate);
-  const [newEndDate, setNewEndDate] = useState<string | null>(endDate);
+  const [includedKeywords, setIncludedKeywords] =
+    useState<string[]>(queryInclude);
+  const [excludedKeywords, setExcludedKeywords] =
+    useState<string[]>(queryExclude);
+  const [newStartDate, setNewStartDate] = useState<string>(startDate);
+  const [newEndDate, setNewEndDate] = useState<string>(endDate);
+  const [selectedTags, setSelectedTags] = useState<string[]>(tags);
 
   const navigate = useNavigate();
 
   const handleIncludeSearchTermChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const termArr = e.target.value.split(", ");
+    const termArr = e.target.value ? e.target.value.split(", ") : [];
     setIncludedKeywords(termArr);
   };
 
   const handleExcludeSearchTermChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const termArr = e.target.value.split(", ");
+    const termArr = e.target.value ? e.target.value.split(", ") : [];
     setExcludedKeywords(termArr);
   };
 
@@ -57,6 +59,7 @@ export const SearchUI = () => {
       excludedKeywords,
       newStartDate,
       newEndDate,
+      selectedTags,
       newSortBy: sortBy,
     });
     navigate({ pathname: ROUTES.CALENDAR_SEARCH, search: queryString });
@@ -69,38 +72,50 @@ export const SearchUI = () => {
       excludedKeywords,
       newStartDate,
       newEndDate,
+      selectedTags,
       newSortBy,
     });
     navigate({ pathname: ROUTES.CALENDAR_SEARCH, search: queryString });
   };
 
-  // create a dropdown of tags to filter by
-  // should tags live in a supabase table or be hardcoded here (latter probably)
+  const handleKeyPress = (e: any) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
-    <div style={{ display: "flex", gap: "10px", flexDirection: "column" }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+    <Box sx={styles.searchUIContainer}>
+      <Box sx={styles.inputsWrapper}>
         <TextField
           placeholder="Include keywords"
           onChange={handleIncludeSearchTermChange}
-          defaultValue={includedKeywords?.join(", ")}
+          value={includedKeywords.join(", ")}
+          onKeyUp={handleKeyPress}
         />
         <TextField
           placeholder="Exclude keywords"
           onChange={handleExcludeSearchTermChange}
-          defaultValue={excludedKeywords?.join(", ")}
+          value={excludedKeywords.join(", ")}
+          onKeyUp={handleKeyPress}
         />
         <TextField
           type="date"
           onChange={handleStartDateChange}
           value={newStartDate}
+          onKeyUp={handleKeyPress}
         />
         <TextField
           type="date"
           onChange={handleEndDateChange}
           value={newEndDate}
+          onKeyUp={handleKeyPress}
         />
-      </div>
+        <TagsSelect
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+        />
+      </Box>
       <Button onClick={handleSearch} variant="contained">
         Search
       </Button>
@@ -120,6 +135,6 @@ export const SearchUI = () => {
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Box>
   );
 };

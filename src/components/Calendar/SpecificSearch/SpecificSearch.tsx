@@ -21,13 +21,13 @@ export const SpecificSearch = () => {
     setCurrentCursor(0);
     setHasNextPage(false);
     setLoading(true);
-    const { events: result, hasNextPage: currentHasNextPage } =
+    const { events: result = [], hasNextPage: currentHasNextPage } =
       await fetchEvents({
         currentCursor: 0,
         pageSize,
         queryParams,
       });
-    setEvents(result);
+    setEvents(result ?? []);
     setHasNextPage(currentHasNextPage);
     setCurrentCursor(result.length);
     setLoading(false);
@@ -45,7 +45,7 @@ export const SpecificSearch = () => {
         pageSize,
         queryParams,
       });
-    const combinedEvents = [...events, ...fetchMoreResult];
+    const combinedEvents = [...events, ...(fetchMoreResult ?? [])];
     setEvents(combinedEvents);
     setHasNextPage(currentHasNextPage);
     setCurrentCursor(combinedEvents.length);

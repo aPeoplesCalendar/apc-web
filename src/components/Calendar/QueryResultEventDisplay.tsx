@@ -9,9 +9,7 @@ import { linkStyle } from "./Calendar.styles";
 import { generateSpecificDayRoute } from "./Calendar.utils";
 import * as styles from "./QueryResultEventDisplay.styles";
 
-// schema updates:
-// create day, week, and month column for queries (all numbers) - remove day string query
-
+// create day, week, and month column for queries (all numbers)
 // map social media shares (right side)
 // css tweaks - gap between events, distinct card color, chip color
 // each chip is a link that pushes a tag query param to the url
