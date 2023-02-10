@@ -45,7 +45,7 @@ export const SpecificEvent = () => {
     );
   }
 
-  const { title, description, date, day, links, imgAltText } =
+  const { title, description, date, day, month, links, imgAltText } =
     event as DatabaseEvent;
   // split out description into paragraphs
   const paragraphs = description.split("\n\n");
@@ -60,7 +60,7 @@ export const SpecificEvent = () => {
             <Typography
               component="a"
               sx={linkStyle}
-              href={generateSpecificDayRoute(day)}
+              href={generateSpecificDayRoute(month, day)}
             >
               {date}
             </Typography>

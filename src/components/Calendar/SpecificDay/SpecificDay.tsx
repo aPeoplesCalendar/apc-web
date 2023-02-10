@@ -7,6 +7,7 @@ import { DatabaseEvent } from "../../../types/types";
 import {
   formatDateQueryParam,
   formatRawDatePickerValue,
+  generateSpecificDayRoute,
 } from "../Calendar.utils";
 import { QueryResultEventDisplay } from "../QueryResultEventDisplay";
 import { StyledTextField } from "../StyledTextField/StyledTextField";
@@ -20,7 +21,8 @@ import * as styles from "./SpecificDay.styles";
 export const SpecificDay = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
-  const day = new URLSearchParams(search).get("day") ?? "1-1";
+  const day = new URLSearchParams(search).get("day") ?? "1";
+  const month = new URLSearchParams(search).get("month") ?? "1";
 
   const [events, setEvents] = useState<DatabaseEvent[] | null>();
   const [loading, setLoading] = useState(false);
@@ -32,23 +34,21 @@ export const SpecificDay = () => {
         .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
         .select<"*", DatabaseEvent>()
         .eq("day", day)
+        .eq("month", month)
         .order("title", { ascending: true });
       setEvents(dayEvents);
       setLoading(false);
     };
     fetchEvents();
-  }, [day]);
+  }, [day, month]);
 
   const handleNewDate = (e: ChangeEvent<HTMLInputElement>): void => {
     // if the user did something weird and the given date is falsy, don't run anything
     if (!e.target.value) {
       return;
     }
-    const formattedDateString = formatRawDatePickerValue(e.target.value);
-    navigate({
-      pathname: ROUTES.CALENDAR_DAY,
-      search: `?day=${formattedDateString}`,
-    });
+    const { month, day } = formatRawDatePickerValue(e.target.value);
+    navigate(generateSpecificDayRoute(month, day));
   };
 
   const navigateToSearch = () => {
@@ -63,7 +63,7 @@ export const SpecificDay = () => {
       <div>
         <StyledTextField
           type="date"
-          defaultValue={formatDateQueryParam(day)}
+          defaultValue={formatDateQueryParam(month, day)}
           onChange={handleNewDate}
         />
         <Button onClick={navigateToSearch} variant="contained">

@@ -12,12 +12,14 @@ export const Homepage = () => {
 
   const fetchEventOfTheDay = async () => {
     setLoading(true);
-    // format of MM/DD/ no zero pads
-    const todayString = `${new Date().getMonth() + 1}-${new Date().getDate()}`;
-    const { data: todayEvents } = await supabase
+    const month = `${new Date().getMonth() + 1}`;
+    const day = `${new Date().getDate()}`;
+    const { data: todayEvents = [] } = await supabase
       .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
-      .select()
-      .like("day", `${todayString}%`);
+      .select<"*", DatabaseEvent>()
+      .eq("day", day)
+      .eq("month", month)
+      .order("title", { ascending: true });
     setEventOTD(
       todayEvents?.reduce(
         (maxEvent: DatabaseEvent, currentEvent: DatabaseEvent) =>

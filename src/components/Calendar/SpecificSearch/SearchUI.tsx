@@ -74,6 +74,9 @@ export const SearchUI = () => {
     navigate({ pathname: ROUTES.CALENDAR_SEARCH, search: queryString });
   };
 
+  // create a dropdown of tags to filter by
+  // should tags live in a supabase table or be hardcoded here (latter probably)
+
   return (
     <div style={{ display: "flex", gap: "10px", flexDirection: "column" }}>
       <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>

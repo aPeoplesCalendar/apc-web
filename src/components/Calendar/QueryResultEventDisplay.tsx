@@ -11,18 +11,17 @@ import * as styles from "./QueryResultEventDisplay.styles";
 
 // schema updates:
 // create day, week, and month column for queries (all numbers) - remove day string query
-// write code that will create tags for each event (if "communism" in event description, add tag)
 
-// figure out how to make image size shrink to content of description column
-// link to query by tags
 // map social media shares (right side)
-// css tweaks like gap between events
+// css tweaks - gap between events, distinct card color, chip color
+// each chip is a link that pushes a tag query param to the url
 // remove unnecessary event props (make sure to update query to slim it down and only fetch what's needed)
 
 export const QueryResultEventDisplay = ({
   title,
   date,
   day,
+  month,
   otd,
   imgSrc,
   imgAltText,
@@ -49,8 +48,6 @@ export const QueryResultEventDisplay = ({
   // I don't like the roundabout way of doing this, but it allows for the image to always be fitted to dynamic text content height
   const cardHeight = (descriptionColumnRef?.current?.clientHeight ?? 275) + 25;
 
-  const mockTags = ["asdf", "qwer", "zxcv"];
-
   return (
     <Card sx={{ ...styles.queryEventContainer, maxHeight: cardHeight }}>
       <Box sx={styles.imgContainer}>
@@ -72,14 +69,14 @@ export const QueryResultEventDisplay = ({
           <Typography
             component="a"
             sx={linkStyle}
-            href={generateSpecificDayRoute(day)}
+            href={generateSpecificDayRoute(month, day)}
           >
             {date}
           </Typography>
           <Typography>{otd}</Typography>
           {imgAltText && <Typography>{`Image: ${imgAltText}`}</Typography>}
           <Box sx={styles.tagsContainer}>
-            {mockTags.map((tag) => (
+            {tags.map((tag) => (
               <Chip key={tag} label={tag} />
             ))}
           </Box>

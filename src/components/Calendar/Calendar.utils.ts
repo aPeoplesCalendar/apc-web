@@ -1,26 +1,18 @@
 import { ROUTES } from "../../constants/routes";
 
 /**
- * @param dateQueryParam date in the form MM-DD (no zero pads)
+ * @param month month 1-indexed
+ * @param day day 1-indexed
  * @returns YYYY-MM-DD (zero pads)
  */
-export const formatDateQueryParam = (dateQueryParam: string | undefined) => {
-  if (!dateQueryParam) {
-    return "";
-  }
-  // move to formatting function
-  const splitDateString = dateQueryParam.split("-");
+export const formatDateQueryParam = (month: string, day: string) => {
   // handle leap year case
-  const year = dateQueryParam === "2-29" ? "2024" : new Date().getFullYear();
+  const year =
+    month === "2" && day === "29" ? "2024" : new Date().getFullYear();
   // add any necessary zero padding to day and month
-  let [month, queryDay] = splitDateString;
-  if (month.length === 1) {
-    month = `0${month}`;
-  }
-  if (queryDay.length === 1) {
-    queryDay = `0${queryDay}`;
-  }
-  return `${year}-${month}-${queryDay}`;
+  const formattedMonth = month.length === 1 ? `0${month}` : month;
+  const formattedDay = day.length === 1 ? `0${day}` : day;
+  return `${year}-${formattedMonth}-${formattedDay}`;
 };
 
 /**
@@ -32,7 +24,7 @@ export const formatRawDatePickerValue = (
   datePickerValue: string | undefined
 ) => {
   if (!datePickerValue) {
-    return "";
+    return { month: "", day: "day" };
   }
   const monthAndDay = datePickerValue.split("-");
   // remove any zero padding from day and month
@@ -42,10 +34,10 @@ export const formatRawDatePickerValue = (
   if (monthAndDay[2][0] === "0") {
     monthAndDay[2] = monthAndDay[2].slice(1);
   }
-  // create the lookup key to use with eventLibrary
-  const newDateString = [monthAndDay[1], monthAndDay[2]].join("-");
-  return newDateString;
+  const month = monthAndDay[1];
+  const day = monthAndDay[2];
+  return { month, day };
 };
 
-export const generateSpecificDayRoute = (day: string) =>
-  `${ROUTES.CALENDAR_DAY}?day=${day}`;
+export const generateSpecificDayRoute = (month: string, day: string) =>
+  `${ROUTES.CALENDAR_DAY}?month=${month}&day=${day}`;
