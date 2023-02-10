@@ -24,7 +24,7 @@ export const formatRawDatePickerValue = (
   datePickerValue: string | undefined
 ) => {
   if (!datePickerValue) {
-    return { month: "", day: "day" };
+    return { month: "", day: "" };
   }
   const monthAndDay = datePickerValue.split("-");
   // remove any zero padding from day and month
