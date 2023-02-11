@@ -18,6 +18,7 @@ import {
 } from "./SpecificSearch.utils";
 import { TagsSelect } from "./TagsSelect";
 import * as styles from "./SearchUI.styles";
+import { ResponsiveInputsContainer } from "./ResponsiveInputsContainer";
 
 export const SearchUI = () => {
   const { search } = useLocation();
@@ -86,15 +87,17 @@ export const SearchUI = () => {
 
   return (
     <Box sx={styles.searchUIContainer}>
-      <Box sx={styles.inputsWrapper}>
+      <ResponsiveInputsContainer>
         <TextField
-          placeholder="Include keywords"
+          label="Included Keywords"
+          placeholder="First, Second, Third..."
           onChange={handleIncludeSearchTermChange}
           value={includedKeywords.join(", ")}
           onKeyUp={handleKeyPress}
         />
         <TextField
-          placeholder="Exclude keywords"
+          label="Excluded Keywords"
+          placeholder="First, Second, Third..."
           onChange={handleExcludeSearchTermChange}
           value={excludedKeywords.join(", ")}
           onKeyUp={handleKeyPress}
@@ -104,37 +107,50 @@ export const SearchUI = () => {
           onChange={handleStartDateChange}
           value={newStartDate}
           onKeyUp={handleKeyPress}
+          label="After This Date"
+          InputLabelProps={{ shrink: true }}
         />
         <TextField
           type="date"
           onChange={handleEndDateChange}
           value={newEndDate}
           onKeyUp={handleKeyPress}
+          label="Before This Date"
+          InputLabelProps={{ shrink: true }}
         />
         <TagsSelect
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
         />
-      </Box>
-      <Button onClick={handleSearch} variant="contained">
-        Search
-      </Button>
-      <FormControl fullWidth>
-        <InputLabel id="sort-by-label">Sort By</InputLabel>
-        <Select
-          labelId="sort-by-label"
-          id="sort-by"
-          value={sortBy}
-          label="Age"
-          onChange={handleSortByChange}
+      </ResponsiveInputsContainer>
+      <Box sx={styles.searchActionsContainer}>
+        <Button
+          onClick={handleSearch}
+          variant="contained"
+          sx={styles.searchButton}
         >
-          {[...SortByMetaData.keys()].map((key) => (
-            <MenuItem key={key} value={key}>
-              {SortByMetaData.get(key)?.displayText}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+          Search
+        </Button>
+        <Box sx={styles.sortByWrapper}>
+          <FormControl fullWidth>
+            <InputLabel id="sort-by-label">Sort By</InputLabel>
+            <Select
+              labelId="sort-by-label"
+              id="sort-by"
+              value={sortBy}
+              label="Age"
+              onChange={handleSortByChange}
+              variant="outlined"
+            >
+              {[...SortByMetaData.keys()].map((key) => (
+                <MenuItem key={key} value={key}>
+                  {SortByMetaData.get(key)?.displayText}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+      </Box>
     </Box>
   );
 };

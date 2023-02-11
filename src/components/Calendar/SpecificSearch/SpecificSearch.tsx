@@ -1,4 +1,6 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useCallback } from "react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -6,6 +8,7 @@ import { DatabaseEvent } from "../../../types/types";
 import { QueryResultEventDisplay } from "../QueryResultEventDisplay";
 import { SearchUI } from "./SearchUI";
 import { fetchEvents } from "./SpecificSearch.utils";
+import * as styles from "./SearchUI.styles";
 
 export const SpecificSearch = () => {
   const { search: queryParams } = useLocation();
@@ -54,17 +57,30 @@ export const SpecificSearch = () => {
 
   return (
     <div>
-      <p>Specific Search</p>
+      <Typography sx={styles.searchPageHeader} variant="h5">
+        Search
+      </Typography>
       <SearchUI />
       {!!events?.length &&
         events.map(({ id, ...rest }) => (
           <QueryResultEventDisplay {...rest} key={id} />
         ))}
-      <p>{loading ? "loading" : "not loading"}</p>
+      {!loading && !events?.length && (
+        <Typography sx={styles.noResultsText} variant="h6">
+          No events found for these search parameters.
+        </Typography>
+      )}
+      {loading && (
+        <Box sx={styles.loadingSpinner}>
+          <CircularProgress />
+        </Box>
+      )}
       {hasNextPage && (
-        <Button onClick={handleFetchMore} variant="contained">
-          Load More
-        </Button>
+        <Box sx={styles.loadMoreButton}>
+          <Button onClick={handleFetchMore} variant="contained">
+            Load More
+          </Button>
+        </Box>
       )}
     </div>
   );
