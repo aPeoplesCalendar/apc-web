@@ -15,17 +15,11 @@ export const getTodayFormatted = () => {
 };
 
 export const getAndFormatQueryParams = (search: string) => {
-  const queryInclude = new URLSearchParams(search).get("queryInclude")
-    ? new URLSearchParams(search).get("queryInclude")?.split(" ")
-    : undefined;
-  const queryExclude = new URLSearchParams(search).get("queryExclude")
-    ? new URLSearchParams(search).get("queryExclude")?.split(" ")
-    : undefined;
-  const startDate = new URLSearchParams(search).get("startDate");
-  const endDate = new URLSearchParams(search).get("endDate");
-  const caseSensitive = Boolean(
-    new URLSearchParams(search).get("caseSensitive")
-  );
+  const queryInclude = new URLSearchParams(search).getAll("queryInclude");
+  const queryExclude = new URLSearchParams(search).getAll("queryExclude");
+  const startDate = new URLSearchParams(search).get("startDate") ?? "";
+  const endDate = new URLSearchParams(search).get("endDate") ?? "";
+  const tags = new URLSearchParams(search).getAll("tag");
   const sortBy =
     (new URLSearchParams(search).get("sortBy") as PossibleSortByModes | null) ??
     "alphabetical-ascending";
@@ -34,7 +28,7 @@ export const getAndFormatQueryParams = (search: string) => {
     queryExclude,
     startDate,
     endDate,
-    caseSensitive,
+    tags,
     sortBy,
   };
 };
@@ -44,6 +38,7 @@ export interface IFormatQueryStringProps {
   excludedKeywords: string[] | undefined;
   newStartDate: string | null;
   newEndDate: string | null;
+  selectedTags: string[];
   newSortBy: PossibleSortByModes;
 }
 
@@ -53,35 +48,52 @@ export const formatQueryString = ({
   newStartDate,
   newEndDate,
   newSortBy,
+  selectedTags = [],
 }: IFormatQueryStringProps) => {
-  const queryString = `?queryInclude=${includedKeywords.join(
-    "+"
-  )}&queryExclude=${excludedKeywords.join(
-    "+"
-  )}&startDate=${newStartDate}&endDate=${newEndDate}&sortBy=${newSortBy}`;
-  return queryString;
+  const tags = selectedTags.map((tag) => `tag=${tag}`).join("&");
+  console.log("includedKeywords:", includedKeywords);
+  const queryInclude = includedKeywords
+    .map((includedKeyword) => `queryInclude=${includedKeyword}`)
+    .join("&");
+  const queryExclude = excludedKeywords
+    .map((excludedKeyword) => `queryExclude=${excludedKeyword}`)
+    .join("&");
+  const startDateString = newStartDate ? `startDate=${newStartDate}` : "";
+  const endDateString = newEndDate ? `endDate=${newEndDate}` : "";
+  const sortByString = `sortBy=${newSortBy}`;
+  const formattedQueryParams = [
+    queryInclude,
+    queryExclude,
+    startDateString,
+    endDateString,
+    tags,
+    sortByString,
+  ]
+    .filter((param) => !!param)
+    .join("&");
+  return `?${formattedQueryParams}`;
 };
 
 export const generateTextSearchQueryString = ({
   included,
   excluded,
 }: {
-  included: string[] | undefined;
-  excluded: string[] | undefined;
+  included: string[];
+  excluded: string[];
 }) => {
-  const includedKeywordsQueryString = `${
-    included ? included.map((term) => `'${term}'`).join(" & ") : ""
-  }`;
-  const excludedKeywordsQueryString = `${
-    excluded ? excluded.map((term) => `!'${term}'`).join(" & ") : ""
-  }`;
-  if (!included && !excluded) {
+  if (!included.length && !excluded.length) {
     return "";
   }
-  if (!excluded && includedKeywordsQueryString) {
+  const includedKeywordsQueryString = included
+    .map((term) => `'${term}'`)
+    .join(" & ");
+  const excludedKeywordsQueryString = excluded
+    .map((term) => `!'${term}'`)
+    .join(" & ");
+  if (!excluded.length) {
     return includedKeywordsQueryString;
   }
-  if (!included && excludedKeywordsQueryString) {
+  if (!included.length) {
     return excludedKeywordsQueryString;
   }
   return `${includedKeywordsQueryString} & ${excludedKeywordsQueryString}`;
@@ -112,44 +124,46 @@ export const fetchEvents = async ({
   queryParams: string;
 }): Promise<FetchEventsReturnType> => {
   // get raw query param values
-  const { queryInclude, queryExclude, startDate, endDate, sortBy } =
-    getAndFormatQueryParams(queryParams);
+  const {
+    queryInclude,
+    queryExclude,
+    startDate,
+    endDate,
+    tags = [],
+    sortBy,
+  } = getAndFormatQueryParams(queryParams);
   // generate text search query string
   const fullTextQuery = generateTextSearchQueryString({
     included: queryInclude,
     excluded: queryExclude,
   });
-  // default start and end dates
-  const queryStartDate = startDate === "null" ? "0001-01-01" : startDate;
-  const queryEndDate = endDate === "null" ? getTodayFormatted() : endDate;
   // get sort by query args
   const { column, ascending } = SortByMetaData.get(sortBy) as {
     column: string;
     ascending: boolean;
   };
-  // finally do the query
-  if (fullTextQuery) {
-    const { data: events, ...rest } = await supabase
-      .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
-      .select<"*", DatabaseEvent>()
-      .lt("date", queryEndDate)
-      .gt("date", queryStartDate)
-      .textSearch("description", fullTextQuery)
-      .order(column, { ascending })
-      .range(currentCursor, currentCursor + pageSize - 1);
-    const hasNextPage = events?.length === pageSize;
-    return { events: events ?? [], hasNextPage, ...rest };
-  } else {
-    // unforutunately, could not figure out a way to dynamically method chain
-    // and .textSearch will bork if it's an empty string - so we exclude it from the query chain in this case
-    const { data: events, ...rest } = await supabase
-      .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
-      .select<"*", DatabaseEvent>()
-      .lt("date", queryEndDate)
-      .gt("date", queryStartDate)
-      .order(column, { ascending })
-      .range(currentCursor, currentCursor + pageSize - 1);
-    const hasNextPage = events?.length === pageSize;
-    return { events: events ?? [], hasNextPage, ...rest };
+
+  let query = supabase
+    .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
+    .select<"*", DatabaseEvent>();
+  // conditional query filters
+  if (endDate) {
+    query = query.lt("date", endDate);
   }
+  if (startDate) {
+    query = query.gt("date", startDate);
+  }
+  if (!!tags.length) {
+    query = query.contains("tags", tags);
+  }
+  if (fullTextQuery) {
+    query = query.textSearch("description", fullTextQuery);
+  }
+  query = query
+    .order(column, { ascending })
+    .range(currentCursor, currentCursor + pageSize - 1);
+  const result = await query;
+  const events = result?.data ?? [];
+  const hasNextPage = events.length === pageSize;
+  return { ...result, events, hasNextPage };
 };
