@@ -4,13 +4,14 @@ import { useParams } from "react-router-dom";
 import { supabase } from "../../../supabaseClient";
 import { EventMetaTags } from "./EventMetaTags";
 import { CardContent, Typography, Card, Box } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import { generateSpecificDayRoute } from "../Calendar.utils";
 import { SpecificEventImage } from "./SpecificEventImage";
 import { linkStyle } from "../Calendar.styles";
 import * as styles from "./SpecificEvent.styles";
 
 export const SpecificEvent = () => {
-  const [event, setEvent] = useState<DatabaseEvent | null>(null);
+  const [dayEvent, setDayEvent] = useState<DatabaseEvent | null>(null);
   const [publicImgURL, setPublicImgURL] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const { eventName } = useParams<{ eventName: string }>();
@@ -24,35 +25,43 @@ export const SpecificEvent = () => {
     // get event data
     const { data } = await supabase
       .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
-      .select()
+      .select<"*", DatabaseEvent>()
       .eq("slugTitle", slugTitle);
-    // get event image url
-    const { data: imageData } = await supabase.storage
-      .from("event-photos")
-      .getPublicUrl(data?.[0]?.imgSrc);
-    setEvent(data?.[0] as DatabaseEvent | null);
-    setPublicImgURL(imageData?.publicUrl ?? "");
+
+    if (data?.[0]?.imgSrc) {
+      // get event image url
+      const { data: imageData } = await supabase.storage
+        .from("event-photos")
+        .getPublicUrl(data[0].imgSrc);
+      setPublicImgURL(imageData?.publicUrl);
+    }
+
+    setDayEvent(data?.[0] as DatabaseEvent | null);
     setLoading(false);
   };
 
   if (loading) {
-    return <div>loading</div>;
+    return (
+      <Box sx={styles.loadingSpinner}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
-  if (!event) {
+  if (!dayEvent) {
     return (
       <div>{`Could not find event ${eventName}. Try searching the datbase for similar keywords (link).`}</div>
     );
   }
 
   const { title, description, date, day, month, links, imgAltText } =
-    event as DatabaseEvent;
+    dayEvent as DatabaseEvent;
   // split out description into paragraphs
   const paragraphs = description.split("\n\n");
 
   return (
     <>
-      <EventMetaTags previewEvent={event} />
+      <EventMetaTags previewEvent={dayEvent} />
       <Card>
         <CardContent>
           <Box sx={styles.headerInfo}>

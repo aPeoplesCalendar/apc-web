@@ -25,7 +25,7 @@ export const TagsSelect = ({
       value={selectedTags}
       onChange={onChange}
       renderInput={(params) => (
-        <TextField {...params} variant="standard" label="Event Tags" />
+        <TextField {...params} variant="outlined" label="Event Tags" />
       )}
     />
   );

@@ -113,7 +113,7 @@ export const NavBar = () => {
               <Button
                 key={navText}
                 onClick={() => handleNavItemClick(route)}
-                sx={styles.mediumPageStyle}
+                sx={styles.mediumAppBarButtons}
                 variant="contained"
               >
                 {navText}

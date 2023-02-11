@@ -25,11 +25,16 @@ export const readMoreContainer = {
 
 export const imageSize = { maxHeight: "50vh", maxWidth: "95%" };
 
-// this one still needs some work
-export const imgLoadingSkeleton = {
-  width: "60%",
-  height: "55vh",
+export const loadingSpinner = {
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "10px",
+  marginBottom: "10px",
+};
+
+export const imgLoadingBox = {
+  backgroundColor: "#cfcfcf",
+  width: "275px",
+  height: "300px",
   margin: "auto",
-  marginTop: "-65px",
-  marginBottom: "-45px",
 };

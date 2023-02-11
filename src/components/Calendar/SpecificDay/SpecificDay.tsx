@@ -1,4 +1,6 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
@@ -59,18 +61,28 @@ export const SpecificDay = () => {
 
   return (
     <div>
-      <Typography>Specific Day</Typography>
-      <div>
+      <Typography sx={styles.calendarPageHeader} variant="h5">
+        Calendar
+      </Typography>
+      <Box sx={styles.calendarActions}>
         <StyledTextField
           type="date"
           defaultValue={formatDateQueryParam(month, day)}
           onChange={handleNewDate}
         />
-        <Button onClick={navigateToSearch} variant="contained">
-          Advanced Search
+        <Button
+          onClick={navigateToSearch}
+          variant="contained"
+          sx={styles.advancedSearchButton}
+        >
+          Search
         </Button>
-      </div>
-      <p>{loading ? "loading" : "not loading"}</p>
+      </Box>
+      {loading && (
+        <Box sx={styles.loadingSpinner}>
+          <CircularProgress />
+        </Box>
+      )}
       <Box sx={styles.dayEventsContainer}>
         {events?.map(({ id, ...rest }) => (
           <QueryResultEventDisplay {...rest} key={id} />

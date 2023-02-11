@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Skeleton, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import * as styles from "./SpecificEvent.styles";
 
 export const SpecificEventImage = ({
@@ -21,7 +21,7 @@ export const SpecificEventImage = ({
 
   return (
     <Box style={styles.imageContainer}>
-      {loading && <Skeleton sx={styles.imgLoadingSkeleton} />}
+      {loading && <Box sx={styles.imgLoadingBox} />}
       <img
         src={publicImgURL}
         alt={imgAltText}
