@@ -13,19 +13,26 @@ export const mediumLogoStyle = {
   textDecoration: "none",
 };
 
-export const mediumPagesStyle = {
-  flexGrow: 1,
+export const mediumNavBarButtonsContainer = {
   display: { xs: "none", md: "flex" },
+  minHeight: "64px",
+};
+
+export const mediumLogoContainer = {
+  ...mediumNavBarButtonsContainer,
+  // this is a workaround for not being able to override a paddingLeft media query style on MuiContainer
+  marginLeft: "-24px",
 };
 
 export const mediumAppBarButtons = {
   my: 2,
   color: defaultTextColor,
-  display: "block",
+  display: "flex",
   backgroundColor,
   marginBottom: "0px",
   marginTop: "0px",
   fontSize: "15px",
+  borderRadius: "0px",
 };
 
 export const smallNavContentStyle = {

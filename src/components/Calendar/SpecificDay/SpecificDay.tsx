@@ -11,7 +11,7 @@ import {
   formatRawDatePickerValue,
   generateSpecificDayRoute,
 } from "../Calendar.utils";
-import { QueryResultEventDisplay } from "../QueryResultEventDisplay";
+import { QueryResultEventDisplay } from "../QueryResultEventDisplay/QueryResultEventDisplay";
 import { StyledTextField } from "../StyledTextField/StyledTextField";
 import * as styles from "./SpecificDay.styles";
 
