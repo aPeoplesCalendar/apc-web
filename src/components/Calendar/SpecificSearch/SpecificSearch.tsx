@@ -61,10 +61,13 @@ export const SpecificSearch = () => {
         Search
       </Typography>
       <SearchUI />
-      {!!events?.length &&
-        events.map(({ id, ...rest }) => (
-          <QueryResultEventDisplay {...rest} key={id} />
-        ))}
+      {!!events?.length && (
+        <Box sx={styles.eventsContainer}>
+          {events.map(({ id, ...rest }) => (
+            <QueryResultEventDisplay {...rest} key={id} />
+          ))}
+        </Box>
+      )}
       {!loading && !events?.length && (
         <Typography sx={styles.noResultsText} variant="h6">
           No events found for these search parameters.

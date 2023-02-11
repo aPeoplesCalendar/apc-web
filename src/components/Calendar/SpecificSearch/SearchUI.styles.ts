@@ -42,3 +42,9 @@ export const loadMoreButton = {
   justifyContent: "center",
   marginTop: "15px",
 };
+
+export const eventsContainer = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "20px",
+};

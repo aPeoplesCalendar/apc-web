@@ -1,7 +1,7 @@
 export const dayEventsContainer = {
   display: "flex",
   flexDirection: "column",
-  gap: "15px",
+  gap: "20px",
 };
 
 export const loadingSpinner = {
