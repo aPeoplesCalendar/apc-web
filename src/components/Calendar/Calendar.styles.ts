@@ -4,4 +4,5 @@ export const linkStyle = {
   textDecoration: "none",
   color: defaultTextColor,
   ":hover": { textDecoration: "underline" },
+  wordBreak: "break-all",
 };
