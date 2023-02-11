@@ -1,4 +1,7 @@
-import { secondaryTextColor } from "../../constants/globalStyles";
+import {
+  backgroundColor,
+  defaultTextColor,
+} from "../../constants/globalStyles";
 
 export const mediumLogoStyle = {
   mr: 2,
@@ -15,10 +18,14 @@ export const mediumPagesStyle = {
   display: { xs: "none", md: "flex" },
 };
 
-export const mediumPageStyle = {
+export const mediumAppBarButtons = {
   my: 2,
-  color: secondaryTextColor,
+  color: defaultTextColor,
   display: "block",
+  backgroundColor,
+  marginBottom: "0px",
+  marginTop: "0px",
+  fontSize: "15px",
 };
 
 export const smallNavContentStyle = {
