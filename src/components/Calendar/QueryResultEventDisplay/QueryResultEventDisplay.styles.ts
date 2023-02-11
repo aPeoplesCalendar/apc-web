@@ -1,4 +1,4 @@
-import { linkStyle } from "./Calendar.styles";
+import { linkStyle } from "../Calendar.styles";
 
 export const largeEventContainer = {
   display: "grid",

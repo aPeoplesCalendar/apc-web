@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient";
 import { DatabaseEvent } from "../../types/types";
 import * as styles from "./Homepage.styles";
-import { QueryResultEventDisplay } from "../Calendar/QueryResultEventDisplay";
+import { QueryResultEventDisplay } from "../Calendar/QueryResultEventDisplay/QueryResultEventDisplay";
 
 export const Homepage = () => {
   const [eventOTD, setEventOTD] = useState<DatabaseEvent>();

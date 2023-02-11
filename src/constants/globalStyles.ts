@@ -26,6 +26,13 @@ export const theme = createTheme({
         },
       },
     },
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          paddingLeft: "0px",
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {

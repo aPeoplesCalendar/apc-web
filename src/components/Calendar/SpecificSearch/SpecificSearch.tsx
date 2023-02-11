@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { DatabaseEvent } from "../../../types/types";
-import { QueryResultEventDisplay } from "../QueryResultEventDisplay";
+import { QueryResultEventDisplay } from "../QueryResultEventDisplay/QueryResultEventDisplay";
 import { SearchUI } from "./SearchUI";
 import { fetchEvents } from "./SpecificSearch.utils";
 import * as styles from "./SearchUI.styles";

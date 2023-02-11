@@ -53,15 +53,15 @@ export const NavBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href={ROUTES.HOME}
-            sx={styles.mediumLogoStyle}
-          >
-            MED LOGO
-          </Typography>
+          <Box sx={styles.mediumLogoContainer}>
+            <Button
+              href={ROUTES.HOME}
+              sx={styles.mediumAppBarButtons}
+              variant="contained"
+            >
+              Home
+            </Button>
+          </Box>
           <Box sx={styles.smallNavContentStyle}>
             <IconButton
               size="large"
@@ -106,9 +106,12 @@ export const NavBar = () => {
             href={ROUTES.HOME}
             sx={styles.smallLogoStyle}
           >
-            XS LOGO
+            aPC
           </Typography>
-          <Box sx={styles.mediumPagesStyle} data-testid="full-nav-links">
+          <Box
+            sx={styles.mediumNavBarButtonsContainer}
+            data-testid="full-nav-links"
+          >
             {pages.map(({ navText, route }) => (
               <Button
                 key={navText}
