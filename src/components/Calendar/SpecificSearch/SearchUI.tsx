@@ -8,7 +8,7 @@ import {
   TextField,
 } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
 import Button from "@mui/material/Button";
 import { PossibleSortByModes, SortByMetaData } from "./constants";
@@ -21,7 +21,7 @@ import * as styles from "./SearchUI.styles";
 import { ResponsiveInputsContainer } from "./ResponsiveInputsContainer";
 
 export const SearchUI = () => {
-  const { search } = useLocation();
+  const [search] = useSearchParams();
   // get query params from url
   const { queryInclude, queryExclude, startDate, endDate, sortBy, tags } =
     getAndFormatQueryParams(search);

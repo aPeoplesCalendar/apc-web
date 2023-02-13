@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useCallback } from "react";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { DatabaseEvent } from "../../../types/types";
 import { QueryResultEventDisplay } from "../QueryResultEventDisplay/QueryResultEventDisplay";
 import { SearchUI } from "./SearchUI";
@@ -11,23 +11,27 @@ import { fetchEvents } from "./SpecificSearch.utils";
 import * as styles from "./SearchUI.styles";
 
 export const SpecificSearch = () => {
-  const { search: queryParams } = useLocation();
-
+  const [queryParams] = useSearchParams();
   const pageSize = 15;
 
   const [currentCursor, setCurrentCursor] = useState<number>(0);
   const [events, setEvents] = useState<DatabaseEvent[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [hasNextPage, setHasNextPage] = useState<boolean>(false);
+
+  const resetData = () => {
+    setEvents([]);
+    setLoading(true);
+    setCurrentCursor(0);
+    setHasNextPage(false);
+  };
 
   const handleFetchInitialEvents = useCallback(async () => {
     // skip call if query params empty
     if (!queryParams) {
       return;
     }
-    setCurrentCursor(0);
-    setHasNextPage(false);
-    setLoading(true);
+    resetData();
     const { events: result, hasNextPage: currentHasNextPage } =
       await fetchEvents({
         currentCursor: 0,
