@@ -32,10 +32,10 @@ export const FullScreenDisplay = ({
   fetchedImgSrc,
   tags,
 }: IFullScreenDisplayProps) => {
-  const descriptionColumnRef = useRef<HTMLSpanElement>(null);
+  const descriptionColumnRef = useRef<HTMLDivElement>(null);
   // set the total event card height to the description column + a bit extra
   // I don't like the roundabout way of doing this, but it allows for the image to always be fitted to dynamic text content height
-  const cardHeight = (descriptionColumnRef?.current?.clientHeight ?? 275) + 25;
+  const cardHeight = descriptionColumnRef?.current?.clientHeight ?? 275;
   return (
     <Card sx={{ ...styles.largeEventContainer, maxHeight: cardHeight }}>
       <Box sx={styles.imgContainer}>
@@ -43,29 +43,27 @@ export const FullScreenDisplay = ({
           <img src={fetchedImgSrc} alt={imgAltText} style={styles.img} />
         )}
       </Box>
-      <Box>
-        <span style={styles.descriptionColumn} ref={descriptionColumnRef}>
-          <Typography
-            component="a"
-            sx={linkStyle}
-            href={generatePath(ROUTES.SPECIFIC_EVENT, {
-              eventName: stringToSlug(title),
-            })}
-          >
-            {title}
-          </Typography>
-          <Typography
-            component="a"
-            sx={linkStyle}
-            href={generateSpecificDayRoute(month, day)}
-          >
-            {date}
-          </Typography>
-          <Typography>{otd}</Typography>
-          {imgAltText && <Typography>{`Image: ${imgAltText}`}</Typography>}
-          <EventTags tags={tags} />
-          <ShareIcons title={title} />
-        </span>
+      <Box sx={styles.descriptionColumn} ref={descriptionColumnRef}>
+        <Typography
+          component="a"
+          sx={linkStyle}
+          href={generatePath(ROUTES.SPECIFIC_EVENT, {
+            eventName: stringToSlug(title),
+          })}
+        >
+          {title}
+        </Typography>
+        <Typography
+          component="a"
+          sx={linkStyle}
+          href={generateSpecificDayRoute(month, day)}
+        >
+          {date}
+        </Typography>
+        <Typography>{otd}</Typography>
+        {imgAltText && <Typography>{`Image: ${imgAltText}`}</Typography>}
+        <EventTags tags={tags} />
+        <ShareIcons title={title} />
       </Box>
     </Card>
   );

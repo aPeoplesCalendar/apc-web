@@ -2,14 +2,14 @@ import { linkStyle } from "../Calendar.styles";
 
 export const largeEventContainer = {
   display: "grid",
-  gridTemplateColumns: "30% 1fr",
+  gridTemplateColumns: "30% minmax(0px, 1fr)",
   gap: "15px",
 };
 
 export const smallEventContainer = {
   display: "flex",
   flexDirection: "column" as "column",
-  padding: "20px",
+  padding: "10px 20px",
 };
 
 export const imgContainer = { overflow: "hidden" };
@@ -35,7 +35,8 @@ export const descriptionColumn = {
   display: "flex",
   flexDirection: "column" as "column",
   gap: "10px",
-  marginBottom: "10px",
+  paddingTop: "10px",
+  paddingRight: "10px",
 };
 
 export const smallEventLinks = {
@@ -43,4 +44,4 @@ export const smallEventLinks = {
   textAlign: "center",
 };
 
-export const tagsContainer = { display: "flex", gap: "10px" };
+export const tagsContainer = { display: "flex", gap: "10px", flexWrap: "wrap" };

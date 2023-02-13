@@ -10,10 +10,12 @@ import { NavBar } from "./components/Navbar/NavBar";
 import { ROUTES } from "./constants/routes";
 import { backgroundColor, theme } from "./constants/globalStyles";
 import { ResponsiveAppContainer } from "./components/ResponsiveAppContainer/ResponsiveAppContainer";
+import { AppMetaTags } from "./AppMetaTags";
 
 function App() {
   return (
     <div className="App" style={{ backgroundColor }}>
+      <AppMetaTags />
       <ThemeProvider theme={theme}>
         <CssBaseline enableColorScheme />
         <Router>

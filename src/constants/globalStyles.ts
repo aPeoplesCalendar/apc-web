@@ -2,6 +2,8 @@ import { createTheme } from "@mui/material/styles";
 
 export const backgroundColor = "#292929";
 
+export const contrastingBackgroundColor = "#1a1a1a";
+
 export const defaultTextColor = "#f5f5f5";
 
 // navbar button text
@@ -77,8 +79,8 @@ export const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          backgroundColor,
-          color: defaultTextColor,
+          backgroundColor: contrastingBackgroundColor,
+          boxShadow: "0px 0px 5px black",
         },
       },
     },
