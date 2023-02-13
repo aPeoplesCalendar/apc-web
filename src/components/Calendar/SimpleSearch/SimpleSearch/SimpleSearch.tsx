@@ -16,10 +16,8 @@ import { SpecificMonth } from "../SpecificMonth/SpecificMonth";
 import { ResponsiveActionsContainer } from "./ResponsiveActionsContainer";
 
 // to dos
-// add suggest an event page?? - what do the RLS policies look like?
 // finalize color scheme
 // write the meta stuff - about page, contact page, homepage, readme
-// website meta stuff - icons, meta tags
 // deploy via netlify
 // update apc-form to work with new stuff
 
