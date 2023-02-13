@@ -1,16 +1,19 @@
+import { defaultTextColor } from "../../../../constants/globalStyles";
 import { linkStyle } from "../../Calendar.styles";
+
+const tableBorder = `1px solid ${defaultTextColor}`;
 
 export const weekContainerDesktop = {
   display: "grid",
   gridTemplateColumns: "repeat(7, minmax(0px, 1fr))",
-  border: "1px solid white",
+  border: tableBorder,
   borderLeft: "none",
 };
 
 export const weekContainerMobile = {
   display: "flex",
   flexDirection: "column",
-  border: "1px solid white",
+  border: tableBorder,
   borderLeft: "none",
   borderTop: "none",
 };
@@ -19,12 +22,12 @@ export const dayColumnWrapper = (mobile: boolean) => ({
   display: "grid",
   gridTemplateRows: "auto 1fr",
   gridTemplateColumns: "minmax(0px, 1fr)",
-  borderLeft: "1px solid white",
-  borderTop: mobile ? "1px solid white" : "none",
+  borderLeft: tableBorder,
+  borderTop: mobile ? tableBorder : "none",
 });
 
 export const columnHeader = {
-  borderBottom: "1px solid white",
+  borderBottom: tableBorder,
   textAlign: "center",
   padding: "5px",
   fontSize: "13px",

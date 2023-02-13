@@ -12,6 +12,7 @@ import * as styles from "./SearchUI.styles";
 
 export const SpecificSearch = () => {
   const [queryParams] = useSearchParams();
+  const hasQueryParams = !!queryParams.toString();
   const pageSize = 15;
 
   const [currentCursor, setCurrentCursor] = useState<number>(0);
@@ -28,7 +29,8 @@ export const SpecificSearch = () => {
 
   const handleFetchInitialEvents = useCallback(async () => {
     // skip call if query params empty
-    if (!queryParams) {
+    if (!queryParams.toString()) {
+      setLoading(false);
       return;
     }
     resetData();
@@ -76,7 +78,7 @@ export const SpecificSearch = () => {
           ))}
         </Box>
       )}
-      {!loading && queryParams && !events?.length && (
+      {!loading && hasQueryParams && !events?.length && (
         <Typography sx={styles.noResultsText} variant="h6">
           No events found for these search parameters.
         </Typography>
