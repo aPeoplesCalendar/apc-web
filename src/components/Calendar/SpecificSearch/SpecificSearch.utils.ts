@@ -14,14 +14,14 @@ export const getTodayFormatted = () => {
   return `${year}-${month}-${day}`;
 };
 
-export const getAndFormatQueryParams = (search: string) => {
-  const queryInclude = new URLSearchParams(search).getAll("queryInclude");
-  const queryExclude = new URLSearchParams(search).getAll("queryExclude");
-  const startDate = new URLSearchParams(search).get("startDate") ?? "";
-  const endDate = new URLSearchParams(search).get("endDate") ?? "";
-  const tags = new URLSearchParams(search).getAll("tag");
+export const getAndFormatQueryParams = (search: URLSearchParams) => {
+  const queryInclude = search.getAll("queryInclude");
+  const queryExclude = search.getAll("queryExclude");
+  const startDate = search.get("startDate") ?? "";
+  const endDate = search.get("endDate") ?? "";
+  const tags = search.getAll("tag");
   const sortBy =
-    (new URLSearchParams(search).get("sortBy") as PossibleSortByModes | null) ??
+    (search.get("sortBy") as PossibleSortByModes | null) ??
     "alphabetical-ascending";
   return {
     queryInclude,
@@ -120,7 +120,7 @@ export const fetchEvents = async ({
 }: {
   currentCursor: number;
   pageSize: number;
-  queryParams: string;
+  queryParams: URLSearchParams;
 }): Promise<FetchEventsReturnType> => {
   // get raw query param values
   const {

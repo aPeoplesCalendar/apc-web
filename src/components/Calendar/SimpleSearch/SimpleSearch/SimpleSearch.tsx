@@ -19,7 +19,7 @@ import { ResponsiveActionsContainer } from "./ResponsiveActionsContainer";
 // add suggest an event page?? - what do the RLS policies look like?
 // finalize color scheme
 // write the meta stuff - about page, contact page, homepage, readme
-// website meta stuff - icons, meta tags, lock down github repo
+// website meta stuff - icons, meta tags
 // deploy via netlify
 // update apc-form to work with new stuff
 

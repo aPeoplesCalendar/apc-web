@@ -7,6 +7,8 @@ export const defaultTextColor = "#f5f5f5";
 // navbar button text
 export const secondaryTextColor = "#1f1f1f";
 
+export const disabledButtonTextColor = "gray";
+
 export const theme = createTheme({
   components: {
     MuiAppBar: {
@@ -14,6 +16,19 @@ export const theme = createTheme({
         root: {
           backgroundColor,
           color: defaultTextColor,
+          // enabled outlined textfield border
+          "&:hover:not($disabled):not($focused):not($error) $notchedOutline":
+            {},
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          ":disabled": {
+            backgroundColor,
+            color: disabledButtonTextColor,
+          },
         },
       },
     },
@@ -23,6 +38,9 @@ export const theme = createTheme({
           backgroundColor,
           color: defaultTextColor,
           fontSize: "15px",
+        },
+        label: {
+          cursor: "pointer",
         },
       },
     },
@@ -57,6 +75,40 @@ export const theme = createTheme({
       },
     },
     MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor,
+          color: defaultTextColor,
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: defaultTextColor,
+          },
+        },
+        notchedOutline: {
+          borderColor: defaultTextColor,
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        icon: {
+          color: defaultTextColor,
+        },
+      },
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          color: defaultTextColor,
+        },
+      },
+    },
+    MuiTab: {
       styleOverrides: {
         root: {
           backgroundColor,
