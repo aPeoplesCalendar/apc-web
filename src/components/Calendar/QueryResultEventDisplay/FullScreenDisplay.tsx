@@ -5,6 +5,7 @@ import { ROUTES } from "../../../constants/routes";
 import { stringToSlug } from "../../../utils/stringToSlug";
 import { linkStyle } from "../Calendar.styles";
 import { generateSpecificDayRoute } from "../Calendar.utils";
+import { ShareIcons } from "../ShareIcons/ShareIcons";
 import { EventTags } from "./EventTags";
 import * as styles from "./QueryResultEventDisplay.styles";
 
@@ -63,6 +64,7 @@ export const FullScreenDisplay = ({
           <Typography>{otd}</Typography>
           {imgAltText && <Typography>{`Image: ${imgAltText}`}</Typography>}
           <EventTags tags={tags} />
+          <ShareIcons title={title} />
         </span>
       </Box>
     </Card>

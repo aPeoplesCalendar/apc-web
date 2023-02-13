@@ -3,6 +3,7 @@ import { generatePath } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
 import { stringToSlug } from "../../../utils/stringToSlug";
 import { generateSpecificDayRoute } from "../Calendar.utils";
+import { ShareIcons } from "../ShareIcons/ShareIcons";
 import { EventTags } from "./EventTags";
 import * as styles from "./QueryResultEventDisplay.styles";
 
@@ -55,6 +56,7 @@ export const SmallScreenDisplay = ({
         </Box>
         <Typography>{otd}</Typography>
         <EventTags tags={tags} />
+        <ShareIcons title={title} />
       </Box>
     </Card>
   );

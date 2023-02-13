@@ -21,6 +21,7 @@ export const readMoreContainer = {
   flexDirection: "column",
   gap: "7px",
   marginTop: "10px",
+  marginBottom: "15px",
 };
 
 export const imageSize = { maxHeight: "50vh", maxWidth: "95%" };
