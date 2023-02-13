@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
-import { SpecificDay } from "./SpecificDay/SpecificDay";
+import { SimpleSearch } from "./SimpleSearch/SimpleSearch/SimpleSearch";
 import { SpecificEvent } from "./SpecificEvent/SpecificEvent";
 import { SpecificSearch } from "./SpecificSearch/SpecificSearch";
 
@@ -10,7 +10,7 @@ export const Calendar = () => {
       <Routes>
         <Route
           path={ROUTES.SUB_CALENDAR_ROUTES.CALENDAR_DAY}
-          element={<SpecificDay />}
+          element={<SimpleSearch />}
         />
         <Route
           path={ROUTES.SUB_CALENDAR_ROUTES.CALENDAR_SEARCH}

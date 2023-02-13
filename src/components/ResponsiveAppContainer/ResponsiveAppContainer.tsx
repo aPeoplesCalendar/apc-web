@@ -8,21 +8,21 @@ export const ResponsiveAppContainer = ({ children }: PropsWithChildren<{}>) => {
   const aboveSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
   if (aboveLargeScreen) {
     return (
-      <Box sx={{ width: "55%", margin: "auto", paddingBottom: "25px" }}>
+      <Box sx={{ width: "63%", margin: "auto", paddingBottom: "25px" }}>
         {children}
       </Box>
     );
   }
   if (aboveMediumScreen) {
     return (
-      <Box sx={{ width: "65%", margin: "auto", paddingBottom: "25px" }}>
+      <Box sx={{ width: "70%", margin: "auto", paddingBottom: "25px" }}>
         {children}
       </Box>
     );
   }
   if (aboveSmallScreen) {
     return (
-      <Box sx={{ width: "75%", margin: "auto", paddingBottom: "25px" }}>
+      <Box sx={{ width: "80%", margin: "auto", paddingBottom: "25px" }}>
         {children}
       </Box>
     );

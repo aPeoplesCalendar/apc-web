@@ -21,6 +21,10 @@ export const SpecificSearch = () => {
   const [hasNextPage, setHasNextPage] = useState<boolean>(false);
 
   const handleFetchInitialEvents = useCallback(async () => {
+    // skip call if query params empty
+    if (!queryParams) {
+      return;
+    }
     setCurrentCursor(0);
     setHasNextPage(false);
     setLoading(true);
@@ -68,7 +72,7 @@ export const SpecificSearch = () => {
           ))}
         </Box>
       )}
-      {!loading && !events?.length && (
+      {!loading && queryParams && !events?.length && (
         <Typography sx={styles.noResultsText} variant="h6">
           No events found for these search parameters.
         </Typography>
