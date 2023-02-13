@@ -9,6 +9,7 @@ import { generateSpecificDayRoute } from "../Calendar.utils";
 import { SpecificEventImage } from "./SpecificEventImage";
 import { linkStyle } from "../Calendar.styles";
 import * as styles from "./SpecificEvent.styles";
+import { ShareIcons } from "../ShareIcons/ShareIcons";
 
 export const SpecificEvent = () => {
   const [dayEvent, setDayEvent] = useState<DatabaseEvent | null>(null);
@@ -91,6 +92,7 @@ export const SpecificEvent = () => {
               </Typography>
             ))}
           </Box>
+          <ShareIcons title={title} />
         </CardContent>
       </Card>
     </>
