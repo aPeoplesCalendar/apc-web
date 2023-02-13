@@ -5,10 +5,6 @@ import { DatabaseEvent } from "../../../types/types";
 import { FullScreenDisplay } from "./FullScreenDisplay";
 import { SmallScreenDisplay } from "./SmallScreenDisplay";
 
-// create day, week, and month column for queries (all numbers)
-// map social media shares (right side)
-// css tweaks - distinct card color, chip color
-
 export const QueryResultEventDisplay = (props: Omit<DatabaseEvent, "id">) => {
   const { imgSrc } = props;
   const [fetchedImgSrc, setFetchedImgSrc] = useState<string>("");

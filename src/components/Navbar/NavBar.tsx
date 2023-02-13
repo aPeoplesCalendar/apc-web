@@ -40,6 +40,10 @@ export const NavBar = () => {
       route: ROUTES.CALENDAR_DAY,
     },
     {
+      navText: "Search",
+      route: ROUTES.CALENDAR_SEARCH,
+    },
+    {
       navText: "About",
       route: ROUTES.ABOUT,
     },
