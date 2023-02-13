@@ -32,7 +32,7 @@ export const SmallScreenDisplay = ({
 }: ISmallScreenDisplayProps) => {
   return (
     <Card sx={styles.smallEventContainer}>
-      <Box style={styles.descriptionColumn}>
+      <Box sx={styles.descriptionColumn}>
         <Typography
           component="a"
           sx={styles.smallEventLinks}

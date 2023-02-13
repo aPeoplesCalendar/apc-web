@@ -21,7 +21,15 @@ export const ShareIcons = ({
   flexDirection?: "row" | "column";
 }) => {
   return (
-    <Box sx={{ display: "flex", flexDirection, gap: "10px" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection,
+        gap: "13px",
+        marginTop: "7px",
+        marginBottom: "7px",
+      }}
+    >
       <FacebookShareButton
         url={`https://www.apeoplescalendar.org${generatePath(
           ROUTES.SPECIFIC_EVENT,

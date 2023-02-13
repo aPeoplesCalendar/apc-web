@@ -20,7 +20,7 @@ export const SpecificEventImage = ({
   }
 
   return (
-    <Box style={styles.imageContainer}>
+    <Box sx={styles.imageContainer}>
       {loading && <Box sx={styles.imgLoadingBox} />}
       <img
         src={publicImgURL}
