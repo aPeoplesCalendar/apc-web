@@ -5,8 +5,13 @@ import { format } from "date-fns";
 import { generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../constants/routes";
 import { stringToSlug } from "../../../../utils/stringToSlug";
-import { linkStyle } from "../../Calendar.styles";
 import { fetchEvents } from "./SpecificWeek.utils";
+import * as styles from "./SpecificWeek.styles";
+import { linkStyle } from "../../Calendar.styles";
+import {
+  generateSpecificDayRoute,
+  getMonthAndDayFromDate,
+} from "../../Calendar.utils";
 
 export const DayColumn = ({ day }: { day: Date }) => {
   const [events, setEvents] = useState<{ title: string }[]>([]);
@@ -36,46 +41,23 @@ export const DayColumn = ({ day }: { day: Date }) => {
     );
   };
 
-  const formattedColumnLabel = format(day, "eee M-d");
+  const formattedColumnLabel = format(day, "eee M/d");
+  const { month, day: specificDay } = getMonthAndDayFromDate(day);
 
   return (
-    <Box
-      sx={{
-        display: "grid",
-        gridTemplateRows: "auto 1fr",
-        gridTemplateColumns: "minmax(0px, 1fr)",
-        borderLeft: "1px solid white",
-        borderTop: aboveSmallScreen ? "none" : "1px solid white",
-      }}
-    >
-      <Box
-        sx={{
-          borderBottom: "1px solid white",
-          textAlign: "center",
-          padding: "5px",
-          fontSize: "13px",
-        }}
-      >
-        {formattedColumnLabel}
+    <Box sx={styles.dayColumnWrapper(!aboveSmallScreen)}>
+      <Box sx={styles.columnHeader}>
+        <Typography
+          component="a"
+          sx={linkStyle}
+          href={generateSpecificDayRoute(month, specificDay)}
+        >
+          {formattedColumnLabel}
+        </Typography>
       </Box>
-      <Box
-        sx={{
-          padding: "7px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "7px",
-          textAlign: "left",
-        }}
-      >
+      <Box sx={styles.dayEventsWrapper}>
         {loading && (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "10px",
-              marginBottom: "10px",
-            }}
-          >
+          <Box sx={styles.loadingSpinner}>
             <CircularProgress />
           </Box>
         )}
@@ -83,16 +65,7 @@ export const DayColumn = ({ day }: { day: Date }) => {
           <Typography
             key={title}
             component="a"
-            sx={{
-              ...linkStyle,
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              display: "-webkit-box",
-              WebkitLineClamp: "2",
-              WebkitBoxOrient: "vertical",
-              fontSize: aboveSmallScreen ? "12px" : "14px",
-              cursor: "pointer",
-            }}
+            sx={styles.eventLink(!aboveSmallScreen)}
             onClick={() => handleEventClick(title)}
           >
             {title}

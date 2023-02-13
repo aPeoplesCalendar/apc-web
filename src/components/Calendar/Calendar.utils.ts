@@ -44,3 +44,12 @@ export const generateSpecificDayRoute = (
   day: string,
   view = "day"
 ) => `${ROUTES.CALENDAR_DAY}?month=${month}&day=${day}&view=${view}`;
+
+export const getMonthAndDayFromDate = (date: Date) => {
+  const month = (date.getUTCMonth() + 1).toString();
+  const day = date.getUTCDate().toString();
+  return {
+    month,
+    day,
+  };
+};

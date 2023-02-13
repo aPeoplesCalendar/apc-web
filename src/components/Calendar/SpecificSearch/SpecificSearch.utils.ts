@@ -51,7 +51,6 @@ export const formatQueryString = ({
   selectedTags = [],
 }: IFormatQueryStringProps) => {
   const tags = selectedTags.map((tag) => `tag=${tag}`).join("&");
-  console.log("includedKeywords:", includedKeywords);
   const queryInclude = includedKeywords
     .map((includedKeyword) => `queryInclude=${includedKeyword}`)
     .join("&");

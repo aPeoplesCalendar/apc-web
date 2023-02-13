@@ -12,6 +12,8 @@ import Tab from "@mui/material/Tab";
 import { SpecificWeek } from "../SpecificWeek/SpecificWeek";
 import * as styles from "./SimpleSearch.styles";
 import { SpecificDay } from "../SpecificDay/SpecificDay";
+import { SpecificMonth } from "../SpecificMonth/SpecificMonth";
+import { ResponsiveActionsContainer } from "./ResponsiveActionsContainer";
 
 // to dos
 // map social media share icons on each queried event (right side when big, bottom when small?)
@@ -38,7 +40,10 @@ export const SimpleSearch = () => {
     setSearchParams(`?${new URLSearchParams({ day, month, view: viewMode })}`);
   };
 
-  const handleViewModeChange = (_: unknown, value: "day" | "week") => {
+  const handleViewModeChange = (
+    _: unknown,
+    value: "day" | "week" | "month"
+  ) => {
     setSearchParams(`?${new URLSearchParams({ day, month, view: value })}`);
   };
 
@@ -47,7 +52,7 @@ export const SimpleSearch = () => {
       <Typography sx={styles.calendarPageHeader} variant="h5">
         Calendar
       </Typography>
-      <Box sx={styles.calendarActions}>
+      <ResponsiveActionsContainer>
         <StyledTextField
           type="date"
           defaultValue={formatDateQueryParam(month, day)}
@@ -57,11 +62,13 @@ export const SimpleSearch = () => {
           <Tabs value={viewMode} onChange={handleViewModeChange}>
             <Tab label="Day" value="day" />
             <Tab label="Week" value="week" />
+            <Tab label="Month" value="month" />
           </Tabs>
         </Box>
-      </Box>
+      </ResponsiveActionsContainer>
       {viewMode === "day" && <SpecificDay month={month} day={day} />}
       {viewMode === "week" && <SpecificWeek month={month} day={day} />}
+      {viewMode === "month" && <SpecificMonth month={month} />}
     </div>
   );
 };
