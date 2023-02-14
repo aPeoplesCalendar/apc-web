@@ -97,8 +97,14 @@ export const NavBar = () => {
                 <MenuItem
                   key={navText}
                   onClick={() => handleNavItemClick(route)}
+                  sx={styles.navButtonHoverStyle}
                 >
-                  <Typography textAlign="center">{navText}</Typography>
+                  <Typography
+                    sx={styles.navButtonHoverStyle}
+                    textAlign="center"
+                  >
+                    {navText}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>

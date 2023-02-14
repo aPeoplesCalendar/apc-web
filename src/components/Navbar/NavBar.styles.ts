@@ -1,6 +1,7 @@
 import {
   backgroundColor,
   defaultTextColor,
+  slightlyDarkerBlack,
   thematicRed,
 } from "../../constants/globalStyles";
 
@@ -25,6 +26,14 @@ export const mediumLogoContainer = {
   marginLeft: "-24px",
 };
 
+export const navButtonHoverStyle = {
+  ":hover": {
+    backgroundColor: slightlyDarkerBlack,
+    color: thematicRed,
+    transition: "background-color .4s ease, color .4s ease",
+  },
+};
+
 export const mediumAppBarButtons = {
   my: 2,
   color: defaultTextColor,
@@ -34,6 +43,7 @@ export const mediumAppBarButtons = {
   marginTop: "0px",
   fontSize: "15px",
   borderRadius: "0px",
+  ...navButtonHoverStyle,
 };
 
 export const smallNavContentStyle = {

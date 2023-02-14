@@ -6,8 +6,8 @@ export const ResponsiveActionsContainer = ({
   children,
 }: PropsWithChildren<{}>) => {
   const theme = useTheme();
-  const aboveSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
-  if (aboveSmallScreen) {
+  const aboveMediumScreen = useMediaQuery(theme.breakpoints.up("md"));
+  if (aboveMediumScreen) {
     return <Box sx={styles.calendarActionsBig}>{children}</Box>;
   }
   return <Box sx={styles.calendarActionsSmall}>{children}</Box>;

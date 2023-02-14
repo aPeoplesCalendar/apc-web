@@ -6,7 +6,6 @@ import {
   formatDateQueryParam,
   formatRawDatePickerValue,
 } from "../../Calendar.utils";
-import { StyledTextField } from "../../StyledTextField/StyledTextField";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { SpecificWeek } from "../SpecificWeek/SpecificWeek";
@@ -14,10 +13,12 @@ import * as styles from "./SimpleSearch.styles";
 import { SpecificDay } from "../SpecificDay/SpecificDay";
 import { SpecificMonth } from "../SpecificMonth/SpecificMonth";
 import { ResponsiveActionsContainer } from "./ResponsiveActionsContainer";
+import { StyledTextField } from "../../StyledTextField/StyledTextField";
 
 // to dos
-// write the meta stuff - about page, contact page, homepage, readme
-// deploy via netlify
+// prevent unnecessary refetches
+// write the meta stuff - readme
+// deploy via netlify (make contact form real)
 // update apc-form to work with new stuff
 
 export const SimpleSearch = () => {

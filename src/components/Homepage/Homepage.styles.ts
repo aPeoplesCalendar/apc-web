@@ -20,9 +20,10 @@ export const homepageText = (aboveMediumScreen: boolean) => ({
   fontSize: aboveMediumScreen ? "18px" : "16px",
 });
 
-export const homepageLinkStyle = {
+export const homepageLinkStyle = (aboveMediumScreen: boolean) => ({
   ...linkStyle,
   ...homepageText,
-  textDecoration: "underline",
+  ...homepageText(aboveMediumScreen),
+  fontWeight: "bold",
   wordBreak: "break-word",
-};
+});

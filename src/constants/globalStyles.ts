@@ -2,6 +2,8 @@ import { createTheme } from "@mui/material/styles";
 
 export const backgroundColor = "#292929";
 
+export const slightlyDarkerBlack = "#262626";
+
 export const contrastingBackgroundColor = "#1a1a1a";
 
 export const defaultTextColor = "#f5f5f5";

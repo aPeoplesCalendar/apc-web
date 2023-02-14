@@ -14,6 +14,6 @@ export const textContainer = {
 
 export const aboutLinkStyle = {
   ...linkStyle,
-  textDecoration: "underline",
+  fontWeight: "bold",
   wordBreak: "break-word",
 };

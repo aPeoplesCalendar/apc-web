@@ -88,7 +88,7 @@ export const SpecificSearch = () => {
           <CircularProgress />
         </Box>
       )}
-      {hasNextPage && (
+      {!loading && hasNextPage && (
         <Box sx={styles.loadMoreButton}>
           <Button onClick={handleFetchMore} variant="contained">
             Load More

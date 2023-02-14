@@ -50,7 +50,7 @@ export const Homepage = () => {
           in the form of a searchable "On This Day" style `}
           <Typography
             component="a"
-            sx={styles.homepageLinkStyle}
+            sx={styles.homepageLinkStyle(aboveMediumScreen)}
             href={generateSpecificDayRoute()}
           >
             calendar

@@ -1,12 +1,4 @@
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  TextField,
-} from "@mui/material";
+import { Box, MenuItem, TextField } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
@@ -19,6 +11,7 @@ import {
 import { TagsSelect } from "./TagsSelect";
 import * as styles from "./SearchUI.styles";
 import { ResponsiveInputsContainer } from "./ResponsiveInputsContainer";
+import { StyledTextField } from "../StyledTextField/StyledTextField";
 
 export const SearchUI = () => {
   const [search] = useSearchParams();
@@ -66,7 +59,7 @@ export const SearchUI = () => {
     navigate({ pathname: ROUTES.CALENDAR_SEARCH, search: queryString });
   };
 
-  const handleSortByChange = (e: SelectChangeEvent) => {
+  const handleSortByChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newSortBy = e.target.value as PossibleSortByModes;
     const queryString = formatQueryString({
       includedKeywords,
@@ -79,7 +72,7 @@ export const SearchUI = () => {
     navigate({ pathname: ROUTES.CALENDAR_SEARCH, search: queryString });
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: { key: string }) => {
     if (e.key === "Enter") {
       handleSearch();
     }
@@ -102,7 +95,7 @@ export const SearchUI = () => {
           value={excludedKeywords.join(", ")}
           onKeyUp={handleKeyPress}
         />
-        <TextField
+        <StyledTextField
           type="date"
           onChange={handleStartDateChange}
           value={newStartDate}
@@ -110,7 +103,7 @@ export const SearchUI = () => {
           label="After This Date"
           InputLabelProps={{ shrink: true }}
         />
-        <TextField
+        <StyledTextField
           type="date"
           onChange={handleEndDateChange}
           value={newEndDate}
@@ -132,23 +125,20 @@ export const SearchUI = () => {
           Search
         </Button>
         <Box sx={styles.sortByWrapper}>
-          <FormControl fullWidth>
-            <InputLabel id="sort-by-label">Sort By</InputLabel>
-            <Select
-              labelId="sort-by-label"
-              id="sort-by"
-              value={sortBy}
-              label="Age"
-              onChange={handleSortByChange}
-              variant="outlined"
-            >
-              {[...SortByMetaData.keys()].map((key) => (
-                <MenuItem key={key} value={key}>
-                  {SortByMetaData.get(key)?.displayText}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <TextField
+            select
+            value={sortBy}
+            onChange={handleSortByChange}
+            variant="outlined"
+            label="Sort By"
+            InputLabelProps={{ shrink: true }}
+          >
+            {[...SortByMetaData.keys()].map((key) => (
+              <MenuItem key={key} value={key}>
+                {SortByMetaData.get(key)?.displayText}
+              </MenuItem>
+            ))}
+          </TextField>
         </Box>
       </Box>
     </Box>
