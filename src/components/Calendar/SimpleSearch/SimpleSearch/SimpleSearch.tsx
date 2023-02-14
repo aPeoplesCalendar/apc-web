@@ -6,7 +6,6 @@ import {
   formatDateQueryParam,
   formatRawDatePickerValue,
 } from "../../Calendar.utils";
-import { StyledTextField } from "../../StyledTextField/StyledTextField";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { SpecificWeek } from "../SpecificWeek/SpecificWeek";
@@ -14,11 +13,12 @@ import * as styles from "./SimpleSearch.styles";
 import { SpecificDay } from "../SpecificDay/SpecificDay";
 import { SpecificMonth } from "../SpecificMonth/SpecificMonth";
 import { ResponsiveActionsContainer } from "./ResponsiveActionsContainer";
+import { StyledTextField } from "../../StyledTextField/StyledTextField";
 
 // to dos
-// finalize color scheme
-// write the meta stuff - about page, contact page, homepage, readme
-// deploy via netlify
+// prevent unnecessary refetches
+// write the meta stuff - readme
+// deploy via netlify (make contact form real)
 // update apc-form to work with new stuff
 
 export const SimpleSearch = () => {
@@ -27,7 +27,7 @@ export const SimpleSearch = () => {
   const month = new URLSearchParams(searchParams).get("month") ?? "1";
   const viewMode = new URLSearchParams(searchParams).get("view") ?? "day";
 
-  const handleNewDate = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handleNewDate = (e: ChangeEvent<HTMLInputElement>) => {
     // if the user did something weird and the given date is falsy, don't run anything
     if (!e.target.value) {
       return;

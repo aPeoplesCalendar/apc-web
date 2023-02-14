@@ -36,11 +36,16 @@ export const FullScreenDisplay = ({
   // set the total event card height to the description column + a bit extra
   // I don't like the roundabout way of doing this, but it allows for the image to always be fitted to dynamic text content height
   const cardHeight = descriptionColumnRef?.current?.clientHeight ?? 275;
+
   return (
     <Card sx={{ ...styles.largeEventContainer, maxHeight: cardHeight }}>
       <Box sx={styles.imgContainer}>
         {imgSrc && (
-          <img src={fetchedImgSrc} alt={imgAltText} style={styles.img} />
+          <img
+            src={fetchedImgSrc}
+            alt={imgAltText}
+            style={{ ...styles.img, maxHeight: cardHeight }}
+          />
         )}
       </Box>
       <Box sx={styles.descriptionColumn} ref={descriptionColumnRef}>

@@ -1,26 +1,11 @@
 import TextField, { TextFieldProps } from "@mui/material/TextField";
-import { defaultTextColor } from "../../../constants/globalStyles";
 
 import "./styledTextField.css";
 
+/**
+ * this component is for the mui date picker
+ * it has a custom css styling to make the calendar icon white
+ */
 export const StyledTextField = ({ sx = {}, ...rest }: TextFieldProps) => {
-  const customSx = {
-    input: defaultTextColor,
-    textarea: defaultTextColor,
-    label: defaultTextColor,
-    fieldset: { borderColor: "white" },
-    "& label.Mui-focused": {
-      color: defaultTextColor,
-    },
-    "& .MuiOutlinedInput-root": {
-      "&.Mui-focused fieldset": {
-        borderColor: defaultTextColor,
-      },
-      "&:hover fieldset": {
-        borderColor: defaultTextColor,
-      },
-    },
-    ...sx,
-  };
-  return <TextField {...rest} sx={customSx} />;
+  return <TextField {...rest} sx={sx} />;
 };

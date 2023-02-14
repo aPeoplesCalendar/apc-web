@@ -97,21 +97,29 @@ export const NavBar = () => {
                 <MenuItem
                   key={navText}
                   onClick={() => handleNavItemClick(route)}
+                  sx={styles.navButtonHoverStyle}
                 >
-                  <Typography textAlign="center">{navText}</Typography>
+                  <Typography
+                    sx={styles.navButtonHoverStyle}
+                    textAlign="center"
+                  >
+                    {navText}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
+            <Box sx={styles.smallLogoContainer}>
+              <Typography
+                variant="h5"
+                noWrap
+                component="a"
+                href={ROUTES.HOME}
+                sx={styles.smallLogoStyle}
+              >
+                aPC
+              </Typography>
+            </Box>
           </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href={ROUTES.HOME}
-            sx={styles.smallLogoStyle}
-          >
-            aPC
-          </Typography>
           <Box
             sx={styles.mediumNavBarButtonsContainer}
             data-testid="full-nav-links"

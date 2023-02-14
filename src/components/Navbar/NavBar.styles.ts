@@ -1,6 +1,8 @@
 import {
   backgroundColor,
   defaultTextColor,
+  slightlyDarkerBlack,
+  thematicRed,
 } from "../../constants/globalStyles";
 
 export const mediumLogoStyle = {
@@ -24,6 +26,14 @@ export const mediumLogoContainer = {
   marginLeft: "-24px",
 };
 
+export const navButtonHoverStyle = {
+  ":hover": {
+    backgroundColor: slightlyDarkerBlack,
+    color: thematicRed,
+    transition: "background-color .4s ease, color .4s ease",
+  },
+};
+
 export const mediumAppBarButtons = {
   my: 2,
   color: defaultTextColor,
@@ -33,11 +43,13 @@ export const mediumAppBarButtons = {
   marginTop: "0px",
   fontSize: "15px",
   borderRadius: "0px",
+  ...navButtonHoverStyle,
 };
 
 export const smallNavContentStyle = {
   flexGrow: 1,
   display: { xs: "flex", md: "none" },
+  justifyContent: "space-between",
 };
 
 export const smallNavMenuStyle = {
@@ -45,12 +57,21 @@ export const smallNavMenuStyle = {
 };
 
 export const smallLogoStyle = {
-  mr: 2,
   display: { xs: "flex", md: "none" },
   flexGrow: 1,
-  fontFamily: "monospace",
-  fontWeight: 700,
-  letterSpacing: ".3rem",
+  fontWeight: 600,
+  letterSpacing: ".12rem",
+  transition: "color .4s ease",
   color: "inherit",
   textDecoration: "none",
+  width: "fit-content",
+  "&:hover": {
+    color: thematicRed,
+  },
+};
+
+export const smallLogoContainer = {
+  width: "50%",
+  display: "flex",
+  alignItems: "center",
 };

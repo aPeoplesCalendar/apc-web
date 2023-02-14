@@ -2,6 +2,8 @@ import { createTheme } from "@mui/material/styles";
 
 export const backgroundColor = "#292929";
 
+export const slightlyDarkerBlack = "#262626";
+
 export const contrastingBackgroundColor = "#1a1a1a";
 
 export const defaultTextColor = "#f5f5f5";
@@ -10,6 +12,8 @@ export const defaultTextColor = "#f5f5f5";
 export const secondaryTextColor = "#1f1f1f";
 
 export const disabledButtonTextColor = "gray";
+
+export const thematicRed = "#e62020";
 
 export const theme = createTheme({
   components: {

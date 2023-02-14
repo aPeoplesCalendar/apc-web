@@ -1,14 +1,17 @@
-import { Skeleton } from "@mui/material";
-import { Box, Typography } from "@mui/material";
+import { Box, useMediaQuery, useTheme, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient";
 import { DatabaseEvent } from "../../types/types";
 import * as styles from "./Homepage.styles";
 import { QueryResultEventDisplay } from "../Calendar/QueryResultEventDisplay/QueryResultEventDisplay";
+import { generateSpecificDayRoute } from "../Calendar/Calendar.utils";
 
 export const Homepage = () => {
   const [eventOTD, setEventOTD] = useState<DatabaseEvent>();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const theme = useTheme();
+  const aboveMediumScreen = useMediaQuery(theme.breakpoints.up("md"));
 
   const fetchEventOfTheDay = async () => {
     setLoading(true);
@@ -37,27 +40,25 @@ export const Homepage = () => {
 
   return (
     <div>
-      <Typography variant="h3" sx={styles.header}>
+      <Typography variant={aboveMediumScreen ? "h3" : "h4"} sx={styles.header}>
         A People's Calendar
       </Typography>
-      <Box sx={styles.homepageText}>
-        <Typography>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
-        </Typography>
-        <Typography>
-          It has survived not only five centuries, but also the leap into
-          electronic typesetting, remaining essentially unchanged. It was
-          popularised in the 1960s with the release of Letraset sheets
-          containing Lorem Ipsum passages, and more recently with desktop
-          publishing software like Aldus PageMaker including versions of Lorem
-          Ipsum.
+      <Box sx={styles.homepageTextContainer}>
+        <Typography sx={styles.homepageText(aboveMediumScreen)}>
+          {`A People's Calendar (aPC) is a project that seeks to promote the
+          worldwide history of working class movements and liberation struggles
+          in the form of a searchable "On This Day" style `}
+          <Typography
+            component="a"
+            sx={styles.homepageLinkStyle(aboveMediumScreen)}
+            href={generateSpecificDayRoute()}
+          >
+            calendar
+          </Typography>
+          .
         </Typography>
       </Box>
       <div>
-        {loading && <Skeleton />}
         <Typography variant="h6" sx={styles.eventOTDHeader}>
           Event of the Day
         </Typography>

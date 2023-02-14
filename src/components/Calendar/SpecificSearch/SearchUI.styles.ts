@@ -15,8 +15,8 @@ export const noResultsText = { textAlign: "center", marginTop: "15px" };
 export const loadingSpinner = {
   display: "flex",
   justifyContent: "center",
-  marginTop: "10px",
-  marginBottom: "10px",
+  marginTop: "15px",
+  marginBottom: "15px",
 };
 
 export const searchPageHeader = {
