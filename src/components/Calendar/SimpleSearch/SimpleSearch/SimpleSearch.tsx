@@ -17,7 +17,6 @@ import { StyledTextField } from "../../StyledTextField/StyledTextField";
 
 // to dos
 // prevent unnecessary refetches
-// write the meta stuff - readme
 // deploy via netlify (make contact form real)
 // update apc-form to work with new stuff
 
