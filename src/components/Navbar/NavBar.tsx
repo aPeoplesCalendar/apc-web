@@ -102,16 +102,18 @@ export const NavBar = () => {
                 </MenuItem>
               ))}
             </Menu>
+            <Box sx={styles.smallLogoContainer}>
+              <Typography
+                variant="h5"
+                noWrap
+                component="a"
+                href={ROUTES.HOME}
+                sx={styles.smallLogoStyle}
+              >
+                aPC
+              </Typography>
+            </Box>
           </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href={ROUTES.HOME}
-            sx={styles.smallLogoStyle}
-          >
-            aPC
-          </Typography>
           <Box
             sx={styles.mediumNavBarButtonsContainer}
             data-testid="full-nav-links"

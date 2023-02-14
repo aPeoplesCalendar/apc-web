@@ -11,6 +11,8 @@ export const secondaryTextColor = "#1f1f1f";
 
 export const disabledButtonTextColor = "gray";
 
+export const thematicRed = "#e62020";
+
 export const theme = createTheme({
   components: {
     MuiAppBar: {
