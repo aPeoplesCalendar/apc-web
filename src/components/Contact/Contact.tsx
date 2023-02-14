@@ -1,5 +1,6 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import * as styles from "./Contact.styles";
 
 export const Contact = () => {
   const [contactFormData, setContactFormData] = useState({
@@ -19,13 +20,13 @@ export const Contact = () => {
   const disableSubmit = !email || !message || !title;
 
   return (
-    <div>
+    <Box>
       <form name="contact" method="post">
         <input type="hidden" name="form-name" value="contact" />
-        <header>
-          <Typography>Contact Us</Typography>
-        </header>
-        <div>
+        <Typography sx={styles.headerStyle} variant="h5">
+          Contact
+        </Typography>
+        <Box sx={styles.formContainer}>
           <Typography>Return Email</Typography>
           <TextField
             type="text"
@@ -53,17 +54,18 @@ export const Contact = () => {
             multiline
             required
           />
-        </div>
-        <Button
-          type="submit"
-          value="Submit"
-          onClick={() => alert("submitted")}
-          disabled={disableSubmit}
-          variant="contained"
-        >
-          Submit
-        </Button>
+        </Box>
+        <Box sx={styles.buttonContainer}>
+          <Button
+            type="submit"
+            value="Submit"
+            disabled={disableSubmit}
+            variant="contained"
+          >
+            Submit
+          </Button>
+        </Box>
       </form>
-    </div>
+    </Box>
   );
 };

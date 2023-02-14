@@ -1,3 +1,5 @@
+import { linkStyle } from "../Calendar/Calendar.styles";
+
 export const header = {
   textAlign: "center",
   marginTop: "15px",
@@ -6,9 +8,21 @@ export const header = {
 
 export const eventOTDHeader = { textAlign: "center", marginBottom: "10px" };
 
-export const homepageText = {
+export const homepageTextContainer = {
   display: "flex",
   flexDirection: "column",
   gap: "15px",
   padding: "5px",
+  marginBottom: "7px",
+};
+
+export const homepageText = (aboveMediumScreen: boolean) => ({
+  fontSize: aboveMediumScreen ? "18px" : "16px",
+});
+
+export const homepageLinkStyle = {
+  ...linkStyle,
+  ...homepageText,
+  textDecoration: "underline",
+  wordBreak: "break-word",
 };

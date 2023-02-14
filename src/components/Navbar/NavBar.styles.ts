@@ -34,10 +34,6 @@ export const mediumAppBarButtons = {
   marginTop: "0px",
   fontSize: "15px",
   borderRadius: "0px",
-  transition: "background-color .4s ease",
-  "&:hover": {
-    backgroundColor: thematicRed,
-  },
 };
 
 export const smallNavContentStyle = {

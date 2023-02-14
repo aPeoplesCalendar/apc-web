@@ -16,7 +16,6 @@ import { SpecificMonth } from "../SpecificMonth/SpecificMonth";
 import { ResponsiveActionsContainer } from "./ResponsiveActionsContainer";
 
 // to dos
-// finalize color scheme
 // write the meta stuff - about page, contact page, homepage, readme
 // deploy via netlify
 // update apc-form to work with new stuff
@@ -27,7 +26,7 @@ export const SimpleSearch = () => {
   const month = new URLSearchParams(searchParams).get("month") ?? "1";
   const viewMode = new URLSearchParams(searchParams).get("view") ?? "day";
 
-  const handleNewDate = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handleNewDate = (e: ChangeEvent<HTMLInputElement>) => {
     // if the user did something weird and the given date is falsy, don't run anything
     if (!e.target.value) {
       return;
