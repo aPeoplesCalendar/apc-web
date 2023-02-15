@@ -13,7 +13,11 @@ import * as styles from "./SearchUI.styles";
 import { ResponsiveInputsContainer } from "./ResponsiveInputsContainer";
 import { StyledTextField } from "../StyledTextField/StyledTextField";
 
-export const SearchUI = () => {
+export const SearchUI = ({
+  setLoading,
+}: {
+  setLoading: (newLoading: boolean) => void;
+}) => {
   const [search] = useSearchParams();
   // get query params from url
   const { queryInclude, queryExclude, startDate, endDate, sortBy, tags } =
@@ -48,6 +52,7 @@ export const SearchUI = () => {
   };
 
   const handleSearch = () => {
+    setLoading(true);
     const queryString = formatQueryString({
       includedKeywords,
       excludedKeywords,

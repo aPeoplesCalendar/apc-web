@@ -15,7 +15,6 @@ export interface IFullScreenDisplayProps {
   day: string;
   date: string;
   otd: string;
-  imgSrc: string;
   imgAltText: string | undefined;
   fetchedImgSrc: string;
   tags: string[];
@@ -27,7 +26,6 @@ export const FullScreenDisplay = ({
   day,
   date,
   otd,
-  imgSrc,
   imgAltText,
   fetchedImgSrc,
   tags,
@@ -36,11 +34,10 @@ export const FullScreenDisplay = ({
   // set the total event card height to the description column + a bit extra
   // I don't like the roundabout way of doing this, but it allows for the image to always be fitted to dynamic text content height
   const cardHeight = descriptionColumnRef?.current?.clientHeight ?? 275;
-
   return (
     <Card sx={{ ...styles.largeEventContainer, maxHeight: cardHeight }}>
       <Box sx={styles.imgContainer}>
-        {imgSrc && (
+        {fetchedImgSrc && (
           <img
             src={fetchedImgSrc}
             alt={imgAltText}
