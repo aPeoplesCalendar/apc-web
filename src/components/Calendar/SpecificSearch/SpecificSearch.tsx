@@ -70,7 +70,7 @@ export const SpecificSearch = () => {
       <Typography sx={styles.searchPageHeader} variant="h5">
         Search
       </Typography>
-      <SearchUI />
+      <SearchUI setLoading={setLoading} />
       {!!events?.length && (
         <Box sx={styles.eventsContainer}>
           {events.map(({ id, ...rest }) => (

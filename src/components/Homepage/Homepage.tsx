@@ -19,7 +19,20 @@ export const Homepage = () => {
     const day = `${new Date().getDate()}`;
     const { data: todayEvents = [] } = await supabase
       .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
-      .select<"*", DatabaseEvent>()
+      .select<any, DatabaseEvent>(
+        `
+        id,
+        title,
+        date,
+        day,
+        description,
+        month,
+        otd,
+        imgSrc,
+        imgAltText,
+        tags
+        `
+      )
       .eq("day", day)
       .eq("month", month)
       .order("title", { ascending: true });

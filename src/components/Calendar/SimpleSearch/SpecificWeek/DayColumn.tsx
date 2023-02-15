@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { format } from "date-fns";
@@ -12,26 +11,21 @@ import {
   generateSpecificDayRoute,
   getMonthAndDayFromDate,
 } from "../../Calendar.utils";
+import { useQuery } from "@tanstack/react-query";
+import { staleTime } from "../../../../constants/queryConfiguration";
 
 export const DayColumn = ({ day }: { day: Date }) => {
-  const [events, setEvents] = useState<{ title: string }[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { month, day: queryDay } = getMonthAndDayFromDate(day);
+
+  const { isLoading, data: events = [] } = useQuery({
+    queryKey: ["weekOrMonthCalendarViewEvents", month, queryDay],
+    queryFn: () => fetchEvents(month, queryDay),
+    staleTime,
+  });
 
   const navigate = useNavigate();
   const theme = useTheme();
   const aboveSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
-
-  useEffect(() => {
-    const month = (day.getUTCMonth() + 1).toString();
-    const queryDay = day.getUTCDate().toString();
-    const handleFetchEvents = async () => {
-      setLoading(true);
-      const dayEvents = await fetchEvents(month, queryDay);
-      setEvents(dayEvents);
-      setLoading(false);
-    };
-    handleFetchEvents();
-  }, [day]);
 
   const handleEventClick = (title: string) => {
     navigate(
@@ -42,7 +36,6 @@ export const DayColumn = ({ day }: { day: Date }) => {
   };
 
   const formattedColumnLabel = format(day, "eee M/d");
-  const { month, day: specificDay } = getMonthAndDayFromDate(day);
 
   return (
     <Box sx={styles.dayColumnWrapper(!aboveSmallScreen)}>
@@ -50,13 +43,13 @@ export const DayColumn = ({ day }: { day: Date }) => {
         <Typography
           component="a"
           sx={linkStyle}
-          href={generateSpecificDayRoute(month, specificDay)}
+          href={generateSpecificDayRoute(month, queryDay)}
         >
           {formattedColumnLabel}
         </Typography>
       </Box>
       <Box sx={styles.dayEventsWrapper}>
-        {loading && (
+        {isLoading && (
           <Box sx={styles.loadingSpinner}>
             <CircularProgress />
           </Box>

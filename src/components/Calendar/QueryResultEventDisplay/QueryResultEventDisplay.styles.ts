@@ -17,7 +17,7 @@ export const imgContainer = { overflow: "hidden" };
 export const img = {
   objectFit: "cover" as "cover",
   minHeight: "100%",
-  maxWidth: "250px",
+  width: "100%",
 };
 
 export const smallImgContainer = {

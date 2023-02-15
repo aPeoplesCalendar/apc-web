@@ -142,16 +142,21 @@ export const fetchEvents = async ({
     ascending: boolean;
   };
 
-  let query = supabase.from(
-    process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string
-  ).select<any, DatabaseEvent>(`id, title,
-  date,
-  day,
-  month,
-  otd,
-  imgSrc,
-  imgAltText,
-  tags`);
+  let query = supabase
+    .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
+    .select<any, DatabaseEvent>(
+      `
+        id,
+        title,
+        date,
+        day,
+        month,
+        otd,
+        imgSrc,
+        imgAltText,
+        tags
+        `
+    );
   // conditional query filters
   if (endDate) {
     query = query.lt("date", endDate);
