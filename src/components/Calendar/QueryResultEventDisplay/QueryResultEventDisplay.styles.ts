@@ -42,6 +42,7 @@ export const descriptionColumn = {
 export const smallEventLinks = {
   ...linkStyle,
   textAlign: "center",
+  wordBreak: "break-word",
 };
 
 export const tagsContainer = { display: "flex", gap: "10px", flexWrap: "wrap" };

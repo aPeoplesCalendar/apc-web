@@ -61,7 +61,7 @@ export const SpecificEvent = () => {
   const paragraphs = description.split("\n\n");
 
   return (
-    <>
+    <Box sx={styles.container}>
       <EventMetaTags previewEvent={dayEvent} />
       <Card>
         <CardContent>
@@ -95,6 +95,6 @@ export const SpecificEvent = () => {
           <ShareIcons title={title} />
         </CardContent>
       </Card>
-    </>
+    </Box>
   );
 };

@@ -1,3 +1,5 @@
+import { contrastingBackgroundColor } from "../../../constants/globalStyles";
+
 export const headerInfo = {
   display: "flex",
   flexDirection: "column",
@@ -34,8 +36,10 @@ export const loadingSpinner = {
 };
 
 export const imgLoadingBox = {
-  backgroundColor: "#cfcfcf",
+  backgroundColor: contrastingBackgroundColor,
   width: "275px",
   height: "300px",
   margin: "auto",
 };
+
+export const container = { marginTop: "20px" };
