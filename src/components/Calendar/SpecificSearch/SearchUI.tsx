@@ -1,5 +1,5 @@
 import { Box, MenuItem, TextField } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
 import Button from "@mui/material/Button";
@@ -19,7 +19,6 @@ export const SearchUI = ({
   setLoading: (newLoading: boolean) => void;
 }) => {
   const [search] = useSearchParams();
-  console.log("search", search.toString());
   // get query params from url
   const { queryInclude, queryExclude, startDate, endDate, sortBy, tags } =
     getAndFormatQueryParams(search);
@@ -31,6 +30,17 @@ export const SearchUI = ({
   const [newStartDate, setNewStartDate] = useState<string>(startDate);
   const [newEndDate, setNewEndDate] = useState<string>(endDate);
   const [selectedTags, setSelectedTags] = useState<string[]>(tags);
+
+  // when url params update and component doesn't rerender, update controlled inputs with fresh params
+  useEffect(() => {
+    const { queryInclude, queryExclude, startDate, endDate, tags } =
+      getAndFormatQueryParams(search);
+    setIncludedKeywords(queryInclude);
+    setExcludedKeywords(queryExclude);
+    setNewStartDate(startDate);
+    setNewEndDate(endDate);
+    setSelectedTags(tags);
+  }, [search]);
 
   const navigate = useNavigate();
 
@@ -83,8 +93,6 @@ export const SearchUI = ({
       handleSearch();
     }
   };
-
-  console.log("includedKeywords", includedKeywords);
 
   return (
     <Box sx={styles.searchUIContainer}>

@@ -15,6 +15,7 @@ import { useNavigate } from "react-router";
 
 export const NavBar = () => {
   const navigate = useNavigate();
+
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {

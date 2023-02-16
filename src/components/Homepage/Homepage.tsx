@@ -1,11 +1,10 @@
 import { Box, useMediaQuery, useTheme, Typography } from "@mui/material";
-import { supabase } from "../../supabaseClient";
-import { DatabaseEvent } from "../../types/types";
 import * as styles from "./Homepage.styles";
 import { QueryResultEventDisplay } from "../Calendar/QueryResultEventDisplay/QueryResultEventDisplay";
 import { generateSpecificDayRoute } from "../Calendar/Calendar.utils";
 import { useQuery } from "@tanstack/react-query";
 import { staleTime } from "../../constants/queryConfiguration";
+import { fetchEventOfTheDay } from "./Homepage.utils";
 
 export const Homepage = () => {
   const theme = useTheme();
@@ -13,35 +12,6 @@ export const Homepage = () => {
 
   const month = `${new Date().getMonth() + 1}`;
   const day = `${new Date().getDate()}`;
-
-  const fetchEventOfTheDay = async (month: string, day: string) => {
-    const { data: todayEvents = [] } = await supabase
-      .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
-      .select<any, DatabaseEvent>(
-        `
-        id,
-        title,
-        date,
-        day,
-        description,
-        month,
-        otd,
-        imgSrc,
-        imgAltText,
-        tags
-        `
-      )
-      .eq("day", day)
-      .eq("month", month)
-      .order("title", { ascending: true });
-    const eventWithLongestDescription = todayEvents?.reduce(
-      (maxEvent: DatabaseEvent, currentEvent: DatabaseEvent) =>
-        maxEvent.description.length > currentEvent.description.length
-          ? maxEvent
-          : currentEvent
-    );
-    return eventWithLongestDescription;
-  };
 
   const { isLoading, data: eventOTD } = useQuery({
     queryKey: ["eventOTD", month, day],
