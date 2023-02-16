@@ -1,4 +1,4 @@
-import { screen, within } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as RouterModule from "react-router";
 import { ROUTES } from "../../constants/routes";
@@ -13,31 +13,28 @@ describe("NavBar", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
-  it("renders medium screen logo", () => {
+  it("renders a home button with href to home", () => {
     render(<NavBar />);
-    expect(screen.getByText("MED LOGO")).toBeInTheDocument();
+    expect(screen.getByText("Home")).toHaveAttribute("href", ROUTES.HOME);
   });
-  it("renders small screen logo", () => {
+  it("renders aPC text with href to home", () => {
     render(<NavBar />);
-    expect(screen.getByText("XS LOGO")).toBeInTheDocument();
-  });
-  it("medium logo routes to homepage", async () => {
-    render(<NavBar />);
-    expect(screen.getByText("MED LOGO")).toHaveAttribute("href", ROUTES.HOME);
-  });
-  it("small logo routes to homepage", async () => {
-    render(<NavBar />);
-    expect(screen.getByText("XS LOGO")).toHaveAttribute("href", ROUTES.HOME);
+    expect(screen.getByText("aPC")).toHaveAttribute("href", ROUTES.HOME);
   });
   const navTextAndRoutes = [
     {
       navText: "About",
       route: { pathname: ROUTES.ABOUT, search: "" },
     },
-    // {
-    //   navText: "Calendar",
-    //   route: { pathname: ROUTES.CALENDAR_DAY, search: "?day=2-1" },
-    // },
+    {
+      navText: "Calendar",
+      route: {
+        pathname: ROUTES.CALENDAR_DAY,
+        search: `?day=${new Date().getDate()}&month=${
+          new Date().getMonth() + 1
+        }`,
+      },
+    },
     {
       navText: "Contact",
       route: { pathname: ROUTES.CONTACT, search: "" },
@@ -45,22 +42,22 @@ describe("NavBar", () => {
   ];
   it.each(navTextAndRoutes)(
     "clicking full nav bar links navigates as expected",
-    ({ navText, route }) => {
+    async ({ navText, route }) => {
       render(<NavBar />);
       userEvent.click(
         within(screen.getByTestId("full-nav-links")).getByText(navText)
       );
-      expect(navigateMock).toHaveBeenCalledWith(route);
+      await waitFor(() => expect(navigateMock).toHaveBeenCalledWith(route));
     }
   );
   it.each(navTextAndRoutes)(
     "clicking small nav bar links navigates as expected",
-    ({ navText, route }) => {
+    async ({ navText, route }) => {
       render(<NavBar />);
       userEvent.click(
         within(screen.getByTestId("small-nav-links")).getByText(navText)
       );
-      expect(navigateMock).toHaveBeenCalledWith(route);
+      await waitFor(() => expect(navigateMock).toHaveBeenCalledWith(route));
     }
   );
 });

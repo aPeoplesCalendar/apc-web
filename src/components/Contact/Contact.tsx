@@ -27,22 +27,22 @@ export const Contact = () => {
           Contact
         </Typography>
         <Box sx={styles.formContainer}>
-          <Typography>Return Email</Typography>
           <TextField
             type="text"
             placeholder="Your Email"
             name="email"
             value={email}
             onChange={handleChange}
+            label="Return Email"
             required
           />
-          <Typography className="inputLabel">Title</Typography>
           <TextField
             type="text"
             placeholder="Subject"
             name="title"
             value={title}
             onChange={handleChange}
+            label="Title"
             required
           />
           <Typography className="inputLabel">Message</Typography>
@@ -53,6 +53,7 @@ export const Contact = () => {
             onChange={handleChange}
             multiline
             required
+            label="Message"
           />
         </Box>
         <Box sx={styles.buttonContainer}>

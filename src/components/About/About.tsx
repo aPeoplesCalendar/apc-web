@@ -46,6 +46,7 @@ export const About = () => {
             >
               Contact us here
             </Typography>
+            .
           </Typography>
         </Fade>
         <Fade in={true} timeout={1800}>
@@ -59,6 +60,7 @@ export const About = () => {
             >
               Our project is open source
             </Typography>
+            .
           </Typography>
         </Fade>
       </Box>

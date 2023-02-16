@@ -13,7 +13,6 @@ export interface ISmallScreenDisplayProps {
   day: string;
   date: string;
   otd: string;
-  imgSrc: string;
   imgAltText: string | undefined;
   fetchedImgSrc: string;
   tags: string[];
@@ -25,7 +24,6 @@ export const SmallScreenDisplay = ({
   day,
   date,
   otd,
-  imgSrc,
   imgAltText,
   fetchedImgSrc,
   tags,
@@ -50,7 +48,7 @@ export const SmallScreenDisplay = ({
           {date}
         </Typography>
         <Box sx={styles.smallImgContainer}>
-          {imgSrc && (
+          {fetchedImgSrc && (
             <img src={fetchedImgSrc} alt={imgAltText} style={styles.smallImg} />
           )}
         </Box>

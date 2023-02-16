@@ -40,7 +40,7 @@ export const formatRawDatePickerValue = (
 };
 
 export const generateSpecificDayRoute = (
-  month = `${new Date().getMonth() + 1}`,
+  month = `${new Date().getUTCMonth() + 1}`,
   day = `${new Date().getDate()}`,
   view = "day"
 ) => `${ROUTES.CALENDAR_DAY}?month=${month}&day=${day}&view=${view}`;
