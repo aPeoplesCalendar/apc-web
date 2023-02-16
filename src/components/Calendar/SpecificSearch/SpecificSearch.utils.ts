@@ -15,6 +15,7 @@ export const getTodayFormatted = () => {
 };
 
 export const getAndFormatQueryParams = (search: URLSearchParams) => {
+  console.log("getAndFormatQueryParams running...");
   const queryInclude = search.getAll("queryInclude");
   const queryExclude = search.getAll("queryExclude");
   const startDate = search.get("startDate") ?? "";
@@ -23,6 +24,7 @@ export const getAndFormatQueryParams = (search: URLSearchParams) => {
   const sortBy =
     (search.get("sortBy") as PossibleSortByModes | null) ??
     "alphabetical-ascending";
+  console.log("include array:", queryInclude);
   return {
     queryInclude,
     queryExclude,

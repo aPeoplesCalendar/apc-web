@@ -1,9 +1,20 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import { render } from "../../utils/testing.utils";
 import { About } from "./About";
 
 describe("About", () => {
-  it("renders dummy text", () => {
+  it("should provide a link to contact page", () => {
     render(<About />);
-    expect(screen.getByText("About")).toBeInTheDocument();
+    expect(screen.getByText("Contact us here")).toHaveAttribute(
+      "href",
+      "/contact"
+    );
+  });
+  it("should provide link to apc github page", () => {
+    render(<About />);
+    expect(screen.getByText("Our project is open source")).toHaveAttribute(
+      "href",
+      "https://github.com/aPeoplesCalendar/apc-web"
+    );
   });
 });

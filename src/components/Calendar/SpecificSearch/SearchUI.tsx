@@ -19,6 +19,7 @@ export const SearchUI = ({
   setLoading: (newLoading: boolean) => void;
 }) => {
   const [search] = useSearchParams();
+  console.log("search", search.toString());
   // get query params from url
   const { queryInclude, queryExclude, startDate, endDate, sortBy, tags } =
     getAndFormatQueryParams(search);
@@ -82,6 +83,8 @@ export const SearchUI = ({
       handleSearch();
     }
   };
+
+  console.log("includedKeywords", includedKeywords);
 
   return (
     <Box sx={styles.searchUIContainer}>
