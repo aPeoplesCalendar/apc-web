@@ -38,7 +38,7 @@ export interface IFormatQueryStringProps {
   excludedKeywords: string[] | undefined;
   newStartDate: string | null;
   newEndDate: string | null;
-  selectedTags: string[];
+  selectedTags: string[] | undefined;
   newSortBy: PossibleSortByModes;
 }
 
@@ -50,7 +50,6 @@ export const formatQueryString = ({
   newSortBy,
   selectedTags = [],
 }: IFormatQueryStringProps) => {
-  const tags = selectedTags.map((tag) => `tag=${tag}`).join("&");
   const queryInclude = includedKeywords
     .map((includedKeyword) => `queryInclude=${includedKeyword}`)
     .join("&");
@@ -60,6 +59,7 @@ export const formatQueryString = ({
   const startDateString = newStartDate ? `startDate=${newStartDate}` : "";
   const endDateString = newEndDate ? `endDate=${newEndDate}` : "";
   const sortByString = `sortBy=${newSortBy}`;
+  const tags = selectedTags.map((tag) => `tag=${tag}`).join("&");
   const formattedQueryParams = [
     queryInclude,
     queryExclude,

@@ -31,7 +31,7 @@ export const SearchUI = ({
   const [newEndDate, setNewEndDate] = useState<string>(endDate);
   const [selectedTags, setSelectedTags] = useState<string[]>(tags);
 
-  // when url params update and component doesn't rerender, update controlled inputs with fresh params
+  // when url params update and component doesn't remount, update controlled inputs with fresh params
   useEffect(() => {
     const { queryInclude, queryExclude, startDate, endDate, tags } =
       getAndFormatQueryParams(search);
