@@ -1,4 +1,4 @@
-import { screen, waitFor } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as RouterModule from "react-router-dom";
 import { render } from "../../../utils/testing.utils";
@@ -23,7 +23,7 @@ describe("SearchUI", () => {
       .spyOn(RouterModule, "useNavigate")
       .mockImplementation(() => mockNavigate);
   });
-  const inputPlaceholderAndValues = [
+  const inputLabelAndValues = [
     {
       value: "included1, included2",
       within: "Included Keywords",
@@ -37,12 +37,18 @@ describe("SearchUI", () => {
       within: "After This Date",
     },
     {
-      value: "excluded",
-      within: "2000/01/01",
+      value: "2000/01/01",
+      within: "Before This Date",
     },
   ];
-  it("should render loading state", () => {
-    render(<SearchUI {...defaultProps} />, { initialEntries });
-    screen.debug(undefined, 1000000);
-  });
+  it.each(inputLabelAndValues)(
+    "should render loading state",
+    ({ within, value }) => {
+      render(<SearchUI {...defaultProps} />, { initialEntries });
+      expect(
+        // @ts-ignore-next-line
+        within(screen.getByText(within)).getByRole("combobox")
+      ).toHaveValue(value);
+    }
+  );
 });
