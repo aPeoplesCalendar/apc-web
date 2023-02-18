@@ -50,11 +50,18 @@ describe("SpecificEvent", () => {
     render(<SpecificEvent />);
     expect(screen.getByRole("progressbar")).toBeInTheDocument();
   });
-  it("should provide a date link", async () => {
+  it("should provide a month day link", async () => {
     render(<SpecificEvent />);
-    expect(await screen.findByText("1946/02/16")).toHaveAttribute(
+    expect(await screen.findByText("Feb 16th")).toHaveAttribute(
       "href",
       "/calendar/day?month=2&day=16&view=day"
+    );
+  });
+  it("should provide a year link", async () => {
+    render(<SpecificEvent />);
+    expect(await screen.findByText("1946")).toHaveAttribute(
+      "href",
+      "/calendar/search?startDate=1946-01-01&endDate=1946-12-31"
     );
   });
   const paragraphs = ["first paragraph", "second paragraph"];

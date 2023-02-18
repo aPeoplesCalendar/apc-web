@@ -23,11 +23,18 @@ describe("FullScreenDisplay", () => {
       "/calendar/events/title"
     );
   });
-  it("should provide a date link", () => {
+  it("should provide a month day link", async () => {
     render(<FullScreenDisplay {...defaultProps} />);
-    expect(screen.getByText("1900/5/1")).toHaveAttribute(
+    expect(await screen.findByText("May 1st")).toHaveAttribute(
       "href",
       "/calendar/day?month=5&day=1&view=day"
+    );
+  });
+  it("should provide a year link", async () => {
+    render(<FullScreenDisplay {...defaultProps} />);
+    expect(await screen.findByText("1900")).toHaveAttribute(
+      "href",
+      "/calendar/search?startDate=1900-01-01&endDate=1900-12-31"
     );
   });
   it("should provide an image caption", () => {
