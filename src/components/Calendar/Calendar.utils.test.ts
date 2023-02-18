@@ -52,7 +52,7 @@ describe("calendar util functions", () => {
     });
     it("defaults to expected values", () => {
       const currentMonth = `${new Date().getUTCMonth() + 1}`;
-      const currentDay = `${new Date().getDate()}`;
+      const currentDay = `${new Date().getUTCDate()}`;
       const result = generateSpecificDayRoute();
       expect(result).toEqual(
         `${ROUTES.CALENDAR_DAY}?month=${currentMonth}&day=${currentDay}&view=day`

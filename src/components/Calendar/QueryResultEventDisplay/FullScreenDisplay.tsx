@@ -1,11 +1,11 @@
 import { Box, Card, Typography } from "@mui/material";
-import { useRef } from "react";
+import { useCallback, useState } from "react";
 import { generatePath } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
 import { stringToSlug } from "../../../utils/stringToSlug";
 import { linkStyle } from "../Calendar.styles";
-import { generateSpecificDayRoute } from "../Calendar.utils";
 import { ShareIcons } from "../ShareIcons/ShareIcons";
+import { DateLink } from "./DateLink";
 import { EventTags } from "./EventTags";
 import * as styles from "./QueryResultEventDisplay.styles";
 
@@ -22,30 +22,33 @@ export interface IFullScreenDisplayProps {
 
 export const FullScreenDisplay = ({
   title,
-  month,
-  day,
   date,
   otd,
   imgAltText,
   fetchedImgSrc,
   tags,
 }: IFullScreenDisplayProps) => {
-  const descriptionColumnRef = useRef<HTMLDivElement>(null);
-  // set the total event card height to the description column + a bit extra
-  // I don't like the roundabout way of doing this, but it allows for the image to always be fitted to dynamic text content height
-  const cardHeight = descriptionColumnRef?.current?.clientHeight ?? 275;
+  const [maxHeight, setMaxHeight] = useState(280);
+  // set the total event card height to the description column
+  // I don't like this, but this ref allows for the image and card to match dynamic text content height
+  const callbackRef = useCallback((node: HTMLDivElement) => {
+    if (node !== null) {
+      setMaxHeight(node.getBoundingClientRect().height);
+    }
+  }, []);
+
   return (
-    <Card sx={{ ...styles.largeEventContainer, maxHeight: cardHeight }}>
+    <Card sx={{ ...styles.largeEventContainer, maxHeight }}>
       <Box sx={styles.imgContainer}>
         {fetchedImgSrc && (
           <img
             src={fetchedImgSrc}
             alt={imgAltText}
-            style={{ ...styles.img, maxHeight: cardHeight }}
+            style={{ ...styles.img, maxHeight }}
           />
         )}
       </Box>
-      <Box sx={styles.descriptionColumn} ref={descriptionColumnRef}>
+      <Box sx={styles.descriptionColumn} ref={callbackRef}>
         <Typography
           component="a"
           sx={linkStyle}
@@ -55,13 +58,7 @@ export const FullScreenDisplay = ({
         >
           {title}
         </Typography>
-        <Typography
-          component="a"
-          sx={linkStyle}
-          href={generateSpecificDayRoute(month, day)}
-        >
-          {date}
-        </Typography>
+        <DateLink date={date} />
         <Typography>{otd}</Typography>
         {imgAltText && <Typography>{`Image: ${imgAltText}`}</Typography>}
         <EventTags tags={tags} />

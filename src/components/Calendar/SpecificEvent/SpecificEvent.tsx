@@ -1,17 +1,23 @@
 import { DatabaseEvent } from "../../../types/types";
 import { useParams } from "react-router-dom";
 import { EventMetaTags } from "./EventMetaTags";
-import { CardContent, Typography, Card, Box } from "@mui/material";
+import {
+  CardContent,
+  Typography,
+  Card,
+  Box,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import { generateSpecificDayRoute } from "../Calendar.utils";
 import { SpecificEventImage } from "./SpecificEventImage";
-import { linkStyle } from "../Calendar.styles";
 import * as styles from "./SpecificEvent.styles";
 import { ShareIcons } from "../ShareIcons/ShareIcons";
 import { useQuery } from "@tanstack/react-query";
 import { fetchEvent, fetchPublicImgUrl } from "./SpecificEvent.utils";
 import { staleTime } from "../../../constants/queryConfiguration";
 import { EventTags } from "../QueryResultEventDisplay/EventTags";
+import { DateLink } from "../QueryResultEventDisplay/DateLink";
 
 export const SpecificEvent = () => {
   const { eventName } = useParams<{ eventName: string }>();
@@ -29,6 +35,9 @@ export const SpecificEvent = () => {
     enabled: !!dayEvent?.imgSrc,
   });
 
+  const theme = useTheme();
+  const aboveSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
+
   const isLoading = isLoadingEvent || isLoadingImgUrl;
 
   if (isLoading) {
@@ -45,7 +54,7 @@ export const SpecificEvent = () => {
     );
   }
 
-  const { title, description, date, day, month, tags, links, imgAltText } =
+  const { title, description, date, tags, links, imgAltText } =
     dayEvent as DatabaseEvent;
   // split out description into paragraphs
   const paragraphs = description.split("\n\n");
@@ -54,16 +63,12 @@ export const SpecificEvent = () => {
     <Box sx={styles.container}>
       <EventMetaTags previewEvent={dayEvent} />
       <Card>
-        <CardContent>
+        <CardContent sx={styles.cardPadding(aboveSmallScreen)}>
           <Box sx={styles.headerInfo}>
             <Typography variant="h5">{title}</Typography>
-            <Typography
-              component="a"
-              sx={linkStyle}
-              href={generateSpecificDayRoute(month, day)}
-            >
-              {date}
-            </Typography>
+            <Box sx={styles.dateLinkContainer}>
+              <DateLink date={date} />
+            </Box>
             <SpecificEventImage
               publicImgURL={publicImgUrl}
               imgAltText={imgAltText}
@@ -74,15 +79,22 @@ export const SpecificEvent = () => {
               <Typography key={paragraph}>{paragraph}</Typography>
             ))}
           </Box>
+          <Box sx={styles.tagsContainer}>
+            <EventTags tags={tags} />
+          </Box>
           <Box sx={styles.readMoreContainer}>
             <Typography variant="h6">Learn more:</Typography>
             {links?.map((link) => (
-              <Typography key={link} href={link} component="a" sx={linkStyle}>
+              <Typography
+                key={link}
+                href={link}
+                component="a"
+                sx={styles.specificEventLinkStyle}
+              >
                 {link}
               </Typography>
             ))}
           </Box>
-          <EventTags tags={tags} />
           <ShareIcons title={title} />
         </CardContent>
       </Card>

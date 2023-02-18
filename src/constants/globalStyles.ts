@@ -6,7 +6,7 @@ export const slightlyDarkerBlack = "#262626";
 
 export const contrastingBackgroundColor = "#1a1a1a";
 
-export const defaultTextColor = "#f5f5f5";
+export const defaultTextColor = "#dbdbdb";
 
 // navbar button text
 export const secondaryTextColor = "#1f1f1f";
@@ -44,6 +44,10 @@ export const theme = createTheme({
           backgroundColor,
           color: defaultTextColor,
           fontSize: "15px",
+          ":hover": {
+            color: thematicRed,
+          },
+          transition: "color .4s ease",
         },
         label: {
           cursor: "pointer",

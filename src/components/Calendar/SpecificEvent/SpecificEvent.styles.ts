@@ -1,4 +1,5 @@
 import { contrastingBackgroundColor } from "../../../constants/globalStyles";
+import { linkStyle } from "../Calendar.styles";
 
 export const headerInfo = {
   display: "flex",
@@ -42,4 +43,26 @@ export const imgLoadingBox = {
   margin: "auto",
 };
 
-export const container = { marginTop: "20px" };
+export const container = {
+  marginTop: "20px",
+};
+
+export const specificEventLinkStyle = {
+  ...linkStyle,
+  fontWeight: "normal",
+};
+
+export const tagsContainer = {
+  marginTop: "15px",
+  marginBottom: "10px",
+};
+
+export const dateLinkContainer = {
+  textAlign: "center",
+};
+
+export const cardPadding = (isNotMobile: boolean) => ({
+  padding: isNotMobile ? "30px" : "16px",
+  paddingTop: "16px",
+  paddingBottom: "16px",
+});

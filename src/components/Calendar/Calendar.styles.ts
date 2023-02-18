@@ -1,8 +1,10 @@
-import { defaultTextColor } from "../../constants/globalStyles";
+import { defaultTextColor, thematicRed } from "../../constants/globalStyles";
 
 export const linkStyle = {
   textDecoration: "none",
   color: defaultTextColor,
-  ":hover": { textDecoration: "underline" },
+  fontWeight: "bold",
+  ":hover": { color: thematicRed },
+  transition: "color .4s ease",
   wordBreak: "break-all",
 };

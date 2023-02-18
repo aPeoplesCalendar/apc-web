@@ -1,3 +1,4 @@
+import { defaultTextColor } from "../../../constants/globalStyles";
 import { linkStyle } from "../Calendar.styles";
 
 export const largeEventContainer = {
@@ -46,3 +47,12 @@ export const smallEventLinks = {
 };
 
 export const tagsContainer = { display: "flex", gap: "10px", flexWrap: "wrap" };
+
+export const tagsLinkStyle = {
+  ...linkStyle,
+  fontWeight: "normal",
+};
+
+export const dateLinkWrapper = { fontWeight: "bold", color: defaultTextColor };
+
+export const smallDateLinkContainer = { textAlign: "center" };

@@ -2,8 +2,8 @@ import { Box, Card, Typography } from "@mui/material";
 import { generatePath } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
 import { stringToSlug } from "../../../utils/stringToSlug";
-import { generateSpecificDayRoute } from "../Calendar.utils";
 import { ShareIcons } from "../ShareIcons/ShareIcons";
+import { DateLink } from "./DateLink";
 import { EventTags } from "./EventTags";
 import * as styles from "./QueryResultEventDisplay.styles";
 
@@ -40,13 +40,9 @@ export const SmallScreenDisplay = ({
         >
           {title}
         </Typography>
-        <Typography
-          component="a"
-          sx={styles.smallEventLinks}
-          href={generateSpecificDayRoute(month, day)}
-        >
-          {date}
-        </Typography>
+        <Box sx={styles.smallDateLinkContainer}>
+          <DateLink date={date} />
+        </Box>
         <Box sx={styles.smallImgContainer}>
           {fetchedImgSrc && (
             <img src={fetchedImgSrc} alt={imgAltText} style={styles.smallImg} />

@@ -6,7 +6,6 @@ import { ROUTES } from "../../../../constants/routes";
 import { stringToSlug } from "../../../../utils/stringToSlug";
 import { fetchEvents } from "./SpecificWeek.utils";
 import * as styles from "./SpecificWeek.styles";
-import { linkStyle } from "../../Calendar.styles";
 import {
   generateSpecificDayRoute,
   getMonthAndDayFromDate,
@@ -25,6 +24,7 @@ export const DayColumn = ({ day }: { day: Date }) => {
 
   const navigate = useNavigate();
   const theme = useTheme();
+  const aboveMediumScreen = useMediaQuery(theme.breakpoints.up("md"));
   const aboveSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
   const handleEventClick = (title: string) => {
@@ -42,7 +42,7 @@ export const DayColumn = ({ day }: { day: Date }) => {
       <Box sx={styles.columnHeader}>
         <Typography
           component="a"
-          sx={linkStyle}
+          sx={styles.dayLinkStyle(aboveMediumScreen)}
           href={generateSpecificDayRoute(month, queryDay)}
         >
           {formattedColumnLabel}
