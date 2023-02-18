@@ -12,6 +12,7 @@ import { ROUTES } from "./constants/routes";
 import { backgroundColor, theme } from "./constants/globalStyles";
 import { ResponsiveAppContainer } from "./components/ResponsiveAppContainer/ResponsiveAppContainer";
 import { AppMetaTags } from "./AppMetaTags";
+import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 
 const queryClient = new QueryClient();
 
@@ -24,18 +25,23 @@ function App() {
           <CssBaseline enableColorScheme />
           <Router>
             <NavBar />
-            <ResponsiveAppContainer>
-              <Routes>
-                <Route path={ROUTES.HOME} element={<Homepage />} />
-                <Route path={ROUTES.ABOUT} element={<About />} />
-                <Route path={ROUTES.CALENDAR_GENERIC} element={<Calendar />} />
-                <Route path={ROUTES.CONTACT} element={<Contact />} />
-                <Route
-                  path={ROUTES.SPECIFIC_EVENT}
-                  element={<SpecificEvent />}
-                />
-              </Routes>
-            </ResponsiveAppContainer>
+            <ErrorBoundary>
+              <ResponsiveAppContainer>
+                <Routes>
+                  <Route path={ROUTES.HOME} element={<Homepage />} />
+                  <Route path={ROUTES.ABOUT} element={<About />} />
+                  <Route
+                    path={ROUTES.CALENDAR_GENERIC}
+                    element={<Calendar />}
+                  />
+                  <Route path={ROUTES.CONTACT} element={<Contact />} />
+                  <Route
+                    path={ROUTES.SPECIFIC_EVENT}
+                    element={<SpecificEvent />}
+                  />
+                </Routes>
+              </ResponsiveAppContainer>
+            </ErrorBoundary>
           </Router>
         </ThemeProvider>
       </QueryClientProvider>

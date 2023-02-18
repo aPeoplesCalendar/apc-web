@@ -16,7 +16,7 @@ export const QueryResultEventDisplay = (props: Omit<DatabaseEvent, "id">) => {
     const { data } = await supabase.storage
       .from("event-photos")
       .getPublicUrl(imagePath);
-    return data?.publicUrl;
+    return data?.publicUrl ?? "";
   };
 
   const { data: fetchedImgSrc = "" } = useQuery({
