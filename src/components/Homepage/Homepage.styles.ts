@@ -27,3 +27,11 @@ export const homepageLinkStyle = (aboveMediumScreen: boolean) => ({
   fontWeight: "bold",
   wordBreak: "break-word",
 });
+
+export const viewMoreWrapper = {
+  marginTop: "20px",
+  display: "flex",
+  justifyContent: "center",
+};
+
+export const buttonText = { color: "black", textDecoration: "none" };
