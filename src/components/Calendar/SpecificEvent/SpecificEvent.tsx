@@ -1,7 +1,5 @@
 import { DatabaseEvent } from "../../../types/types";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { supabase } from "../../../supabaseClient";
 import { EventMetaTags } from "./EventMetaTags";
 import { CardContent, Typography, Card, Box } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -10,40 +8,32 @@ import { SpecificEventImage } from "./SpecificEventImage";
 import { linkStyle } from "../Calendar.styles";
 import * as styles from "./SpecificEvent.styles";
 import { ShareIcons } from "../ShareIcons/ShareIcons";
+import { useQuery } from "@tanstack/react-query";
+import { fetchEvent, fetchPublicImgUrl } from "./SpecificEvent.utils";
+import { staleTime } from "../../../constants/queryConfiguration";
+import { EventTags } from "../QueryResultEventDisplay/EventTags";
 
 export const SpecificEvent = () => {
-  const [dayEvent, setDayEvent] = useState<DatabaseEvent | null>(null);
-  const [publicImgURL, setPublicImgURL] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
   const { eventName } = useParams<{ eventName: string }>();
 
-  useEffect(() => {
-    queryDatabaseByTitle(eventName);
-  }, [eventName]);
+  const { isLoading: isLoadingEvent, data: dayEvent } = useQuery({
+    queryKey: ["specificEvent", eventName],
+    queryFn: () => fetchEvent(eventName),
+    staleTime,
+  });
 
-  const queryDatabaseByTitle = async (slugTitle: string | undefined) => {
-    setLoading(true);
-    // get event data
-    const { data } = await supabase
-      .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
-      .select<"*", DatabaseEvent>()
-      .eq("slugTitle", slugTitle);
+  const { isLoading: isLoadingImgUrl, data: publicImgUrl } = useQuery({
+    queryKey: ["eventPublicImgSrc", dayEvent?.imgSrc],
+    queryFn: () => fetchPublicImgUrl(dayEvent?.imgSrc),
+    staleTime,
+    enabled: !!dayEvent?.imgSrc,
+  });
 
-    if (data?.[0]?.imgSrc) {
-      // get event image url
-      const { data: imageData } = await supabase.storage
-        .from("event-photos")
-        .getPublicUrl(data[0].imgSrc);
-      setPublicImgURL(imageData?.publicUrl);
-    }
+  const isLoading = isLoadingEvent || isLoadingImgUrl;
 
-    setDayEvent(data?.[0] as DatabaseEvent | null);
-    setLoading(false);
-  };
-
-  if (loading) {
+  if (isLoading) {
     return (
-      <Box sx={styles.loadingSpinner}>
+      <Box sx={styles.loadingSpinner} data-testid={"loadingSpinner"}>
         <CircularProgress />
       </Box>
     );
@@ -51,11 +41,11 @@ export const SpecificEvent = () => {
 
   if (!dayEvent) {
     return (
-      <div>{`Could not find event ${eventName}. Try searching the datbase for similar keywords (link).`}</div>
+      <div>{`Could not find event ${eventName}. Try searching the database for keywords related to the event you are looking for.`}</div>
     );
   }
 
-  const { title, description, date, day, month, links, imgAltText } =
+  const { title, description, date, day, month, tags, links, imgAltText } =
     dayEvent as DatabaseEvent;
   // split out description into paragraphs
   const paragraphs = description.split("\n\n");
@@ -75,7 +65,7 @@ export const SpecificEvent = () => {
               {date}
             </Typography>
             <SpecificEventImage
-              publicImgURL={publicImgURL}
+              publicImgURL={publicImgUrl}
               imgAltText={imgAltText}
             />
           </Box>
@@ -85,13 +75,14 @@ export const SpecificEvent = () => {
             ))}
           </Box>
           <Box sx={styles.readMoreContainer}>
-            <Typography variant="h6">Read more:</Typography>
+            <Typography variant="h6">Learn more:</Typography>
             {links?.map((link) => (
               <Typography key={link} href={link} component="a" sx={linkStyle}>
                 {link}
               </Typography>
             ))}
           </Box>
+          <EventTags tags={tags} />
           <ShareIcons title={title} />
         </CardContent>
       </Card>

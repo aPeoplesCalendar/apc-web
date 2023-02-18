@@ -34,7 +34,7 @@ export const SpecificSearch = () => {
       return;
     }
     resetData();
-    const { events: result, hasNextPage: currentHasNextPage } =
+    const { events: result = [], hasNextPage: currentHasNextPage } =
       await fetchEvents({
         currentCursor: 0,
         pageSize,
@@ -71,14 +71,14 @@ export const SpecificSearch = () => {
         Search
       </Typography>
       <SearchUI setLoading={setLoading} />
-      {!!events?.length && (
+      {!!events.length && (
         <Box sx={styles.eventsContainer}>
           {events.map(({ id, ...rest }) => (
             <QueryResultEventDisplay {...rest} key={id} />
           ))}
         </Box>
       )}
-      {!loading && hasQueryParams && !events?.length && (
+      {!loading && hasQueryParams && !events.length && (
         <Typography sx={styles.noResultsText} variant="h6">
           No events found for these search parameters.
         </Typography>

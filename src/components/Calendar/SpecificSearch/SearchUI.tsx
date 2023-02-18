@@ -19,6 +19,7 @@ export const SearchUI = ({
   setLoading: (newLoading: boolean) => void;
 }) => {
   const [search] = useSearchParams();
+  const navigate = useNavigate();
   // get query params from url
   const { queryInclude, queryExclude, startDate, endDate, sortBy, tags } =
     getAndFormatQueryParams(search);
@@ -31,7 +32,7 @@ export const SearchUI = ({
   const [newEndDate, setNewEndDate] = useState<string>(endDate);
   const [selectedTags, setSelectedTags] = useState<string[]>(tags);
 
-  // when url params update and component doesn't rerender, update controlled inputs with fresh params
+  // when url params update and component doesn't remount, update controlled inputs with fresh params
   useEffect(() => {
     const { queryInclude, queryExclude, startDate, endDate, tags } =
       getAndFormatQueryParams(search);
@@ -41,8 +42,6 @@ export const SearchUI = ({
     setNewEndDate(endDate);
     setSelectedTags(tags);
   }, [search]);
-
-  const navigate = useNavigate();
 
   const handleIncludeSearchTermChange = (e: ChangeEvent<HTMLInputElement>) => {
     const termArr = e.target.value ? e.target.value.split(", ") : [];
