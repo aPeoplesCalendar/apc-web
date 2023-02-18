@@ -4,7 +4,9 @@ import { DatabaseEvent } from "../../../types/types";
 export const fetchEvent = async (slugTitle: string | undefined) => {
   const { data } = await supabase
     .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
-    .select<"*", DatabaseEvent>()
+    .select<any, DatabaseEvent>(
+      `title, description, date, tags, links, imgSrc, imgAltText`
+    )
     .eq("slugTitle", slugTitle);
   return data?.[0];
 };

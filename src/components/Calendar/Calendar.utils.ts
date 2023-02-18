@@ -41,9 +41,13 @@ export const formatRawDatePickerValue = (
 
 export const generateSpecificDayRoute = (
   month = `${new Date().getUTCMonth() + 1}`,
-  day = `${new Date().getDate()}`,
+  day = `${new Date().getUTCDate()}`,
   view = "day"
 ) => `${ROUTES.CALENDAR_DAY}?month=${month}&day=${day}&view=${view}`;
+
+export const generateSpecificYearRoute = (
+  year = `${new Date().getUTCFullYear()}`
+) => `${ROUTES.CALENDAR_SEARCH}?startDate=${year}-01-01&endDate=${year}-12-31`;
 
 export const getMonthAndDayFromDate = (date: Date) => {
   const month = (date.getUTCMonth() + 1).toString();

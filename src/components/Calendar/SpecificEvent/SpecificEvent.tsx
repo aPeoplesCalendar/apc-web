@@ -10,7 +10,6 @@ import {
   useTheme,
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import { generateSpecificDayRoute } from "../Calendar.utils";
 import { SpecificEventImage } from "./SpecificEventImage";
 import * as styles from "./SpecificEvent.styles";
 import { ShareIcons } from "../ShareIcons/ShareIcons";
@@ -55,7 +54,7 @@ export const SpecificEvent = () => {
     );
   }
 
-  const { title, description, date, day, month, tags, links, imgAltText } =
+  const { title, description, date, tags, links, imgAltText } =
     dayEvent as DatabaseEvent;
   // split out description into paragraphs
   const paragraphs = description.split("\n\n");
@@ -68,10 +67,7 @@ export const SpecificEvent = () => {
           <Box sx={styles.headerInfo}>
             <Typography variant="h5">{title}</Typography>
             <Box sx={styles.dateLinkContainer}>
-              <DateLink
-                date={date}
-                href={generateSpecificDayRoute(month, day)}
-              />
+              <DateLink date={date} />
             </Box>
             <SpecificEventImage
               publicImgURL={publicImgUrl}

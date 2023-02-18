@@ -19,8 +19,6 @@ import { StyledTextField } from "../../StyledTextField/StyledTextField";
 // error handling
 // add see more events on homepage event component
 // don't return undefined from to query hooks
-// style updates:
-// move homepage header to nav bar
 // deploy via netlify (make contact form real, add test to deploy step)
 // update apc-form to work with new stuff
 
