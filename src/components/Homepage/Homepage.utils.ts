@@ -21,11 +21,12 @@ export const fetchEventOfTheDay = async (month: string, day: string) => {
     .eq("day", day)
     .eq("month", month)
     .order("title", { ascending: true });
-  const eventWithLongestDescription = todayEvents?.reduce(
-    (maxEvent: DatabaseEvent, currentEvent: DatabaseEvent) =>
-      maxEvent.description.length > currentEvent.description.length
-        ? maxEvent
-        : currentEvent
-  );
+  const eventWithLongestDescription =
+    todayEvents?.reduce(
+      (maxEvent: DatabaseEvent, currentEvent: DatabaseEvent) =>
+        maxEvent.description.length > currentEvent.description.length
+          ? maxEvent
+          : currentEvent
+    ) ?? null;
   return eventWithLongestDescription;
 };

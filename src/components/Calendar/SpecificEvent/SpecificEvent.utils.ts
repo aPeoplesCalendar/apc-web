@@ -8,7 +8,7 @@ export const fetchEvent = async (slugTitle: string | undefined) => {
       `title, description, date, tags, links, imgSrc, imgAltText`
     )
     .eq("slugTitle", slugTitle);
-  return data?.[0];
+  return data?.[0] ?? null;
 };
 
 export const fetchPublicImgUrl = async (

@@ -15,10 +15,8 @@ import { SpecificMonth } from "../SpecificMonth/SpecificMonth";
 import { StyledTextField } from "../../StyledTextField/StyledTextField";
 
 // to dos
-// tighten up types (return types from supabase)
-// error handling
-// add see more events on homepage event component
-// don't return undefined from to query hooks
+// figure out image resizing issue
+// rename event table, add RLS policies
 // deploy via netlify (make contact form real, add test to deploy step)
 // update apc-form to work with new stuff
 
