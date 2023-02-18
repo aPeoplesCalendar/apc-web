@@ -12,17 +12,16 @@ import { SpecificWeek } from "../SpecificWeek/SpecificWeek";
 import * as styles from "./SimpleSearch.styles";
 import { SpecificDay } from "../SpecificDay/SpecificDay";
 import { SpecificMonth } from "../SpecificMonth/SpecificMonth";
-import { ResponsiveActionsContainer } from "./ResponsiveActionsContainer";
 import { StyledTextField } from "../../StyledTextField/StyledTextField";
 
 // to dos
 // tighten up types (return types from supabase)
 // error handling
+// add see more events on homepage event component
+// don't return undefined from to query hooks
 // style updates:
-// develop link style (bold with red on hover)
-// format query event display date (link only month and day)
-// consider having a horizontal line below title
-// deploy via netlify (make contact form real)
+// move homepage header to nav bar
+// deploy via netlify (make contact form real, add test to deploy step)
 // update apc-form to work with new stuff
 
 export const SimpleSearch = () => {
@@ -52,7 +51,7 @@ export const SimpleSearch = () => {
       <Typography sx={styles.calendarPageHeader} variant="h5">
         Calendar
       </Typography>
-      <ResponsiveActionsContainer>
+      <Box sx={styles.calendarActionsSmall}>
         <StyledTextField
           type="date"
           defaultValue={formatDateQueryParam(month, day)}
@@ -65,7 +64,7 @@ export const SimpleSearch = () => {
             <Tab label="Month" value="month" />
           </Tabs>
         </Box>
-      </ResponsiveActionsContainer>
+      </Box>
       {viewMode === "day" && <SpecificDay month={month} day={day} />}
       {viewMode === "week" && <SpecificWeek month={month} day={day} />}
       {viewMode === "month" && <SpecificMonth month={month} />}

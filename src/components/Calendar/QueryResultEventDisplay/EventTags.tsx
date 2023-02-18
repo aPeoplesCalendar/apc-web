@@ -1,7 +1,6 @@
 import { Box, Chip, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
-import { linkStyle } from "../Calendar.styles";
 import * as styles from "./QueryResultEventDisplay.styles";
 
 export interface IEventTagsProps {
@@ -23,7 +22,7 @@ export const EventTags = ({ tags }: IEventTagsProps) => {
         <Typography
           key={tag}
           component="a"
-          sx={linkStyle}
+          sx={styles.tagsLinkStyle}
           onClick={() => handleTagPress(tag)}
         >
           <Chip label={tag} />

@@ -4,6 +4,7 @@ import { ROUTES } from "../../../constants/routes";
 import { stringToSlug } from "../../../utils/stringToSlug";
 import { generateSpecificDayRoute } from "../Calendar.utils";
 import { ShareIcons } from "../ShareIcons/ShareIcons";
+import { DateLink } from "./DateLink";
 import { EventTags } from "./EventTags";
 import * as styles from "./QueryResultEventDisplay.styles";
 
@@ -40,13 +41,9 @@ export const SmallScreenDisplay = ({
         >
           {title}
         </Typography>
-        <Typography
-          component="a"
-          sx={styles.smallEventLinks}
-          href={generateSpecificDayRoute(month, day)}
-        >
-          {date}
-        </Typography>
+        <Box sx={styles.smallDateLinkContainer}>
+          <DateLink date={date} href={generateSpecificDayRoute(month, day)} />
+        </Box>
         <Box sx={styles.smallImgContainer}>
           {fetchedImgSrc && (
             <img src={fetchedImgSrc} alt={imgAltText} style={styles.smallImg} />

@@ -65,3 +65,9 @@ export const eventLink = (mobile: boolean) => ({
   fontSize: mobile ? "14px" : "12px",
   cursor: "pointer",
 });
+
+export const dayLinkStyle = (isAboveMedium: boolean) => ({
+  ...linkStyle,
+  fontSize: isAboveMedium ? "1rem" : "unset",
+  whiteSpace: "nowrap",
+});

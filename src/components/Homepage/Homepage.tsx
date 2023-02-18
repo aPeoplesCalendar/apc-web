@@ -26,7 +26,7 @@ export const Homepage = () => {
       </Typography>
       <Box sx={styles.homepageTextContainer}>
         <Typography sx={styles.homepageText(aboveMediumScreen)}>
-          {`A People's Calendar (aPC) is a project that seeks to promote the
+          {`A People's Calendar (aPC) is an open-source project that seeks to promote the
           worldwide history of working class movements and liberation struggles
           in the form of a searchable "On This Day" style `}
           <Typography

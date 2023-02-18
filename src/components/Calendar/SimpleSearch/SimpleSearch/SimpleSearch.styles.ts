@@ -10,7 +10,8 @@ export const calendarActionsBig = {
   gap: "15px",
   marginBottom: "15px",
   alignItems: "center",
-  justifyContent: "space-between",
+  // justifyContent: "space-between",
+  position: "relative",
 };
 
 export const calendarActionsSmall = {

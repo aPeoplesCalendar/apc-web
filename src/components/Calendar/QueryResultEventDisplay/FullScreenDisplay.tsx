@@ -6,6 +6,7 @@ import { stringToSlug } from "../../../utils/stringToSlug";
 import { linkStyle } from "../Calendar.styles";
 import { generateSpecificDayRoute } from "../Calendar.utils";
 import { ShareIcons } from "../ShareIcons/ShareIcons";
+import { DateLink } from "./DateLink";
 import { EventTags } from "./EventTags";
 import * as styles from "./QueryResultEventDisplay.styles";
 
@@ -33,7 +34,7 @@ export const FullScreenDisplay = ({
   const descriptionColumnRef = useRef<HTMLDivElement>(null);
   // set the total event card height to the description column + a bit extra
   // I don't like the roundabout way of doing this, but it allows for the image to always be fitted to dynamic text content height
-  const cardHeight = descriptionColumnRef?.current?.clientHeight ?? 275;
+  const cardHeight = descriptionColumnRef?.current?.clientHeight ?? 280;
   return (
     <Card sx={{ ...styles.largeEventContainer, maxHeight: cardHeight }}>
       <Box sx={styles.imgContainer}>
@@ -55,13 +56,7 @@ export const FullScreenDisplay = ({
         >
           {title}
         </Typography>
-        <Typography
-          component="a"
-          sx={linkStyle}
-          href={generateSpecificDayRoute(month, day)}
-        >
-          {date}
-        </Typography>
+        <DateLink date={date} href={generateSpecificDayRoute(month, day)} />
         <Typography>{otd}</Typography>
         {imgAltText && <Typography>{`Image: ${imgAltText}`}</Typography>}
         <EventTags tags={tags} />
