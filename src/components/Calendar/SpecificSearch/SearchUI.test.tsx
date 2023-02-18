@@ -1,4 +1,4 @@
-import { screen, within } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as RouterModule from "react-router-dom";
 import { render } from "../../../utils/testing.utils";
@@ -13,9 +13,8 @@ describe("SearchUI", () => {
   const mockNavigate = jest.fn();
   const setLoading = jest.fn();
   const defaultProps = { setLoading };
-  const initialEntriesNoParams = [`?sortBy=alphabetical-ascending`];
   const initialEntries = [
-    `?queryInclude=included1&queryInclude=included2&queryExclude=excluded&startDate=1999/01/01&endDate=2000/01/01&tag=tag1&tag=tag2&sortBy=alphabetical-ascending`,
+    `?queryInclude=included1&queryInclude=included2&queryExclude=excluded&startDate=1999/01/01&endDate=2000/01/01&tag=Anarchism&tag=Abolitionism&sortBy=alphabetical-ascending`,
   ];
   beforeEach(() => {
     jest.clearAllMocks();
@@ -23,32 +22,33 @@ describe("SearchUI", () => {
       .spyOn(RouterModule, "useNavigate")
       .mockImplementation(() => mockNavigate);
   });
-  const inputLabelAndValues = [
-    {
-      value: "included1, included2",
-      within: "Included Keywords",
-    },
-    {
-      value: "excluded",
-      within: "Excluded Keywords",
-    },
-    {
-      value: "1999/01/01",
-      within: "After This Date",
-    },
-    {
-      value: "2000/01/01",
-      within: "Before This Date",
-    },
+  const inputValues = [
+    "included1, included2",
+    "excluded",
+    "alphabetical-ascending",
   ];
-  it.each(inputLabelAndValues)(
-    "should render loading state",
-    ({ within, value }) => {
-      render(<SearchUI {...defaultProps} />, { initialEntries });
-      expect(
-        // @ts-ignore-next-line
-        within(screen.getByText(within)).getByRole("combobox")
-      ).toHaveValue(value);
-    }
-  );
+  it.each(inputValues)("should render loading state", (value) => {
+    render(<SearchUI {...defaultProps} />, { initialEntries });
+    expect(screen.getByDisplayValue(value)).toBeInTheDocument();
+  });
+  it("search button calls use navigate with expected props", async () => {
+    render(<SearchUI {...defaultProps} />, { initialEntries });
+    userEvent.click(screen.getByText("Search"));
+    await waitFor(() =>
+      expect(mockNavigate).toHaveBeenCalledWith({
+        pathname: "/calendar/search",
+        search: initialEntries[0],
+      })
+    );
+  });
+  it("enter key press with input focus calls search", async () => {
+    render(<SearchUI {...defaultProps} />, { initialEntries });
+    userEvent.type(screen.getByDisplayValue("excluded"), "{Enter}");
+    await waitFor(() =>
+      expect(mockNavigate).toHaveBeenCalledWith({
+        pathname: "/calendar/search",
+        search: initialEntries[0],
+      })
+    );
+  });
 });

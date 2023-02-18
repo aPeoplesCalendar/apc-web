@@ -2,13 +2,15 @@ import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import * as styles from "./SpecificEvent.styles";
 
+export interface ISpecificEventImageProps {
+  publicImgURL: string | undefined;
+  imgAltText: string | undefined;
+}
+
 export const SpecificEventImage = ({
   publicImgURL,
   imgAltText,
-}: {
-  publicImgURL: string | undefined;
-  imgAltText: string | undefined;
-}) => {
+}: ISpecificEventImageProps) => {
   const [loading, setLoading] = useState<boolean>(!!publicImgURL);
 
   const handleImgLoad = () => {
@@ -21,14 +23,16 @@ export const SpecificEventImage = ({
 
   return (
     <Box sx={styles.imageContainer}>
-      {loading && <Box sx={styles.imgLoadingBox} />}
+      {loading && <Box sx={styles.imgLoadingBox} data-testid="imgLoadingBox" />}
       <img
         src={publicImgURL}
         alt={imgAltText}
         onLoad={handleImgLoad}
         style={styles.imageSize}
       />
-      {imgAltText && <Typography>{imgAltText}</Typography>}
+      {imgAltText && (
+        <Typography data-testid="imgAltText">{imgAltText}</Typography>
+      )}
     </Box>
   );
 };

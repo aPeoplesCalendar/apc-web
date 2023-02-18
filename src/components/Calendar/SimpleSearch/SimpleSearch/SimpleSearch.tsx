@@ -16,7 +16,9 @@ import { ResponsiveActionsContainer } from "./ResponsiveActionsContainer";
 import { StyledTextField } from "../../StyledTextField/StyledTextField";
 
 // to dos
-// tighten up types (remove any, return types from supabase)
+// tighten up types (return types from supabase)
+// error handling
+// style updates
 // deploy via netlify (make contact form real)
 // update apc-form to work with new stuff
 
