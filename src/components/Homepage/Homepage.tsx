@@ -1,4 +1,10 @@
-import { Box, useMediaQuery, useTheme, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  useMediaQuery,
+  useTheme,
+  Typography,
+} from "@mui/material";
 import * as styles from "./Homepage.styles";
 import { QueryResultEventDisplay } from "../Calendar/QueryResultEventDisplay/QueryResultEventDisplay";
 import { generateSpecificDayRoute } from "../Calendar/Calendar.utils";
@@ -44,6 +50,17 @@ export const Homepage = () => {
           Event of the Day
         </Typography>
         {!isLoading && eventOTD && <QueryResultEventDisplay {...eventOTD} />}
+        <Box sx={styles.viewMoreWrapper}>
+          <Button variant="contained">
+            <Typography
+              component="a"
+              href={generateSpecificDayRoute()}
+              sx={styles.buttonText}
+            >
+              View More Events
+            </Typography>
+          </Button>
+        </Box>
       </div>
     </div>
   );

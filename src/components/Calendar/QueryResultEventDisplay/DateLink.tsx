@@ -1,10 +1,10 @@
 import { Typography } from "@mui/material";
-import { format } from "date-fns";
 import { linkStyle } from "../Calendar.styles";
 import {
   generateSpecificDayRoute,
   generateSpecificYearRoute,
 } from "../Calendar.utils";
+import { formatMonthAndDay } from "./DateLink.utils";
 import * as styles from "./QueryResultEventDisplay.styles";
 
 export const DateLink = ({ date }: { date: string }) => {
@@ -16,8 +16,7 @@ export const DateLink = ({ date }: { date: string }) => {
   const monthDayRoute = generateSpecificDayRoute(month, day);
   const yearRoute = generateSpecificYearRoute(year);
   // get labels
-  const formattedMonthAndDay = format(dateObj, "MMM do");
-  const formattedYear = format(dateObj, "yyyy");
+  const formattedMonthAndDay = formatMonthAndDay(month, day);
   return (
     <span style={styles.dateLinkWrapper}>
       <Typography component="a" sx={linkStyle} href={monthDayRoute}>
@@ -25,7 +24,7 @@ export const DateLink = ({ date }: { date: string }) => {
       </Typography>
       <span>{`, `}</span>
       <Typography component="a" sx={linkStyle} href={yearRoute}>
-        {formattedYear}
+        {year}
       </Typography>
     </span>
   );
