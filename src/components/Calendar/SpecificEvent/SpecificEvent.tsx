@@ -74,15 +74,22 @@ export const SpecificEvent = () => {
               <Typography key={paragraph}>{paragraph}</Typography>
             ))}
           </Box>
+          <Box sx={styles.tagsContainer}>
+            <EventTags tags={tags} />
+          </Box>
           <Box sx={styles.readMoreContainer}>
             <Typography variant="h6">Learn more:</Typography>
             {links?.map((link) => (
-              <Typography key={link} href={link} component="a" sx={linkStyle}>
+              <Typography
+                key={link}
+                href={link}
+                component="a"
+                sx={styles.specificEventLinkStyle}
+              >
                 {link}
               </Typography>
             ))}
           </Box>
-          <EventTags tags={tags} />
           <ShareIcons title={title} />
         </CardContent>
       </Card>

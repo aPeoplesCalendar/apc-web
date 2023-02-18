@@ -18,7 +18,10 @@ import { StyledTextField } from "../../StyledTextField/StyledTextField";
 // to dos
 // tighten up types (return types from supabase)
 // error handling
-// style updates
+// style updates:
+// develop link style (bold with red on hover)
+// format query event display date (link only month and day)
+// consider having a horizontal line below title
 // deploy via netlify (make contact form real)
 // update apc-form to work with new stuff
 

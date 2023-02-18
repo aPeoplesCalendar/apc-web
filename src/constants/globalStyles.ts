@@ -44,6 +44,10 @@ export const theme = createTheme({
           backgroundColor,
           color: defaultTextColor,
           fontSize: "15px",
+          ":hover": {
+            color: thematicRed,
+          },
+          transition: "color .4s ease",
         },
         label: {
           cursor: "pointer",

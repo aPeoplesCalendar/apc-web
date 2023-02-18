@@ -11,12 +11,12 @@ export const fetchEvent = async (slugTitle: string | undefined) => {
 
 export const fetchPublicImgUrl = async (
   imgSrc: string | undefined
-): Promise<string | undefined> => {
+): Promise<string> => {
   if (!imgSrc) {
     return "";
   }
   const { data: imageData } = await supabase.storage
     .from("event-photos")
     .getPublicUrl(imgSrc);
-  return imageData?.[0];
+  return imageData?.publicUrl ?? "";
 };

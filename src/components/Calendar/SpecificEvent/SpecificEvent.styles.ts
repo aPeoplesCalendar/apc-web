@@ -1,4 +1,5 @@
 import { contrastingBackgroundColor } from "../../../constants/globalStyles";
+import { linkStyle } from "../Calendar.styles";
 
 export const headerInfo = {
   display: "flex",
@@ -43,3 +44,13 @@ export const imgLoadingBox = {
 };
 
 export const container = { marginTop: "20px" };
+
+export const specificEventLinkStyle = {
+  ...linkStyle,
+  fontWeight: "normal",
+};
+
+export const tagsContainer = {
+  marginTop: "15px",
+  marginBottom: "10px",
+};

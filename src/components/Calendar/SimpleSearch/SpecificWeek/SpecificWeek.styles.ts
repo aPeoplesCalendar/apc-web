@@ -1,4 +1,7 @@
-import { defaultTextColor } from "../../../../constants/globalStyles";
+import {
+  contrastingBackgroundColor,
+  defaultTextColor,
+} from "../../../../constants/globalStyles";
 import { linkStyle } from "../../Calendar.styles";
 
 const tableBorder = `1px solid ${defaultTextColor}`;
@@ -8,6 +11,7 @@ export const weekContainerDesktop = {
   gridTemplateColumns: "repeat(7, minmax(0px, 1fr))",
   border: tableBorder,
   borderLeft: "none",
+  backgroundColor: contrastingBackgroundColor,
 };
 
 export const weekContainerMobile = {
@@ -16,6 +20,7 @@ export const weekContainerMobile = {
   border: tableBorder,
   borderLeft: "none",
   borderTop: "none",
+  backgroundColor: contrastingBackgroundColor,
 };
 
 export const dayColumnWrapper = (mobile: boolean) => ({
@@ -50,6 +55,8 @@ export const loadingSpinner = {
 
 export const eventLink = (mobile: boolean) => ({
   ...linkStyle,
+  transition: "color .4s ease",
+  fontWeight: "normal",
   overflow: "hidden",
   textOverflow: "ellipsis",
   display: "-webkit-box",
