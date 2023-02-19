@@ -39,9 +39,11 @@ export const formatRawDatePickerValue = (
   return { month, day };
 };
 
+// normally we treat dates as utc (so dates defined in DB aren't off by one)
+// but here we WANT to use the user's local time
 export const generateSpecificDayRoute = (
-  month = `${new Date().getUTCMonth() + 1}`,
-  day = `${new Date().getUTCDate()}`,
+  month = `${new Date().getMonth() + 1}`,
+  day = `${new Date().getDate()}`,
   view = "day"
 ) => `${ROUTES.CALENDAR_DAY}?month=${month}&day=${day}&view=${view}`;
 

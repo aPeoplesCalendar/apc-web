@@ -51,8 +51,8 @@ describe("calendar util functions", () => {
       expect(result).toEqual(`${ROUTES.CALENDAR_DAY}?month=1&day=10&view=week`);
     });
     it("defaults to expected values", () => {
-      const currentMonth = `${new Date().getUTCMonth() + 1}`;
-      const currentDay = `${new Date().getUTCDate()}`;
+      const currentMonth = `${new Date().getMonth() + 1}`;
+      const currentDay = `${new Date().getDate()}`;
       const result = generateSpecificDayRoute();
       expect(result).toEqual(
         `${ROUTES.CALENDAR_DAY}?month=${currentMonth}&day=${currentDay}&view=day`
