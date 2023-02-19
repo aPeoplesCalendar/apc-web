@@ -14,12 +14,6 @@ import { SpecificDay } from "../SpecificDay/SpecificDay";
 import { SpecificMonth } from "../SpecificMonth/SpecificMonth";
 import { StyledTextField } from "../../StyledTextField/StyledTextField";
 
-// to dos
-// figure out image resizing issue
-// rename event table, add RLS policies
-// deploy via netlify (make contact form real, add test to deploy step)
-// update apc-form to work with new stuff
-
 export const SimpleSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const day = new URLSearchParams(searchParams).get("day") ?? "1";
