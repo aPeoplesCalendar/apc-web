@@ -34,7 +34,7 @@ export const generateListOfDays = (month: string, day: string) => {
 };
 
 export const fetchEvents = async (month: string, day: string) => {
-  const { data: dayEvents = [] } = await supabase
+  const { data: dayEvents } = await supabase
     .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
     .select<"title", { title: string }>("title")
     .eq("day", day)
