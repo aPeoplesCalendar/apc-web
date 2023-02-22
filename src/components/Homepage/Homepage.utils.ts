@@ -2,7 +2,7 @@ import { supabase } from "../../supabaseClient";
 import { DatabaseEvent } from "../../types/types";
 
 export const fetchEventOfTheDay = async (month: string, day: string) => {
-  const { data: todayEvents = [] } = await supabase
+  const { data: todayEvents } = await supabase
     .from(process.env.REACT_APP_SUPABASE_EVENT_TABLE_NAME as string)
     .select<any, DatabaseEvent>(
       `

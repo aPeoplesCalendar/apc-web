@@ -4,7 +4,12 @@
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom";
 
-jest.mock("@supabase/supabase-js", () => ({
-  ...jest.requireActual("@supabase/supabase-js"),
-  createClient: jest.fn(() => ({})),
-}));
+jest.mock("@supabase/supabase-js", () => {
+  const { createMockSupabaseClient } = require("./utils/testing.utils");
+  return {
+    ...jest.requireActual("@supabase/supabase-js"),
+    createClient: jest
+      .fn()
+      .mockImplementation(() => createMockSupabaseClient()),
+  };
+});
