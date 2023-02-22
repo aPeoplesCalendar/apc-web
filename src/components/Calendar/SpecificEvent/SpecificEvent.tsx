@@ -8,8 +8,8 @@ import {
   Box,
   useMediaQuery,
   useTheme,
+  Skeleton,
 } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
 import { SpecificEventImage } from "./SpecificEventImage";
 import * as styles from "./SpecificEvent.styles";
 import { ShareIcons } from "../ShareIcons/ShareIcons";
@@ -28,7 +28,7 @@ export const SpecificEvent = () => {
     staleTime,
   });
 
-  const { isLoading: isLoadingImgUrl, data: publicImgUrl } = useQuery({
+  const { data: publicImgUrl } = useQuery({
     queryKey: ["eventPublicImgSrc", dayEvent?.imgSrc],
     queryFn: () => fetchPublicImgUrl(dayEvent?.imgSrc),
     staleTime,
@@ -38,46 +38,60 @@ export const SpecificEvent = () => {
   const theme = useTheme();
   const aboveSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
-  const isLoading = isLoadingEvent || isLoadingImgUrl;
-
-  if (isLoading) {
-    return (
-      <Box sx={styles.loadingSpinner} data-testid={"loadingSpinner"}>
-        <CircularProgress />
-      </Box>
-    );
-  }
-
-  if (!dayEvent) {
+  if (!isLoadingEvent && !dayEvent) {
     return (
       <div>{`Could not find event ${eventName}. Try searching the database for keywords related to the event you are looking for.`}</div>
     );
   }
 
-  const { title, description, date, tags, links, imgAltText } =
-    dayEvent as DatabaseEvent;
+  const {
+    title,
+    description = "",
+    date,
+    tags,
+    links,
+    imgSrc,
+    imgAltText,
+  } = (dayEvent ?? {}) as DatabaseEvent;
   // split out description into paragraphs
   const paragraphs = description.split("\n\n");
 
   return (
     <Box sx={styles.container}>
-      <EventMetaTags previewEvent={dayEvent} />
+      {dayEvent && <EventMetaTags previewEvent={dayEvent} />}
       <Card>
         <CardContent sx={styles.cardPadding(aboveSmallScreen)}>
           <Box sx={styles.headerInfo}>
-            <Typography variant="h5">{title}</Typography>
+            <Typography variant="h5">
+              {isLoadingEvent ? (
+                <Skeleton variant="text" sx={styles.headerLoadingSkeleton} />
+              ) : (
+                title
+              )}
+            </Typography>
             <Box sx={styles.dateLinkContainer}>
-              <DateLink date={date} />
+              {isLoadingEvent ? (
+                <Skeleton sx={styles.headerLoadingSkeleton} />
+              ) : (
+                <DateLink date={date} />
+              )}
             </Box>
             <SpecificEventImage
               publicImgURL={publicImgUrl}
+              hasImage={!!imgSrc || isLoadingEvent}
               imgAltText={imgAltText}
             />
           </Box>
           <Box sx={styles.paragraphsContainer}>
-            {paragraphs?.map((paragraph) => (
-              <Typography key={paragraph}>{paragraph}</Typography>
-            ))}
+            {isLoadingEvent ? (
+              <Skeleton sx={styles.paragraphsLoadingSkeleton} />
+            ) : (
+              <>
+                {paragraphs?.map((paragraph) => (
+                  <Typography key={paragraph}>{paragraph}</Typography>
+                ))}
+              </>
+            )}
           </Box>
           <Box sx={styles.tagsContainer}>
             <EventTags tags={tags} />

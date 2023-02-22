@@ -14,10 +14,10 @@ import { ROUTES } from "../../../constants/routes";
 import { stringToSlug } from "../../../utils/stringToSlug";
 
 export const ShareIcons = ({
-  title,
+  title = "",
   flexDirection = "row",
 }: {
-  title: string;
+  title: string | undefined;
   flexDirection?: "row" | "column";
 }) => {
   return (

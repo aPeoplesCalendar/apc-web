@@ -1,4 +1,7 @@
-import { defaultTextColor } from "../../../constants/globalStyles";
+import {
+  contrastingBackgroundColor,
+  defaultTextColor,
+} from "../../../constants/globalStyles";
 import { linkStyle } from "../Calendar.styles";
 
 export const largeEventContainer = {
@@ -14,6 +17,13 @@ export const smallEventContainer = {
 };
 
 export const imgContainer = { overflow: "hidden" };
+
+export const imgLoadingSpinnerContainer = {
+  display: "flex",
+  height: "100%",
+  justifyContent: "center",
+  alignItems: "center",
+};
 
 export const img = {
   objectFit: "cover" as "cover",
@@ -56,3 +66,20 @@ export const tagsLinkStyle = {
 export const dateLinkWrapper = { fontWeight: "bold", color: defaultTextColor };
 
 export const smallDateLinkContainer = { textAlign: "center" };
+
+export const loadingSpinner = {
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "10px",
+  marginBottom: "10px",
+};
+
+export const imgLoadingBox = {
+  backgroundColor: contrastingBackgroundColor,
+  width: "25vh",
+  height: "25vh",
+  margin: "auto",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};

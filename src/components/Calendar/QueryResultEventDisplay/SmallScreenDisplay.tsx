@@ -1,4 +1,5 @@
-import { Box, Card, Typography } from "@mui/material";
+import { Box, Card, CircularProgress, Typography } from "@mui/material";
+import { useState } from "react";
 import { generatePath } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
 import { stringToSlug } from "../../../utils/stringToSlug";
@@ -9,10 +10,9 @@ import * as styles from "./QueryResultEventDisplay.styles";
 
 export interface ISmallScreenDisplayProps {
   title: string;
-  month: string;
-  day: string;
   date: string;
   otd: string;
+  imgSrc: string | undefined;
   imgAltText: string | undefined;
   fetchedImgSrc: string;
   tags: string[];
@@ -20,14 +20,22 @@ export interface ISmallScreenDisplayProps {
 
 export const SmallScreenDisplay = ({
   title,
-  month,
-  day,
   date,
   otd,
   imgAltText,
+  imgSrc,
   fetchedImgSrc,
   tags,
 }: ISmallScreenDisplayProps) => {
+  const [imgLoading, setImgLoading] = useState<boolean>(!!imgSrc);
+
+  const handleImgLoad = () => {
+    setImgLoading(false);
+  };
+
+  // don't display loading box for image until we have event text to avoid layout shift
+  const displayImageLoadingBox = !!title && imgLoading;
+
   return (
     <Card sx={styles.smallEventContainer}>
       <Box sx={styles.descriptionColumn}>
@@ -44,9 +52,21 @@ export const SmallScreenDisplay = ({
           <DateLink date={date} />
         </Box>
         <Box sx={styles.smallImgContainer}>
-          {fetchedImgSrc && (
-            <img src={fetchedImgSrc} alt={imgAltText} style={styles.smallImg} />
+          {displayImageLoadingBox && (
+            <Box sx={styles.imgLoadingBox} data-testid="imgLoadingBox">
+              <CircularProgress />
+            </Box>
           )}
+          <img
+            src={fetchedImgSrc}
+            alt={imgAltText}
+            onLoad={handleImgLoad}
+            style={{
+              ...styles.smallImg,
+              // don't attempt to make image visible until it is fully loaded to avoid layout shift
+              display: imgLoading ? "none" : "flex",
+            }}
+          />
         </Box>
         <Typography>{otd}</Typography>
         <EventTags tags={tags} />

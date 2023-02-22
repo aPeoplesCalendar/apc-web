@@ -23,14 +23,14 @@ export const About = () => {
             aPC was inspired by historian Howard Zinn's work "A People's History
             of the United States". Zinn's scholarship and political activism
             demonstrated the power of mass working class movements, as well as
-            the critical importance of knowing this history if we seek to change
-            the present.
+            the critical importance of knowing this history when we seek to
+            change the present.
           </Typography>
         </Fade>
         <Fade in={true} timeout={1450}>
           <Typography>
             The greatest experts on any historical event or struggle will always
-            be the people who live it and the scholars who document it
+            be the people who live it, as well as the scholars who document it
             meticulously. Our ambition is to promote awareness of this history
             while emphasizing these perspectives.
           </Typography>

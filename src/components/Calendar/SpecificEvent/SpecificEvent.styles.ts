@@ -9,14 +9,30 @@ export const headerInfo = {
   textAlign: "center",
 };
 
+export const headerLoadingSkeleton = {
+  width: "50%",
+  height: "50px",
+  margin: "auto",
+  marginBottom: "-10px",
+};
+
 export const imageContainer = {
   marginBottom: "10px",
+  display: "flex",
+  flexDirection: "column",
+  gap: "10px",
 };
 
 export const paragraphsContainer = {
   display: "flex",
   flexDirection: "column",
   gap: "10px",
+};
+
+export const paragraphsLoadingSkeleton = {
+  height: "300px",
+  marginTop: "-55px",
+  marginBottom: "-55px",
 };
 
 export const readMoreContainer = {
@@ -27,7 +43,7 @@ export const readMoreContainer = {
   marginBottom: "15px",
 };
 
-export const imageSize = { maxHeight: "50vh", maxWidth: "95%" };
+export const imageSize = { maxHeight: "50vh", maxWidth: "90%", margin: "auto" };
 
 export const loadingSpinner = {
   display: "flex",
@@ -41,6 +57,9 @@ export const imgLoadingBox = {
   width: "275px",
   height: "300px",
   margin: "auto",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 };
 
 export const container = {
@@ -65,4 +84,5 @@ export const cardPadding = (isNotMobile: boolean) => ({
   padding: isNotMobile ? "30px" : "16px",
   paddingTop: "16px",
   paddingBottom: "16px",
+  minHeight: "400px",
 });
