@@ -1,6 +1,11 @@
 import { contrastingBackgroundColor } from "../../../constants/globalStyles";
 import { linkStyle } from "../Calendar.styles";
 
+export const noEventFound = {
+  marginTop: "15px",
+  textAlign: "center",
+};
+
 export const headerInfo = {
   display: "flex",
   flexDirection: "column",

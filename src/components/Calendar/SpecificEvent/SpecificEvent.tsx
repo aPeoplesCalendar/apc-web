@@ -40,7 +40,9 @@ export const SpecificEvent = () => {
 
   if (!isLoadingEvent && !dayEvent) {
     return (
-      <div>{`Could not find event ${eventName}. Try searching the database for keywords related to the event you are looking for.`}</div>
+      <Box sx={styles.noEventFound}>
+        {`Could not find event ${eventName}. Try searching the database for keywords related to the event you are looking for.`}
+      </Box>
     );
   }
 
