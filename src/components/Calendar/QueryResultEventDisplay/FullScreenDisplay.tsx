@@ -1,4 +1,4 @@
-import { Box, Card, Typography } from "@mui/material";
+import { Box, Card, CircularProgress, Typography } from "@mui/material";
 import { useCallback, useState } from "react";
 import { generatePath } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
@@ -15,6 +15,7 @@ export interface IFullScreenDisplayProps {
   day: string;
   date: string;
   otd: string;
+  imgSrc: string | undefined;
   imgAltText: string | undefined;
   fetchedImgSrc: string;
   tags: string[];
@@ -24,11 +25,18 @@ export const FullScreenDisplay = ({
   title,
   date,
   otd,
+  imgSrc,
   imgAltText,
   fetchedImgSrc,
   tags,
 }: IFullScreenDisplayProps) => {
   const [maxHeight, setMaxHeight] = useState(280);
+  const [imgLoading, setImgLoading] = useState<boolean>(!!imgSrc);
+
+  const handleImgLoad = () => {
+    setImgLoading(false);
+  };
+
   // set the total event card height to the description column
   // I don't like this, but this ref allows for the image and card to match dynamic text content height
   const callbackRef = useCallback((node: HTMLDivElement) => {
@@ -40,11 +48,22 @@ export const FullScreenDisplay = ({
   return (
     <Card sx={{ ...styles.largeEventContainer, maxHeight }}>
       <Box sx={styles.imgContainer}>
+        {imgLoading && (
+          <Box sx={styles.imgLoadingSpinnerContainer}>
+            <CircularProgress />
+          </Box>
+        )}
         {fetchedImgSrc && (
           <img
             src={fetchedImgSrc}
             alt={imgAltText}
-            style={{ ...styles.img, maxHeight }}
+            style={{
+              ...styles.img,
+              maxHeight,
+              // don't attempt to make image visible until it is fully loaded to avoid layout shift
+              display: imgLoading ? "none" : "flex",
+            }}
+            onLoad={handleImgLoad}
           />
         )}
       </Box>

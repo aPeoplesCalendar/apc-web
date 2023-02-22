@@ -61,7 +61,7 @@ describe("SpecificEvent", () => {
     render(<SpecificEvent />);
     expect(await screen.findByText("1946")).toHaveAttribute(
       "href",
-      "/calendar/search?startDate=1946-01-01&endDate=1946-12-31"
+      "/calendar/search?startDate=1946-01-01&endDate=1946-12-31&sortBy=date-ascending"
     );
   });
   const paragraphs = ["first paragraph", "second paragraph"];

@@ -4,10 +4,10 @@ import { ROUTES } from "../../../constants/routes";
 import * as styles from "./QueryResultEventDisplay.styles";
 
 export interface IEventTagsProps {
-  tags: string[];
+  tags?: string[];
 }
 
-export const EventTags = ({ tags }: IEventTagsProps) => {
+export const EventTags = ({ tags = [] }: IEventTagsProps) => {
   const navigate = useNavigate();
 
   const handleTagPress = (tag: string) => {

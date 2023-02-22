@@ -49,7 +49,8 @@ export const generateSpecificDayRoute = (
 
 export const generateSpecificYearRoute = (
   year = `${new Date().getUTCFullYear()}`
-) => `${ROUTES.CALENDAR_SEARCH}?startDate=${year}-01-01&endDate=${year}-12-31`;
+) =>
+  `${ROUTES.CALENDAR_SEARCH}?startDate=${year}-01-01&endDate=${year}-12-31&sortBy=date-ascending`;
 
 export const getMonthAndDayFromDate = (date: Date) => {
   const month = (date.getUTCMonth() + 1).toString();

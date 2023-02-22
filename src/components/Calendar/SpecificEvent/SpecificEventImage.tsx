@@ -1,36 +1,42 @@
 import { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import * as styles from "./SpecificEvent.styles";
 
 export interface ISpecificEventImageProps {
   publicImgURL: string | undefined;
+  hasImage: boolean;
   imgAltText: string | undefined;
 }
 
 export const SpecificEventImage = ({
   publicImgURL,
+  hasImage,
   imgAltText,
 }: ISpecificEventImageProps) => {
-  const [loading, setLoading] = useState<boolean>(!!publicImgURL);
+  const [loading, setLoading] = useState<boolean>(hasImage);
 
   const handleImgLoad = () => {
     setLoading(false);
   };
 
-  if (!publicImgURL) {
+  if (!hasImage) {
     return null;
   }
 
   return (
     <Box sx={styles.imageContainer}>
-      {loading && <Box sx={styles.imgLoadingBox} data-testid="imgLoadingBox" />}
+      {loading && (
+        <Box sx={styles.imgLoadingBox} data-testid="imgLoadingBox">
+          <CircularProgress />
+        </Box>
+      )}
       <img
         src={publicImgURL}
         alt={imgAltText}
         onLoad={handleImgLoad}
-        style={styles.imageSize}
+        style={{ ...styles.imageSize, display: loading ? "none" : "block" }}
       />
-      {imgAltText && (
+      {!loading && imgAltText && (
         <Typography data-testid="imgAltText">{imgAltText}</Typography>
       )}
     </Box>

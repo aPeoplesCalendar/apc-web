@@ -9,6 +9,12 @@ jest.mock("./SpecificSearch.utils", () => ({
   fetchEvents: jest.fn(),
 }));
 
+jest.mock("../QueryResultEventDisplay/QueryResultEventDisplay", () => ({
+  QueryResultEventDisplay: ({ title }: { title: string }) => (
+    <span>{title}</span>
+  ),
+}));
+
 describe("SpecificSearch", () => {
   const initialEntries = [`?sortBy=alphabetical-ascending`];
   const events = [
