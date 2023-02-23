@@ -1,10 +1,7 @@
-import {
-  Box,
-  Button,
-  useMediaQuery,
-  useTheme,
-  Typography,
-} from "@mui/material";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import { useMediaQuery, useTheme } from "@mui/material";
 import * as styles from "./Homepage.styles";
 import { QueryResultEventDisplay } from "../Calendar/QueryResultEventDisplay/QueryResultEventDisplay";
 import { generateSpecificDayRoute } from "../Calendar/Calendar.utils";

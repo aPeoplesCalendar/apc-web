@@ -1,5 +1,6 @@
+import Box from "@mui/material/Box";
+import { useMediaQuery, useTheme } from "@mui/material";
 import { ReactNode } from "react";
-import { Box, useMediaQuery, useTheme } from "@mui/material";
 
 export const ResponsiveInputsContainer = ({
   children,

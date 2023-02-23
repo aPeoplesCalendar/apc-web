@@ -1,4 +1,7 @@
-import { Box, Card, CircularProgress, Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useCallback, useState } from "react";
 import { generatePath } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";

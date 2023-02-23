@@ -1,5 +1,7 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useMediaQuery, useTheme } from "@mui/material";
 import { format } from "date-fns";
 import { generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../constants/routes";

@@ -1,8 +1,10 @@
-import { Box, MenuItem, TextField } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
-import Button from "@mui/material/Button";
 import { PossibleSortByModes, SortByMetaData } from "./constants";
 import {
   formatQueryString,

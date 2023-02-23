@@ -1,4 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 import { generatePath } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";

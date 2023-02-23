@@ -1,13 +1,13 @@
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import { ChangeEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
   formatDateQueryParam,
   formatRawDatePickerValue,
 } from "../../Calendar.utils";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import { SpecificWeek } from "../SpecificWeek/SpecificWeek";
 import * as styles from "./SimpleSearch.styles";
 import { SpecificDay } from "../SpecificDay/SpecificDay";
@@ -20,7 +20,6 @@ import { StyledTextField } from "../../StyledTextField/StyledTextField";
 // get better sharing functionality from buttons
 // add open source thing on repo
 // double check security
-// default imports from MUI
 
 export const SimpleSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();
