@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
+import { NotFound } from "../NotFound/NotFound";
 import { SimpleSearch } from "./SimpleSearch/SimpleSearch/SimpleSearch";
 import { SpecificEvent } from "./SpecificEvent/SpecificEvent";
 import { SpecificSearch } from "./SpecificSearch/SpecificSearch";
@@ -20,6 +21,7 @@ export const Calendar = () => {
           path={ROUTES.SUB_CALENDAR_ROUTES.SPECIFIC_EVENT}
           element={<SpecificEvent />}
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
