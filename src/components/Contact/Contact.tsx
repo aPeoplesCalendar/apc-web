@@ -10,6 +10,9 @@ export const Contact = () => {
   });
 
   const handleChange = (e: { target: { name: string; value: string } }) => {
+    if (e.target.value.length > 1000) {
+      return;
+    }
     setContactFormData({
       ...contactFormData,
       [e.target.name]: e.target.value,
@@ -45,13 +48,13 @@ export const Contact = () => {
             label="Title"
             required
           />
-          <Typography className="inputLabel">Message</Typography>
           <TextField
             name="message"
             placeholder="Your message here..."
             value={message}
             onChange={handleChange}
             multiline
+            rows={5}
             required
             label="Message"
           />
