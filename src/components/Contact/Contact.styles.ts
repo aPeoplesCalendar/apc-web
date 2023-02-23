@@ -7,7 +7,9 @@ export const headerStyle = {
 export const formContainer = {
   display: "flex",
   flexDirection: "column",
-  gap: "15px",
+  gap: "20px",
+  width: "82%",
+  margin: "auto",
 };
 
 export const buttonContainer = {

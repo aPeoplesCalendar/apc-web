@@ -10,6 +10,9 @@ export const Contact = () => {
   });
 
   const handleChange = (e: { target: { name: string; value: string } }) => {
+    if (e.target.value.length > 1000) {
+      return;
+    }
     setContactFormData({
       ...contactFormData,
       [e.target.name]: e.target.value,
@@ -51,6 +54,7 @@ export const Contact = () => {
             value={message}
             onChange={handleChange}
             multiline
+            rows={5}
             required
             label="Message"
           />

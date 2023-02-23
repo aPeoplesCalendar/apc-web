@@ -20,7 +20,7 @@ import { StyledTextField } from "../../StyledTextField/StyledTextField";
 // get better sharing functionality from buttons
 // add open source thing on repo
 // double check security
-// default imports
+// default imports from MUI
 
 export const SimpleSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();
