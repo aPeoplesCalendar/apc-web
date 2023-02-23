@@ -1,15 +1,12 @@
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Skeleton from "@mui/material/Skeleton";
+import { useMediaQuery, useTheme } from "@mui/material";
 import { DatabaseEvent } from "../../../types/types";
 import { useParams } from "react-router-dom";
 import { EventMetaTags } from "./EventMetaTags";
-import {
-  CardContent,
-  Typography,
-  Card,
-  Box,
-  useMediaQuery,
-  useTheme,
-  Skeleton,
-} from "@mui/material";
 import { SpecificEventImage } from "./SpecificEventImage";
 import * as styles from "./SpecificEvent.styles";
 import { ShareIcons } from "../ShareIcons/ShareIcons";

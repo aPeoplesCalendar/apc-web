@@ -1,4 +1,6 @@
-import { Box, Chip, Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Chip from "@mui/material/Chip";
+import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
 import * as styles from "./QueryResultEventDisplay.styles";

@@ -1,4 +1,5 @@
-import { Box, useMediaQuery, useTheme } from "@mui/material";
+import Box from "@mui/material/Box";
+import { useMediaQuery, useTheme } from "@mui/material";
 import { PropsWithChildren } from "react";
 
 /**

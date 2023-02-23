@@ -1,5 +1,7 @@
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useState } from "react";
-import { Box, CircularProgress, Typography } from "@mui/material";
 import * as styles from "./SpecificEvent.styles";
 
 export interface ISpecificEventImageProps {
