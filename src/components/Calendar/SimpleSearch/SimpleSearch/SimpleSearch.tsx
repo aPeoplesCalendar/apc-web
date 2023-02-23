@@ -15,13 +15,12 @@ import { SpecificMonth } from "../SpecificMonth/SpecificMonth";
 import { StyledTextField } from "../../StyledTextField/StyledTextField";
 
 // before show it saturday
-// copy links
 // add links to social media pages top right of nav bar
 // add copy link in QueryResultEventDisplay
 // get better sharing functionality from buttons
-// add 404
 // add open source thing on repo
 // double check security
+// default imports
 
 export const SimpleSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();

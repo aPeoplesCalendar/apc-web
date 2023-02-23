@@ -32,8 +32,8 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           ":disabled": {
-            backgroundColor,
-            color: disabledButtonTextColor,
+            backgroundColor: "#8a8a8a",
+            color: "black",
           },
         },
       },
@@ -97,6 +97,12 @@ export const theme = createTheme({
         root: {
           "&:hover .MuiOutlinedInput-notchedOutline": {
             borderColor: defaultTextColor,
+          },
+        },
+        input: {
+          "&:-webkit-autofill": {
+            WebkitBoxShadow: `0 0 0 100px ${backgroundColor} inset`,
+            WebkitTextFillColor: defaultTextColor,
           },
         },
         notchedOutline: {

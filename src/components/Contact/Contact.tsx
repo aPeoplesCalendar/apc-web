@@ -45,7 +45,6 @@ export const Contact = () => {
             label="Title"
             required
           />
-          <Typography className="inputLabel">Message</Typography>
           <TextField
             name="message"
             placeholder="Your message here..."
