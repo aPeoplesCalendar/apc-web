@@ -13,6 +13,7 @@ import { backgroundColor, theme } from "./constants/globalStyles";
 import { ResponsiveAppContainer } from "./components/ResponsiveAppContainer/ResponsiveAppContainer";
 import { AppMetaTags } from "./AppMetaTags";
 import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
+import { NotFound } from "./components/NotFound/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ function App() {
                     path={ROUTES.SPECIFIC_EVENT}
                     element={<SpecificEvent />}
                   />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </ResponsiveAppContainer>
             </ErrorBoundary>
