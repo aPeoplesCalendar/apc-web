@@ -4,6 +4,7 @@ import {
   RenderOptions as PureRenderOptions,
 } from "@testing-library/react";
 import { ReactElement } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter, useLocation } from "react-router";
 import { ToastContainer } from "react-toastify";
 
@@ -16,17 +17,19 @@ export const render = (
   options?: Omit<RenderOptions, "queries">
 ) =>
   pureRender(
-    <QueryClientProvider client={queryClient}>
-      <ToastContainer
-        autoClose={800}
-        theme={"dark"}
-        hideProgressBar
-        closeButton={false}
-      />
-      <MemoryRouter initialEntries={options?.initialEntries}>
-        {component}
-      </MemoryRouter>
-    </QueryClientProvider>,
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <ToastContainer
+          autoClose={800}
+          theme={"dark"}
+          hideProgressBar
+          closeButton={false}
+        />
+        <MemoryRouter initialEntries={options?.initialEntries}>
+          {component}
+        </MemoryRouter>
+      </QueryClientProvider>
+    </HelmetProvider>,
     options
   );
 
