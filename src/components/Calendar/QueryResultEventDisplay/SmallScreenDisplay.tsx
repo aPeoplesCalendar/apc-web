@@ -73,7 +73,7 @@ export const SmallScreenDisplay = ({
         </Box>
         <Typography>{otd}</Typography>
         <EventTags tags={tags} />
-        <ShareIcons title={title} />
+        <ShareIcons title={title} otd={otd} />
       </Box>
     </Card>
   );

@@ -16,21 +16,18 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ROUTES } from "../../../constants/routes";
 import { stringToSlug } from "../../../utils/stringToSlug";
-import {
-  backgroundColor,
-  contrastingBackgroundColor,
-  thematicRed,
-} from "../../../constants/globalStyles";
 import * as styles from "./ShareIcons.styles";
 
 export const ShareIcons = ({
   title = "",
+  otd = "",
   flexDirection = "row",
 }: {
   title: string | undefined;
+  otd: string | undefined;
   flexDirection?: "row" | "column";
 }) => {
-  const shareLink = `https://www.apeoplescalendar.org${generatePath(
+  const websiteLink = `https://www.apeoplescalendar.org${generatePath(
     ROUTES.SPECIFIC_EVENT,
     {
       eventName: stringToSlug(title),
@@ -38,53 +35,40 @@ export const ShareIcons = ({
   )}`;
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(shareLink);
+    navigator.clipboard.writeText(websiteLink);
     toast.dark("Link copied!", {
       position: toast.POSITION.BOTTOM_CENTER,
     });
   };
 
+  const defaultShareButtonProps = {
+    title: otd,
+    url: websiteLink,
+    style: styles.shareIconWrapper,
+  };
+
+  const defaultIconProps = { size: 34, round: true };
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection,
-        gap: "13px",
-        marginTop: "7px",
-        marginBottom: "7px",
-      }}
-    >
-      <FacebookShareButton url={shareLink} style={styles.shareIconWrapper}>
-        <FacebookIcon size={34} round />
+    <Box sx={{ ...styles.shareIconsContainer, flexDirection }}>
+      <FacebookShareButton {...defaultShareButtonProps}>
+        <FacebookIcon {...defaultIconProps} />
       </FacebookShareButton>
-      <RedditShareButton url={shareLink} style={styles.shareIconWrapper}>
-        <RedditIcon size={34} round />
+      <RedditShareButton {...defaultShareButtonProps}>
+        <RedditIcon {...defaultIconProps} />
       </RedditShareButton>
-      <TumblrShareButton url={shareLink} style={styles.shareIconWrapper}>
-        <TumblrIcon size={34} round />
+      <TumblrShareButton {...defaultShareButtonProps}>
+        <TumblrIcon {...defaultIconProps} />
       </TumblrShareButton>
-      <TwitterShareButton url={shareLink} style={styles.shareIconWrapper}>
-        <TwitterIcon size={34} round />
+      <TwitterShareButton {...defaultShareButtonProps}>
+        <TwitterIcon {...defaultIconProps} />
       </TwitterShareButton>
       <IconButton
-        sx={{
-          backgroundColor,
-          width: 34,
-          height: 34,
-          transition: "background-color .4s ease",
-          ":hover": {
-            backgroundColor: contrastingBackgroundColor,
-          },
-        }}
+        sx={styles.copyLinkWrapper}
         onClick={handleCopy}
+        data-testid="copy-button"
       >
-        <LinkIcon
-          sx={{
-            transform: "rotate(135deg)",
-            transition: "color .4s ease",
-            ":hover": { color: thematicRed },
-          }}
-        />
+        <LinkIcon sx={styles.copyLinkIcon} />
       </IconButton>
     </Box>
   );
