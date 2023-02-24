@@ -25,7 +25,7 @@ export const SpecificEvent = () => {
     staleTime,
   });
 
-  const { data: publicImgUrl } = useQuery({
+  const { data: publicImgUrl, isLoading: imgUrlLoading } = useQuery({
     queryKey: ["eventPublicImgSrc", dayEvent?.imgSrc],
     queryFn: () => fetchPublicImgUrl(dayEvent?.imgSrc),
     staleTime,
@@ -56,9 +56,12 @@ export const SpecificEvent = () => {
   // split out description into paragraphs
   const paragraphs = description.split("\n\n");
 
+  // only render meta tags when we have event data and, if image, we have public img url
+  const readyToRenderMetaTags = (!imgSrc || !imgUrlLoading) && dayEvent;
+
   return (
     <Box sx={styles.container}>
-      {dayEvent && (
+      {readyToRenderMetaTags && (
         <EventMetaTags previewEvent={dayEvent} publicImgUrl={publicImgUrl} />
       )}
       <Card>
