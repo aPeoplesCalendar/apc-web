@@ -18,8 +18,14 @@ export const EventMetaTags = ({
   return (
     <Helmet>
       <meta property="og:title" content={title} />
+      <meta name="description" content={otd} data-react-helmet="true" />
       <meta property="og:description" content={otd} />
-      {publicImgUrl && <meta property="og:image" content={publicImgUrl} />}
+      {publicImgUrl && (
+        <>
+          <meta property="og:image" content={publicImgUrl} />
+          <meta property="og:image:secure_url" content={publicImgUrl} />
+        </>
+      )}
       {imgAltText && <meta property="og:image:alt" content={imgAltText} />}
       <meta property="og:url" content={slugifiedTitle} />
     </Helmet>
