@@ -2,6 +2,7 @@ import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { About } from "./components/About/About";
 import { Calendar } from "./components/Calendar/Calendar";
 import { SpecificEvent } from "./components/Calendar/SpecificEvent/SpecificEvent";
@@ -22,6 +23,12 @@ function App() {
     <div className="App" style={{ backgroundColor }}>
       <QueryClientProvider client={queryClient}>
         <AppMetaTags />
+        <ToastContainer
+          autoClose={800}
+          theme={"dark"}
+          hideProgressBar
+          closeButton={false}
+        />
         <ThemeProvider theme={theme}>
           <CssBaseline enableColorScheme />
           <Router>
