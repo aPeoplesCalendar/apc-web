@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { DatabaseEvent } from "../../../types/types";
 import { stringToSlug } from "../../../utils/stringToSlug";
 
@@ -17,8 +17,9 @@ export const EventMetaTags = ({
   )}`;
   return (
     <Helmet>
+      <meta property="title" content={title} />
+      <meta name="description" content={otd} />
       <meta property="og:title" content={title} />
-      <meta name="description" content={otd} data-react-helmet="true" />
       <meta property="og:description" content={otd} />
       {publicImgUrl && (
         <>
@@ -28,6 +29,14 @@ export const EventMetaTags = ({
       )}
       {imgAltText && <meta property="og:image:alt" content={imgAltText} />}
       <meta property="og:url" content={slugifiedTitle} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={otd} />
+      {publicImgUrl && (
+        <>
+          <meta property="twitter:image" content={publicImgUrl} />
+          <meta property="twitter:image:alt" content={publicImgUrl} />
+        </>
+      )}
     </Helmet>
   );
 };
