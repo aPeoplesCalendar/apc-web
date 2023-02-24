@@ -45,6 +45,7 @@ export const SpecificEvent = () => {
 
   const {
     title,
+    otd,
     description = "",
     date,
     tags,
@@ -57,7 +58,9 @@ export const SpecificEvent = () => {
 
   return (
     <Box sx={styles.container}>
-      {dayEvent && <EventMetaTags previewEvent={dayEvent} />}
+      {dayEvent && (
+        <EventMetaTags previewEvent={dayEvent} publicImgUrl={publicImgUrl} />
+      )}
       <Card>
         <CardContent sx={styles.cardPadding(aboveSmallScreen)}>
           <Box sx={styles.headerInfo}>
@@ -108,7 +111,7 @@ export const SpecificEvent = () => {
               </Typography>
             ))}
           </Box>
-          <ShareIcons title={title} />
+          <ShareIcons title={title} otd={otd} />
         </CardContent>
       </Card>
     </Box>

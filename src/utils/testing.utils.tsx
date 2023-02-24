@@ -5,6 +5,7 @@ import {
 } from "@testing-library/react";
 import { ReactElement } from "react";
 import { MemoryRouter, useLocation } from "react-router";
+import { ToastContainer } from "react-toastify";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,12 @@ export const render = (
 ) =>
   pureRender(
     <QueryClientProvider client={queryClient}>
+      <ToastContainer
+        autoClose={800}
+        theme={"dark"}
+        hideProgressBar
+        closeButton={false}
+      />
       <MemoryRouter initialEntries={options?.initialEntries}>
         {component}
       </MemoryRouter>

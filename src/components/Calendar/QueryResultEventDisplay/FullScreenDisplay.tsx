@@ -84,7 +84,7 @@ export const FullScreenDisplay = ({
         <Typography>{otd}</Typography>
         {imgAltText && <Typography>{`Image: ${imgAltText}`}</Typography>}
         <EventTags tags={tags} />
-        <ShareIcons title={title} />
+        <ShareIcons title={title} otd={otd} />
       </Box>
     </Card>
   );

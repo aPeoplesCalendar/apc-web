@@ -4,25 +4,22 @@ import { stringToSlug } from "../../../utils/stringToSlug";
 
 export interface IEventMetaTagsProps {
   previewEvent: DatabaseEvent;
-  // optionally overwrite event title and description
-  alternativeTitle?: string;
-  alternativeDescription?: string;
+  publicImgUrl?: string | undefined;
 }
 
 export const EventMetaTags = ({
   previewEvent,
-  alternativeTitle,
-  alternativeDescription,
+  publicImgUrl,
 }: IEventMetaTagsProps) => {
-  const { title, imgSrc, imgAltText, otd } = previewEvent;
+  const { title, imgAltText, otd } = previewEvent;
   const slugifiedTitle = `apeoplescalendar.org/calendar/events/${stringToSlug(
     title
   )}`;
   return (
     <Helmet>
-      <meta property="og:title" content={alternativeTitle ?? title} />
-      <meta property="og:description" content={alternativeDescription ?? otd} />
-      <meta property="og:image" content={imgSrc} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={otd} />
+      {publicImgUrl && <meta property="og:image" content={publicImgUrl} />}
       {imgAltText && <meta property="og:image:alt" content={imgAltText} />}
       <meta property="og:url" content={slugifiedTitle} />
     </Helmet>
