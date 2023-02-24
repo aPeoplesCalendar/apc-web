@@ -57,7 +57,7 @@ export const SpecificEvent = () => {
   const paragraphs = description.split("\n\n");
 
   // only render meta tags when we have event data and, if image, we have public img url
-  const readyToRenderMetaTags = dayEvent && (!imgSrc || !publicImgUrl);
+  const readyToRenderMetaTags = !!dayEvent && (!imgSrc || !!publicImgUrl);
 
   return (
     <Box sx={styles.container}>
