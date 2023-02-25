@@ -13,7 +13,3 @@ This project is open source and the information contained in our event database 
 > And if we do act, in however small a way, we don’t have to wait for some grand utopian future. The future is an infinite succession of presents, and to live now as we think human beings should live, in defiance of all that is bad around us, is itself a marvelous victory.
 
 - Howard Zinn (1922 - 2010)
-
-> Settle your quarrels, come together, understand the reality of our situation, understand that fascism is already here, that people are already dying who could be saved, that generations more will live poor butchered half-lives if you fail to act. Do what must be done, discover your humanity and your love in revolution.
-
-- George Jackson (1941 - 1971)

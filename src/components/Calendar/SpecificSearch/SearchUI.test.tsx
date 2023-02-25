@@ -1,4 +1,4 @@
-import { screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as RouterModule from "react-router-dom";
 import { render } from "../../../utils/testing.utils";
@@ -48,6 +48,41 @@ describe("SearchUI", () => {
       expect(mockNavigate).toHaveBeenCalledWith({
         pathname: "/calendar/search",
         search: initialEntries[0],
+      })
+    );
+  });
+  it("updates route with updated param values on search", async () => {
+    render(<SearchUI {...defaultProps} />);
+    fireEvent.change(
+      screen.getByRole("textbox", { name: "Included Keywords" }),
+      {
+        target: { value: "include" },
+      }
+    );
+    fireEvent.change(
+      screen.getByRole("textbox", { name: "Excluded Keywords" }),
+      {
+        target: { value: "exclude" },
+      }
+    );
+    userEvent.click(screen.getByText("Search"));
+    await waitFor(() =>
+      expect(mockNavigate).toHaveBeenCalledWith({
+        pathname: "/calendar/search",
+        search:
+          "?queryInclude=include&queryExclude=exclude&sortBy=alphabetical-ascending",
+      })
+    );
+  });
+  it("updating sort by calls navigate with expected props", async () => {
+    render(<SearchUI {...defaultProps} />);
+    fireEvent.change(screen.getByTestId("sortBy-input"), {
+      target: { value: "date-descending" },
+    });
+    await waitFor(() =>
+      expect(mockNavigate).toHaveBeenCalledWith({
+        pathname: "/calendar/search",
+        search: "?sortBy=date-descending",
       })
     );
   });

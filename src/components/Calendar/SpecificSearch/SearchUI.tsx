@@ -149,6 +149,7 @@ export const SearchUI = ({
             variant="outlined"
             label="Sort By"
             InputLabelProps={{ shrink: true }}
+            inputProps={{ "data-testid": "sortBy-input" }}
           >
             {[...SortByMetaData.keys()].map((key) => (
               <MenuItem key={key} value={key}>
