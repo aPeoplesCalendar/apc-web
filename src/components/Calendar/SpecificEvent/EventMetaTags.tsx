@@ -9,7 +9,7 @@ export interface IEventMetaTagsProps {
 
 export const EventMetaTags = ({
   previewEvent,
-  publicImgUrl,
+  publicImgUrl = "https://www.apeoplescalendar.org/apcIconBig.jpg",
 }: IEventMetaTagsProps) => {
   const { title, imgAltText, otd } = previewEvent;
   const slugifiedTitle = `apeoplescalendar.org/calendar/events/${stringToSlug(
@@ -21,22 +21,14 @@ export const EventMetaTags = ({
       <meta name="description" content={otd} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={otd} />
-      {publicImgUrl && (
-        <>
-          <meta property="og:image" content={publicImgUrl} />
-          <meta property="og:image:secure_url" content={publicImgUrl} />
-        </>
-      )}
-      {imgAltText && <meta property="og:image:alt" content={imgAltText} />}
+      <meta property="og:image" content={publicImgUrl} />
+      <meta property="og:image:secure_url" content={publicImgUrl} />
+      <meta property="og:image:alt" content={imgAltText} />
       <meta property="og:url" content={slugifiedTitle} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={otd} />
-      {publicImgUrl && (
-        <>
-          <meta property="twitter:image" content={publicImgUrl} />
-          <meta property="twitter:image:alt" content={publicImgUrl} />
-        </>
-      )}
+      <meta property="twitter:image" content={publicImgUrl} />
+      <meta property="twitter:image:alt" content={imgAltText} />
     </Helmet>
   );
 };
