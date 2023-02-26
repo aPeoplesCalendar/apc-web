@@ -1,22 +1,14 @@
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import LinkIcon from "@mui/icons-material/Link";
-import {
-  FacebookShareButton,
-  FacebookIcon,
-  RedditShareButton,
-  RedditIcon,
-  TwitterShareButton,
-  TwitterIcon,
-  TumblrShareButton,
-  TumblrIcon,
-} from "react-share";
+import { SocialIcon } from "react-social-icons";
 import { generatePath } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ROUTES } from "../../../constants/routes";
 import { stringToSlug } from "../../../utils/stringToSlug";
 import * as styles from "./ShareIcons.styles";
+import { defaultTextColor } from "../../../constants/globalStyles";
 
 export const ShareIcons = ({
   title = "",
@@ -41,28 +33,38 @@ export const ShareIcons = ({
     });
   };
 
-  const defaultShareButtonProps = {
-    title: otd,
-    url: websiteLink,
-    style: styles.shareIconWrapper,
+  const defaultIconProps = {
+    style: { width: 34, height: 34 },
+    fgColor: defaultTextColor,
   };
 
-  const defaultIconProps = { size: 34, round: true };
+  const facebookLink = `https://www.facebook.com/sharer/sharer.php?${new URLSearchParams(
+    { u: websiteLink }
+  ).toString()}`;
+  const redditLink = `https://www.reddit.com/submit?${new URLSearchParams({
+    url: websiteLink,
+    title: otd,
+  })}`;
+  const tumblrLink = `https://www.tumblr.com/widgets/share/tool?${new URLSearchParams(
+    {
+      canonicalUrl: websiteLink,
+      tags: "OnThisDay",
+      title,
+      content: otd,
+      posttype: "text",
+    }
+  )}`;
+  const twitterLink = `https://twitter.com/intent/tweet?${new URLSearchParams({
+    text: otd,
+    url: websiteLink,
+  })}`;
 
   return (
     <Box sx={{ ...styles.shareIconsContainer, flexDirection }}>
-      <FacebookShareButton {...defaultShareButtonProps}>
-        <FacebookIcon {...defaultIconProps} />
-      </FacebookShareButton>
-      <RedditShareButton {...defaultShareButtonProps}>
-        <RedditIcon {...defaultIconProps} />
-      </RedditShareButton>
-      <TumblrShareButton {...defaultShareButtonProps}>
-        <TumblrIcon {...defaultIconProps} />
-      </TumblrShareButton>
-      <TwitterShareButton {...defaultShareButtonProps}>
-        <TwitterIcon {...defaultIconProps} />
-      </TwitterShareButton>
+      <SocialIcon url={facebookLink} {...defaultIconProps} />
+      <SocialIcon url={redditLink} {...defaultIconProps} />
+      <SocialIcon url={tumblrLink} {...defaultIconProps} />
+      <SocialIcon url={twitterLink} {...defaultIconProps} />
       <IconButton
         sx={styles.copyLinkWrapper}
         onClick={handleCopy}
