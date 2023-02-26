@@ -28,7 +28,7 @@ export const EventMetaTags = ({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={otd} />
       <meta property="twitter:image" content={publicImgUrl} />
-      <meta property="twitter:image:alt" content={publicImgUrl} />
+      <meta property="twitter:image:alt" content={imgAltText} />
     </Helmet>
   );
 };
