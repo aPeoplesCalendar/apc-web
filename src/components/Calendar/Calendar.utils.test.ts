@@ -61,8 +61,8 @@ describe("calendar util functions", () => {
   });
   describe("getMonthAndDayFromDate", () => {
     it("returns month and day of date object in object", () => {
-      const currentMonth = `${new Date().getUTCMonth() + 1}`;
-      const currentDay = `${new Date().getUTCDate()}`;
+      const currentMonth = `${new Date().getMonth() + 1}`;
+      const currentDay = `${new Date().getDate()}`;
       const result = getMonthAndDayFromDate(new Date());
       expect(result).toEqual({
         month: currentMonth,
