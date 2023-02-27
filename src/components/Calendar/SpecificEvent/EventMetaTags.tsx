@@ -25,6 +25,7 @@ export const EventMetaTags = ({
       <meta property="og:image:secure_url" content={publicImgUrl} />
       <meta property="og:image:alt" content={imgAltText} />
       <meta property="og:url" content={slugifiedTitle} />
+      <meta name="twitter:url" content={slugifiedTitle} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={otd} />
       <meta property="twitter:image" content={publicImgUrl} />
