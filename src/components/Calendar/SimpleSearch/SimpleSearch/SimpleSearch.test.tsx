@@ -11,8 +11,11 @@ describe("SimpleSearch", () => {
     render(<SimpleSearch />, { initialEntries });
     expect(screen.getByDisplayValue(defaultDateValue)).toBeInTheDocument();
   });
-  it("defaults to january first if no date query params are specified", () => {
-    const defaultDateValue = formatDateQueryParam("1", "1");
+  it("defaults to today if no date query params are specified", () => {
+    const defaultDateValue = formatDateQueryParam(
+      (new Date().getMonth() + 1).toString(),
+      new Date().getDate().toString()
+    );
     render(<SimpleSearch />);
     expect(screen.getByDisplayValue(defaultDateValue)).toBeInTheDocument();
   });

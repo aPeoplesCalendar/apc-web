@@ -16,8 +16,13 @@ import { StyledTextField } from "../../StyledTextField/StyledTextField";
 
 export const SimpleSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const day = new URLSearchParams(searchParams).get("day") ?? "1";
-  const month = new URLSearchParams(searchParams).get("month") ?? "1";
+  // get day and month (default to today if not specified)
+  const day =
+    new URLSearchParams(searchParams).get("day") ??
+    new Date().getDate().toString();
+  const month =
+    new URLSearchParams(searchParams).get("month") ??
+    (new Date().getMonth() + 1).toString();
   const viewMode = new URLSearchParams(searchParams).get("view") ?? "day";
 
   const handleNewDate = (e: ChangeEvent<HTMLInputElement>) => {
