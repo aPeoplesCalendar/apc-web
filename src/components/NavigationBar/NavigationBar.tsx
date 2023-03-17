@@ -11,12 +11,12 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { ROUTES } from "../../constants/routes";
 import { useNavigate } from "react-router";
-import * as styles from "./NavBar.styles";
 import { SocialIcon } from "react-social-icons";
 import { defaultTextColor } from "../../constants/globalStyles";
 import { SOCIAL_LINKS } from "../../constants/socialLinks";
+import * as styles from "./NavigationBar.styles";
 
-export const NavBar = () => {
+export const NavigationBar = () => {
   const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);

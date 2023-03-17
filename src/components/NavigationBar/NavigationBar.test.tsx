@@ -3,9 +3,9 @@ import userEvent from "@testing-library/user-event";
 import * as RouterModule from "react-router";
 import { ROUTES } from "../../constants/routes";
 import { render } from "../../utils/testing.utils";
-import { NavBar } from "./NavBar";
+import { NavigationBar } from "./NavigationBar";
 
-describe("NavBar", () => {
+describe("NavigationBar", () => {
   const navigateMock = jest.fn();
   jest
     .spyOn(RouterModule, "useNavigate")
@@ -14,11 +14,11 @@ describe("NavBar", () => {
     jest.clearAllMocks();
   });
   it("renders a home button with href to home", () => {
-    render(<NavBar />);
+    render(<NavigationBar />);
     expect(screen.getByText("Home")).toHaveAttribute("href", ROUTES.HOME);
   });
   it("renders aPC text with href to home", () => {
-    render(<NavBar />);
+    render(<NavigationBar />);
     expect(screen.getByText("aPC")).toHaveAttribute("href", ROUTES.HOME);
   });
   const navTextAndRoutes = [
@@ -43,7 +43,7 @@ describe("NavBar", () => {
   it.each(navTextAndRoutes)(
     "clicking full nav bar links navigates as expected",
     async ({ navText, route }) => {
-      render(<NavBar />);
+      render(<NavigationBar />);
       userEvent.click(
         within(screen.getByTestId("full-nav-links")).getByText(navText)
       );
@@ -53,7 +53,7 @@ describe("NavBar", () => {
   it.each(navTextAndRoutes)(
     "clicking small nav bar links navigates as expected",
     async ({ navText, route }) => {
-      render(<NavBar />);
+      render(<NavigationBar />);
       userEvent.click(
         within(screen.getByTestId("small-nav-links")).getByText(navText)
       );

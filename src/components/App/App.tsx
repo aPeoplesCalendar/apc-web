@@ -9,7 +9,7 @@ import { Calendar } from "../Calendar/Calendar";
 import { SpecificEvent } from "../Calendar/SpecificEvent/SpecificEvent";
 import { Contact } from "../Contact/Contact";
 import { Homepage } from "../Homepage/Homepage";
-import { NavBar } from "../NavBar/NavBar";
+import { NavigationBar } from "../NavigationBar/NavigationBar";
 import { ROUTES } from "../../constants/routes";
 import { backgroundColor, theme } from "../../constants/globalStyles";
 import { ResponsiveAppContainer } from "../ResponsiveAppContainer/ResponsiveAppContainer";
@@ -34,7 +34,7 @@ function App() {
           <ThemeProvider theme={theme}>
             <CssBaseline enableColorScheme />
             <Router>
-              <NavBar />
+              <NavigationBar />
               <ErrorBoundary>
                 <ResponsiveAppContainer>
                   <Routes>
