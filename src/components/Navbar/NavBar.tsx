@@ -9,9 +9,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import * as styles from "./NavBar.styles";
 import { ROUTES } from "../../constants/routes";
 import { useNavigate } from "react-router";
+import * as styles from "./NavBar.styles";
+import { SocialIcon } from "react-social-icons";
+import { defaultTextColor } from "../../constants/globalStyles";
+import { SOCIAL_LINKS } from "../../constants/socialLinks";
 
 export const NavBar = () => {
   const navigate = useNavigate();
@@ -54,6 +57,12 @@ export const NavBar = () => {
     },
   ];
 
+  const defaultIconProps = {
+    style: { width: 34, height: 34 },
+    fgColor: defaultTextColor,
+    target: "_blank",
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -66,6 +75,26 @@ export const NavBar = () => {
             >
               Home
             </Button>
+          </Box>
+          <Box
+            sx={styles.mediumNavBarButtonsContainer}
+            data-testid="full-nav-links"
+          >
+            {pages.map(({ navText, route }) => (
+              <Button
+                key={navText}
+                onClick={() => handleNavItemClick(route)}
+                sx={styles.mediumAppBarButtons}
+                variant="contained"
+              >
+                {navText}
+              </Button>
+            ))}
+          </Box>
+          <Box sx={styles.socialLinksContainer}>
+            {Object.values(SOCIAL_LINKS).map((link) => (
+              <SocialIcon key={link} url={link} {...defaultIconProps} />
+            ))}
           </Box>
           <Box sx={styles.smallNavContentStyle}>
             <IconButton
@@ -109,6 +138,7 @@ export const NavBar = () => {
                 </MenuItem>
               ))}
             </Menu>
+
             <Box sx={styles.smallLogoContainer}>
               <Typography
                 variant="h5"
@@ -120,21 +150,6 @@ export const NavBar = () => {
                 aPC
               </Typography>
             </Box>
-          </Box>
-          <Box
-            sx={styles.mediumNavBarButtonsContainer}
-            data-testid="full-nav-links"
-          >
-            {pages.map(({ navText, route }) => (
-              <Button
-                key={navText}
-                onClick={() => handleNavItemClick(route)}
-                sx={styles.mediumAppBarButtons}
-                variant="contained"
-              >
-                {navText}
-              </Button>
-            ))}
           </Box>
         </Toolbar>
       </Container>

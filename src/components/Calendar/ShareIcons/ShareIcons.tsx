@@ -36,6 +36,7 @@ export const ShareIcons = ({
   const defaultIconProps = {
     style: { width: 34, height: 34 },
     fgColor: defaultTextColor,
+    target: "_blank",
   };
 
   const facebookLink = `https://www.facebook.com/sharer/sharer.php?${new URLSearchParams(
