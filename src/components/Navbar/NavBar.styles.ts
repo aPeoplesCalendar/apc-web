@@ -75,3 +75,11 @@ export const smallLogoContainer = {
   display: "flex",
   alignItems: "center",
 };
+
+export const socialLinksContainer = {
+  marginLeft: "auto",
+  alignItems: "center",
+  gap: "10px",
+  marginRight: "15px",
+  display: { xs: "none", md: "flex" },
+};

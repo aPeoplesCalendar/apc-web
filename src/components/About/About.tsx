@@ -4,6 +4,7 @@ import Fade from "@mui/material/Fade";
 import { generatePath } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import * as styles from "./About.styles";
+import { SOCIAL_LINKS } from "../../constants/socialLinks";
 
 export const About = () => {
   return (
@@ -37,6 +38,48 @@ export const About = () => {
           </Typography>
         </Fade>
         <Fade in={true} timeout={1800}>
+          <Typography>
+            {`Event anniversaries are posted daily on social media! You can follow
+            us on `}
+            <Typography
+              component="a"
+              sx={styles.aboutLinkStyle}
+              href={SOCIAL_LINKS.facebook}
+              target="_blank"
+            >
+              Facebook
+            </Typography>
+            {`, `}
+            <Typography
+              component="a"
+              sx={styles.aboutLinkStyle}
+              href={SOCIAL_LINKS.twitter}
+              target="_blank"
+            >
+              Twitter
+            </Typography>
+            {`, `}
+            <Typography
+              component="a"
+              sx={styles.aboutLinkStyle}
+              href={SOCIAL_LINKS.instagram}
+              target="_blank"
+            >
+              Instagram
+            </Typography>
+            {`, and `}
+            <Typography
+              component="a"
+              sx={styles.aboutLinkStyle}
+              href={SOCIAL_LINKS.reddit}
+              target="_blank"
+            >
+              Reddit
+            </Typography>
+            .
+          </Typography>
+        </Fade>
+        <Fade in={true} timeout={2150}>
           <Typography>
             {`Notice a typo, factual inaccuracy, or want to reach out for some
             other reason? `}
