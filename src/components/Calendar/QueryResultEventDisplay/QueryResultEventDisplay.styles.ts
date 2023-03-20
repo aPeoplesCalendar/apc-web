@@ -29,6 +29,7 @@ export const img = {
   objectFit: "cover" as "cover",
   minHeight: "100%",
   width: "100%",
+  cursor: "pointer",
 };
 
 export const smallImgContainer = {
@@ -40,6 +41,7 @@ export const smallImgContainer = {
 export const smallImg = {
   maxHeight: "33vh",
   maxWidth: "90%",
+  cursor: "pointer",
 };
 
 export const descriptionColumn = {

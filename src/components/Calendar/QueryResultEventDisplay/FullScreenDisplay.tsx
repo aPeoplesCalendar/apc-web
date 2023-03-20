@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useCallback, useState } from "react";
-import { generatePath } from "react-router-dom";
+import { generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
 import { stringToSlug } from "../../../utils/stringToSlug";
 import { linkStyle } from "../Calendar.styles";
@@ -33,11 +33,21 @@ export const FullScreenDisplay = ({
   fetchedImgSrc,
   tags,
 }: IFullScreenDisplayProps) => {
+  const navigate = useNavigate();
+
   const [maxHeight, setMaxHeight] = useState(280);
   const [imgLoading, setImgLoading] = useState<boolean>(!!imgSrc);
 
+  const eventLink = generatePath(ROUTES.SPECIFIC_EVENT, {
+    eventName: stringToSlug(title),
+  });
+
   const handleImgLoad = () => {
     setImgLoading(false);
+  };
+
+  const handleImgClick = () => {
+    navigate(eventLink);
   };
 
   // set the total event card height to the description column
@@ -67,6 +77,7 @@ export const FullScreenDisplay = ({
               display: imgLoading ? "none" : "flex",
             }}
             onLoad={handleImgLoad}
+            onClick={handleImgClick}
           />
         )}
       </Box>
