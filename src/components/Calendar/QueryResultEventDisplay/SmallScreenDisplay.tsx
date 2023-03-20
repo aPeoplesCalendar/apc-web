@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useState } from "react";
-import { generatePath } from "react-router-dom";
+import { generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
 import { stringToSlug } from "../../../utils/stringToSlug";
 import { ShareIcons } from "../ShareIcons/ShareIcons";
@@ -30,10 +30,19 @@ export const SmallScreenDisplay = ({
   fetchedImgSrc,
   tags,
 }: ISmallScreenDisplayProps) => {
+  const navigate = useNavigate();
   const [imgLoading, setImgLoading] = useState<boolean>(!!imgSrc);
+
+  const eventLink = generatePath(ROUTES.SPECIFIC_EVENT, {
+    eventName: stringToSlug(title),
+  });
 
   const handleImgLoad = () => {
     setImgLoading(false);
+  };
+
+  const handleImgClick = () => {
+    navigate(eventLink);
   };
 
   // don't display loading box for image until we have event text to avoid layout shift
@@ -42,13 +51,7 @@ export const SmallScreenDisplay = ({
   return (
     <Card sx={styles.smallEventContainer}>
       <Box sx={styles.descriptionColumn}>
-        <Typography
-          component="a"
-          sx={styles.smallEventLinks}
-          href={generatePath(ROUTES.SPECIFIC_EVENT, {
-            eventName: stringToSlug(title),
-          })}
-        >
+        <Typography component="a" sx={styles.smallEventLinks} href={eventLink}>
           {title}
         </Typography>
         <Box sx={styles.smallDateLinkContainer}>
@@ -64,6 +67,7 @@ export const SmallScreenDisplay = ({
             src={fetchedImgSrc}
             alt={imgAltText}
             onLoad={handleImgLoad}
+            onClick={handleImgClick}
             style={{
               ...styles.smallImg,
               // don't attempt to make image visible until it is fully loaded to avoid layout shift
