@@ -83,3 +83,16 @@ export const socialLinksContainer = {
   marginRight: "15px",
   display: { xs: "none", md: "flex" },
 };
+
+export const threadsAnchor = {
+  borderRadius: "100%",
+  textDecoration: "none",
+  color: defaultTextColor,
+  backgroundColor: "#141414",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  marginLeft: "-3px",
+};
+
+export const threadsIconText = { marginBottom: "2px" };
