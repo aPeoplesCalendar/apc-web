@@ -4,7 +4,7 @@ import Fade from "@mui/material/Fade";
 import { generatePath } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import * as styles from "./About.styles";
-import { SOCIAL_LINKS } from "../../constants/socialLinks";
+import { SOCIAL_LINKS, THREADS_LINK } from "../../constants/socialLinks";
 
 export const About = () => {
   return (
@@ -53,19 +53,19 @@ export const About = () => {
             <Typography
               component="a"
               sx={styles.aboutLinkStyle}
-              href={SOCIAL_LINKS.twitter}
+              href={SOCIAL_LINKS.instagram}
               target="_blank"
             >
-              Twitter
+              Instagram
             </Typography>
             {`, `}
             <Typography
               component="a"
               sx={styles.aboutLinkStyle}
-              href={SOCIAL_LINKS.instagram}
+              href={THREADS_LINK}
               target="_blank"
             >
-              Instagram
+              Threads
             </Typography>
             {`, and `}
             <Typography

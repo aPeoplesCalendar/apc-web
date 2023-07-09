@@ -1,4 +1,6 @@
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useMediaQuery, useTheme } from "@mui/material";
@@ -27,38 +29,49 @@ export const Homepage = () => {
       <Typography variant={aboveMediumScreen ? "h3" : "h4"} sx={styles.header}>
         A People's Calendar
       </Typography>
-      <Box sx={styles.homepageTextContainer}>
-        <Typography sx={styles.homepageText(aboveMediumScreen)}>
-          {`A People's Calendar (aPC) is an open-source project that seeks to promote the
+      <Fade in timeout={750}>
+        <div>
+          <Box sx={styles.homepageTextContainer}>
+            <Typography sx={styles.homepageText(aboveMediumScreen)}>
+              {`A People's Calendar (aPC) is an open-source project that seeks to promote the
           worldwide history of working class movements and liberation struggles
           in the form of a searchable "On This Day" style `}
-          <Typography
-            component="a"
-            sx={styles.homepageLinkStyle(aboveMediumScreen)}
-            href={generateSpecificDayRoute()}
-          >
-            calendar
-          </Typography>
-          .
-        </Typography>
-      </Box>
-      <div>
-        <Typography variant="h6" sx={styles.eventOTDHeader}>
-          Event of the Day
-        </Typography>
-        {!isLoading && eventOTD && <QueryResultEventDisplay {...eventOTD} />}
-        <Box sx={styles.viewMoreWrapper}>
-          <Button variant="contained">
-            <Typography
-              component="a"
-              href={generateSpecificDayRoute()}
-              sx={styles.buttonText}
-            >
-              View More Events
+              <Typography
+                component="a"
+                sx={styles.homepageLinkStyle(aboveMediumScreen)}
+                href={generateSpecificDayRoute()}
+              >
+                calendar
+              </Typography>
+              .
             </Typography>
-          </Button>
-        </Box>
-      </div>
+          </Box>
+          <div>
+            <Typography variant="h6" sx={styles.eventOTDHeader}>
+              Event of the Day
+            </Typography>
+            {isLoading && (
+              <Box sx={styles.loadingSpinner}>
+                <CircularProgress />
+              </Box>
+            )}
+            {!isLoading && eventOTD && (
+              <QueryResultEventDisplay {...eventOTD} />
+            )}
+            <Box sx={styles.viewMoreWrapper}>
+              <Button variant="contained">
+                <Typography
+                  component="a"
+                  href={generateSpecificDayRoute()}
+                  sx={styles.buttonText}
+                >
+                  View More Events
+                </Typography>
+              </Button>
+            </Box>
+          </div>
+        </div>
+      </Fade>
     </div>
   );
 };

@@ -28,6 +28,12 @@ export const homepageLinkStyle = (aboveMediumScreen: boolean) => ({
   wordBreak: "break-word",
 });
 
+export const loadingSpinner = {
+  marginTop: "20px",
+  display: "flex",
+  justifyContent: "center",
+};
+
 export const viewMoreWrapper = {
   marginTop: "20px",
   display: "flex",

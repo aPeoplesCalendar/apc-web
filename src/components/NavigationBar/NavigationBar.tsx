@@ -13,7 +13,7 @@ import { ROUTES } from "../../constants/routes";
 import { useNavigate } from "react-router";
 import { SocialIcon } from "react-social-icons";
 import { defaultTextColor } from "../../constants/globalStyles";
-import { SOCIAL_LINKS } from "../../constants/socialLinks";
+import { SOCIAL_LINKS, THREADS_LINK } from "../../constants/socialLinks";
 import * as styles from "./NavigationBar.styles";
 
 export const NavigationBar = () => {
@@ -95,6 +95,16 @@ export const NavigationBar = () => {
             {Object.values(SOCIAL_LINKS).map((link) => (
               <SocialIcon key={link} url={link} {...defaultIconProps} />
             ))}
+            <a
+              {...defaultIconProps}
+              style={{
+                ...defaultIconProps.style,
+                ...styles.threadsAnchor,
+              }}
+              href={THREADS_LINK}
+            >
+              <span style={styles.threadsIconText}>@</span>
+            </a>
           </Box>
           <Box sx={styles.smallNavContentStyle}>
             <IconButton
